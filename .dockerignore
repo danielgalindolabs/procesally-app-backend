@@ -1,0 +1,26 @@
+# Ignoramos la pesada carpeta .venv anfitriona para obligar a Docker a contruir la suya desde 0.
+.venv/
+venv/
+env/
+
+# Se ignoran entornos puramente locales o secretos.
+.env
+
+# Ignorar las carpetas de testing (tests/) es vital para mantener la imagen Docker extremadamente pequeña y no enviar código de debug al servidor final
+tests/
+pytest.ini
+.pytest_cache/
+.coverage
+
+# Archivos compilados en la Mac anfitriona
+__pycache__/
+*.pyc
+
+# Basura del SO y Git
+.DS_Store
+.git/
+.github/
+
+# Documentación para desarrolladores
+README.md
+docs/

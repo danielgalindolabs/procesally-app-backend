@@ -1,0 +1,40 @@
+# Entornos Virtuales y Secretos
+.venv/
+venv/
+env/
+.env
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing y Cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+*.tox/
+
+# Herramientas de Construcción y Cache
+.mypy_cache/
+.ruff_cache/
+.uv/
+
+# Logs 
+*.log
+
+# Bases de Datos (archivos locales)
+*.sqlite3
+*.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editores y Entornos de Desarrollo 
+.vscode/
+.idea/
+*.swp
+*.swo

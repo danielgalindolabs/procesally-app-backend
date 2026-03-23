@@ -1,0 +1,4 @@
+class UserNotFoundError(Exception):
+    def __init__(self, user_id: int):
+        self.user_id = user_id
+        super().__init__(f"No se localizó un usuario con ID: {user_id}")

@@ -1,0 +1,57 @@
+<mxfile host="Electron" modified="2024-03-22T00:00:00.000Z" agent="Mozilla/5.0" version="22.1.2" type="device">
+  <diagram id="procesally_arch" name="Clean Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Boundaries -->
+        <mxCell id="box_module" value="Module (e.g. users, legal_library)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="800" height="400" as="geometry" />
+        </mxCell>
+
+        <!-- Presentation Layer -->
+        <mxCell id="presentation" value="Presentation Layer (FastAPI)&#10;- api/ (routers)&#10;- schemas/ (pydantic)&#10;- dependencies/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="150" y="190" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Application Layer -->
+        <mxCell id="application" value="Application Layer&#10;- use_cases/ (Orchestrators)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="400" y="190" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Domain Layer -->
+        <mxCell id="domain" value="Domain Layer&#10;- entities/ (Core Models)&#10;- repositories/ (Interfaces)&#10;- datasources/ (Interfaces)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="650" y="190" width="200" height="300" as="geometry" />
+        </mxCell>
+
+        <!-- Infrastructure Layer -->
+        <mxCell id="infrastructure" value="Infrastructure Layer&#10;- datasources/ (SQLModel, asyncpg)&#10;- repositories/ (Implements logic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="390" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Database Node -->
+        <mxCell id="db" value="Postgres / pgvector" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="450" y="600" width="100" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Connections / Arrows -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="presentation" target="application">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="application" target="domain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="infrastructure" target="domain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="infrastructure" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
