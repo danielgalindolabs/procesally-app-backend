@@ -5,7 +5,7 @@ set -e
 VERSIONS_DIR="app/share/infrastructure/db/alembic/versions"
 
 echo "⏳ Esperando a que PostgreSQL esté listo..."
-until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$POSTGRES_USER" 2>/dev/null; do
+until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$POSTGRES_USER" -d "$POSTGRES_DB" 2>/dev/null; do
   sleep 1
 done
 
