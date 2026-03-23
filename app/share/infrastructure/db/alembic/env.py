@@ -30,6 +30,11 @@ import pgvector.sqlalchemy
 # Inyectar en builtins para que las migraciones los vean globalmente sin import
 builtins.sqlmodel = sqlmodel
 builtins.pgvector = pgvector
+# Inyectar tipos específicos de SQLModel que Alembic suele usar sin prefijo
+for name in dir(sqlmodel.sql.sqltypes):
+    if not name.startswith("_"):
+        setattr(builtins, name, getattr(sqlmodel.sql.sqltypes, name))
+
 
 def run_migrations_offline():
     context.configure(
@@ -37,7 +42,7 @@ def run_migrations_offline():
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
-        user_module_prefix="sa.",
+        user_module_prefix=None,
         include_schemas=True,
     )
 
@@ -49,8 +54,9 @@ def do_run_migrations(connection):
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
-        user_module_prefix="sa.",
+        user_module_prefix=None,
     )
+
 
     with context.begin_transaction():
         # Asegurar que la extensión vectorial existe antes de cualquier tabla
