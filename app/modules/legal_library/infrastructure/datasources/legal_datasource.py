@@ -3,6 +3,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import text
+from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 class PostgresLegalDatasource:

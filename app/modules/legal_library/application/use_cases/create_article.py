@@ -1,8 +1,8 @@
-from fastapi import HTTPException
 from app.modules.legal_library.presentation.schemas.article_schemas import ArticleCreateRequest
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
 from app.core.embeddings import engine as embedding_engine
+from app.modules.legal_library.exceptions.legal_exceptions import DuplicateArticleError
 
 class CreateArticleUseCase:
     def __init__(self, repository: PostgresLegalDatasource):
@@ -23,9 +23,11 @@ class CreateArticleUseCase:
             embedding=vector
         )
         
-        # 3. Lanzar a infraestructura (este método ya captura los repetidos)
-        try:
-            return await self.repository.create_article(articleModel)
-        except ValueError as e:
-            # Domain exception traducida a HTTP de forma estandarizada global
-            raise HTTPException(status_code=409, detail=str(e))
+        # 3. Lanzar a infraestructura
+        result = await self.repository.create_article(articleModel)
+        
+        if result is None:
+            raise DuplicateArticleError(request.numero_articulo, request.ley_o_codigo)
+            
+        return result
+

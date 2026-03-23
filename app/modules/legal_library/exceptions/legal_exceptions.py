@@ -7,3 +7,12 @@ class ArticleNotFoundError(DomainException):
             code="ARTICLE_NOT_FOUND",
             status_code=404
         )
+
+class DuplicateArticleError(DomainException):
+    def __init__(self, numero_articulo: str, ley: str):
+        super().__init__(
+            message=f"El artículo '{numero_articulo}' de la ley '{ley}' ya existe en la biblioteca.",
+            code="DUPLICATE_ARTICLE",
+            status_code=409
+        )
+
