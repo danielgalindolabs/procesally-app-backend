@@ -3,7 +3,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import text
-from app.modules.legal_library.infrastructure.models import LegalArticle
+from app.share.exceptions.base_exceptions import InfrastructureException
 
 class PostgresLegalDatasource:
     def __init__(self, db: AsyncSession):
@@ -17,8 +17,14 @@ class PostgresLegalDatasource:
             return article
         except IntegrityError:
             await self.db.rollback()
-            # No lanzamos ValueError para que el Use Case maneje el contador de 'skipped' silenciosamente en los logs de la BD
             return None
+        except Exception as e:
+            await self.db.rollback()
+            raise InfrastructureException(
+                message=f"Error al guardar el artículo en la base de datos: {str(e)}",
+                code="DB_INSERT_ERROR"
+            )
+
 
     async def get_article_by_id(self, article_id: int) -> Optional[LegalArticle]:
         statement = select(LegalArticle).where(LegalArticle.id == article_id)

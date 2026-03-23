@@ -21,6 +21,8 @@ app = FastAPI(
 )
 
 setup_cors(app)
+setup_exception_handlers(app)
+
 
 auth.add_routers(app)
 users.add_routers(app)

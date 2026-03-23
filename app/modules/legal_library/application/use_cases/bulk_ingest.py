@@ -1,12 +1,14 @@
 import logging
-from fastapi import HTTPException
-
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
 from app.core.dof_parser import dof_parser
 from app.core.embeddings import engine as embedding_engine
+from app.modules.legal_library.exceptions.legal_exceptions import ArticleNotFoundError
+from app.core.exceptions_classes import InvalidDOFDocumentError
+from app.share.exceptions.base_exceptions import InfrastructureException
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_ingest")
+
 
 
 class BulkIngestUseCase:
@@ -15,10 +17,15 @@ class BulkIngestUseCase:
 
     async def execute(self, html_content: str, archivo_url: str) -> dict:
         # 1. Parsear el HTML con el parser determinístico
-        parsed_articles = dof_parser.parse(html_content)
+        try:
+            parsed_articles = dof_parser.parse(html_content)
+        except Exception as e:
+            logger.error(f"Error crítico en el parser DOF: {e}")
+            raise InvalidDOFDocumentError(detail=f"Error al analizar el HTML: {str(e)}")
 
         if not parsed_articles:
-            raise HTTPException(status_code=422, detail="No se pudieron extraer artículos del archivo HTML. Verifica que sea un documento del DOF válido.")
+            raise InvalidDOFDocumentError()
+
 
         inserted = 0
         skipped = 0
