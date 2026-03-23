@@ -1,25 +1,28 @@
-from sentence_transformers import SentenceTransformer
-import asyncio
+from openai import AsyncOpenAI
 import logging
+from app.config import settings
 
 logger = logging.getLogger("app.core.embeddings")
 
 class EmbeddingEngine:
-    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
-        logger.info(f"Cargando modelo de embeddings léxicos: {model_name}...")
-        self.model = SentenceTransformer(model_name)
-        logger.info("Modelo de embeddings cargado exitosamente en memoria RAM.")
+    def __init__(self):
+        logger.info(f"Inicializando motor de embeddings de OpenAI: {settings.EMBEDDING_MODEL_NAME}")
+        self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
         
     async def generate_embedding(self, text: str) -> list[float]:
         """
-        Ejecuta la inferencia de la red neuronal en un thread separado
-        para no bloquear el Application Event Loop de FastAPI.
+        Genera un vector semántico usando la API de OpenAI.
         """
-        # sentence-transformers retorna un numpy o tensor, lo convertimos a float list
-        vector = await asyncio.to_thread(self.model.encode, text)
-        return vector.tolist()
+        try:
+            response = await self.client.embeddings.create(
+                input=[text.replace("\n", " ")],
+                model=settings.EMBEDDING_MODEL_NAME
+            )
+            return response.data[0].embedding
+        except Exception as e:
+            logger.error(f"Error generando embedding con OpenAI: {e}")
+            raise
 
-# Instancia global estática per-worker.
-# En producción seria, esto vivirá en un microservicio de GPU tipo Triton/vLLM,
-# pero para MVP el CPU estático es la mejor opción.
+# Instancia global estática.
 engine = EmbeddingEngine()
+

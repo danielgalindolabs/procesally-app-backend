@@ -20,8 +20,9 @@ class LegalArticle(SQLModel, table=True):
     cuerpo_texto: str = Field(description="El texto puro de la ley o jurisprudencia para vectorizar")
     archivo_json_url: str = Field(description="URL al bucket (S3/Cloud) donde vive el JSON original crudo")
     
-    # El vector semántico calculado por sentence-transformers
+    # El vector semántico calculado por OpenAI (text-embedding-3-small = 1536 dims)
     embedding: list[float] | None = Field(
         default=None, 
-        sa_column=Column(Vector(384))
+        sa_column=Column(Vector(1536))
     )
+

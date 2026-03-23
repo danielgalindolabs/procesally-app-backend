@@ -13,6 +13,10 @@ class Settings(BaseSettings):
     DB_HOST: str
     DB_PORT: str
 
+    OPENAI_API_KEY: str = "sk-placeholder"
+    EMBEDDING_MODEL_NAME: str = "text-embedding-3-small"
+
+
     CORS_ALLOW_ORIGINS: List[str] = ["http://localhost:3000"]
     CORS_ALLOW_CREDENTIALS: bool = True
     CORS_ALLOW_METHODS: List[str] = ["*"]

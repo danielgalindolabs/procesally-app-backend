@@ -20,3 +20,11 @@ class ArticleResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+class SearchRequest(BaseModel):
+    consulta: str = Field(..., description="Texto en lenguaje natural para buscar artículos similares")
+    limite: int = Field(5, ge=1, le=50, description="Cantidad máxima de resultados")
+
+class SearchResult(ArticleResponse):
+    similitud: float = Field(..., description="Puntuación de similitud coseno (0 a 1, donde 1 es idéntico)")
+
