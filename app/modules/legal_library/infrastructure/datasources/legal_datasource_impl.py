@@ -2,7 +2,7 @@ from typing import Optional
 
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
-from sqlmodel import select
+from sqlmodel import delete, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.modules.legal_library.domain.datasources.legal_datasource import (
@@ -113,3 +113,21 @@ class LegalDatasourceImpl(LegalDatasource):
             )
             for row in rows
         ]
+
+    async def delete_by_file(self, file_url: str) -> int:
+        """
+        Elimina todos los registros que coincidan con archivo_json_url.
+        """
+        try:
+            statement = delete(LegalArticle).where(
+                LegalArticle.archivo_json_url == file_url
+            )
+            result = await self.db.exec(statement)
+            await self.db.commit()
+            return result.rowcount
+        except Exception as e:
+            await self.db.rollback()
+            raise InfrastructureException(
+                message=f"Error al eliminar artículos: {str(e)}",
+                code="DB_DELETE_ERROR",
+            )

@@ -13,148 +13,230 @@ logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
 
 class DOFHtmlParser(DocumentParser):
     """
-    Parser determinístico para HTMLs exportados del DOF (Diario Oficial de la Federación).
-    Extrae artículos, libros, títulos y el nombre de la ley sin usar IA.
-    Implementa el contrato DocumentParser del dominio.
+    Parser robusto para HTMLs del DOF basado en texto (no DOM frágil).
+    Optimizado para RAG (segmentación semántica + limpieza).
     """
 
-    ARTICLE_PATTERN = re.compile(
-        r"Art[ií]culo\s+(\d+[a-z]?)[\.\s]*-?\s*", re.IGNORECASE
-    )
+    ARTICLE_PATTERN = re.compile(r"Art[ií]culo\s+(\d+[a-zºo]*)", re.IGNORECASE)
+
     BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$", re.IGNORECASE)
     TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
     CHAPTER_PATTERN = re.compile(r"^CAP[IÍ]TULO\s+(.+)$", re.IGNORECASE)
+
+    # 🔥 FIX: romanos ilimitados
+    FRACTION_PATTERN = re.compile(r"\b([IVXLCDM]+)\.\s")
 
     def parse(self, content: str) -> list[ParsedArticle]:
         soup = BeautifulSoup(content, "html.parser")
 
         ley_nombre = self._extract_law_name(soup)
-        articles = self._extract_articles(soup, ley_nombre)
+        paragraphs = self._normalize_html(soup)
+
+        articles = self._extract_articles(paragraphs, ley_nombre)
 
         logger.info(f"Parser DOF extrajo {len(articles)} artículos de '{ley_nombre}'")
         return articles
 
+    # =========================
+    # NORMALIZACIÓN
+    # =========================
+    def _normalize_html(self, soup: BeautifulSoup) -> list[str]:
+        paragraphs = []
+
+        for p in soup.find_all("p"):
+            text = p.get_text(" ", strip=True)
+
+            if not text:
+                continue
+
+            text = text.replace("\xa0", " ")
+            text = re.sub(r"\s+", " ", text)
+
+            paragraphs.append(text)
+
+        return paragraphs
+
+    # =========================
+    # LEY
+    # =========================
     def _extract_law_name(self, soup: BeautifulSoup) -> str:
-        """Busca el nombre de la ley por su color dorado característico del DOF (#A6802D)."""
         golden = soup.find("span", style=re.compile(r"color:\s*#A6802D", re.IGNORECASE))
         if golden:
             return golden.get_text(strip=True)
 
-        # Fallback: buscar el primer <b> centrado que no sea vacío
-        for p in soup.find_all("p", style=re.compile(r"text-align:\s*center")):
-            bold = p.find("b")
-            if bold:
-                text = bold.get_text(strip=True)
-                if len(text) > 5:
-                    return text
+        for p in soup.find_all("p"):
+            text = p.get_text(strip=True)
+            if len(text) > 10 and text.isupper():
+                return text
 
         return "Ley Desconocida"
 
+    # =========================
+    # ARTÍCULOS
+    # =========================
     def _extract_articles(
-        self, soup: BeautifulSoup, ley_nombre: str
+        self, paragraphs: list[str], ley_nombre: str
     ) -> list[ParsedArticle]:
+
         articles = []
         current_book = None
         current_title = None
 
-        paragraphs = soup.find_all("p")
+        current_article = None
+        buffer = []
 
-        i = 0
-        while i < len(paragraphs):
-            p = paragraphs[i]
-            text = p.get_text(strip=True)
+        for text in paragraphs:
 
-            if not text or text == "\xa0":
-                i += 1
-                continue
-
-            # Detectar Libro
-            book_match = self.BOOK_PATTERN.match(text)
-            if book_match:
+            if self.BOOK_PATTERN.match(text):
                 current_book = text
-                i += 1
                 continue
 
-            # Detectar Título
-            title_match = self.TITLE_PATTERN.match(text)
-            if title_match:
+            if self.TITLE_PATTERN.match(text):
                 current_title = text
-                i += 1
                 continue
 
-            # Detectar Capítulo (lo guardamos como parte del título)
-            chapter_match = self.CHAPTER_PATTERN.match(text)
-            if chapter_match:
-                i += 1
+            if self.CHAPTER_PATTERN.match(text):
                 continue
 
-            # Detectar Artículo
-            bold = p.find("b")
-            if bold:
-                bold_text = bold.get_text(strip=True)
-                art_match = self.ARTICLE_PATTERN.match(bold_text)
-                if art_match:
-                    numero = f"Art. {art_match.group(1)}"
+            # 🔥 FIX: search
+            art_match = self.ARTICLE_PATTERN.search(text)
 
-                    # El cuerpo es todo el texto del párrafo menos el encabezado del artículo
-                    full_text = p.get_text(strip=True)
-                    body = self.ARTICLE_PATTERN.sub("", full_text, count=1).strip()
-
-                    # Recolectar párrafos subsiguientes hasta el siguiente artículo/título/libro
-                    i += 1
-                    while i < len(paragraphs):
-                        next_p = paragraphs[i]
-                        next_text = next_p.get_text(strip=True)
-
-                        if not next_text or next_text == "\xa0":
-                            i += 1
-                            continue
-
-                        # Si es nota de reforma (color guinda), la ignoramos
-                        reform_span = next_p.find(
-                            "span", style=re.compile(r"color:\s*#740033", re.IGNORECASE)
+            if art_match:
+                if current_article and buffer:
+                    articles.append(
+                        self._build_article(
+                            current_article,
+                            buffer,
+                            ley_nombre,
+                            current_book,
+                            current_title,
                         )
-                        if (
-                            reform_span
-                            and reform_span.get_text(strip=True) == next_text
-                        ):
-                            i += 1
-                            continue
+                    )
 
-                        # Si es un nuevo artículo, libro o título, paramos
-                        next_bold = next_p.find("b")
-                        if next_bold:
-                            nb_text = next_bold.get_text(strip=True)
-                            if (
-                                self.ARTICLE_PATTERN.match(nb_text)
-                                or self.BOOK_PATTERN.match(nb_text)
-                                or self.TITLE_PATTERN.match(nb_text)
-                                or self.CHAPTER_PATTERN.match(nb_text)
-                            ):
-                                break
+                numero_raw = art_match.group(1)
 
-                        body += " " + next_text
-                        i += 1
+                # 🔥 normalización robusta
+                numero_clean = numero_raw.replace("º", "").replace("o", "")
 
-                    if body:
-                        articles.append(
-                            ParsedArticle(
-                                materia_juridica=self._infer_materia(ley_nombre),
-                                ley_o_codigo=ley_nombre,
-                                libro_o_titulo=current_book or current_title,
-                                numero_articulo=numero,
-                                cuerpo_texto=body.strip(),
-                            )
-                        )
-                    continue
+                current_article = numero_clean
+                buffer = []
 
-            i += 1
+                clean_text = re.sub(
+                    r"^Art[ií]culo\s+\d+[a-zºo]*[\.\-\s]*",
+                    "",
+                    text,
+                    flags=re.IGNORECASE,
+                ).strip()
+
+                if clean_text:
+                    buffer.append(clean_text)
+
+                continue
+
+            # ruido DOF
+            if "reformado" in text.lower() or "adicionado" in text.lower():
+                continue
+
+            if current_article:
+                buffer.append(text)
+
+        if current_article and buffer:
+            articles.append(
+                self._build_article(
+                    current_article,
+                    buffer,
+                    ley_nombre,
+                    current_book,
+                    current_title,
+                )
+            )
 
         return articles
 
+    # =========================
+    # BUILDER
+    # =========================
+    def _build_article(
+        self,
+        numero: str,
+        buffer: list[str],
+        ley_nombre: str,
+        current_book: str | None,
+        current_title: str | None,
+    ) -> ParsedArticle:
+
+        body = " ".join(buffer)
+        body = re.sub(r"\s+", " ", body).strip()
+
+        # limpieza final
+        body = re.sub(r"^\.\-\s*", "", body)
+
+        return ParsedArticle(
+            materia_juridica=self._infer_materia(ley_nombre),
+            ley_o_codigo=ley_nombre,
+            libro_o_titulo=current_title or current_book,
+            numero_articulo=f"Art. {numero}",
+            cuerpo_texto=body,
+        )
+
+    # =========================
+    # 🔥 RAG CHUNKING PRO
+    # =========================
+    def split_for_rag(self, article: ParsedArticle):
+        """
+        Divide artículos en chunks semánticos:
+        - Proemio (contexto general)
+        - Fracciones (unidad legal real)
+        """
+
+        text = article.cuerpo_texto.strip()
+
+        parts = self.FRACTION_PATTERN.split(text)
+
+        chunks = []
+
+        # =========================
+        # 🔥 FIX: PROEMIO
+        # =========================
+        proemio = parts[0].strip()
+
+        if proemio:
+            chunks.append(
+                {
+                    "articulo": article.numero_articulo,
+                    "fraccion": None,
+                    "tipo": "proemio",
+                    "texto": proemio,
+                }
+            )
+
+        # =========================
+        # FRACCIONES
+        # =========================
+        for i in range(1, len(parts), 2):
+            numeral = parts[i]
+            content = parts[i + 1].strip() if i + 1 < len(parts) else ""
+
+            if not content:
+                continue
+
+            chunks.append(
+                {
+                    "articulo": article.numero_articulo,
+                    "fraccion": numeral,
+                    "tipo": "fraccion",
+                    "texto": content,
+                }
+            )
+
+        return chunks
+
+    # =========================
+    # MATERIA
+    # =========================
     def _infer_materia(self, ley_nombre: str) -> str:
-        """Infiere la materia jurídica a partir del nombre de la ley."""
         nombre_lower = ley_nombre.lower()
+
         if "penal" in nombre_lower:
             return "Penal"
         elif "civil" in nombre_lower:
@@ -165,14 +247,13 @@ class DOFHtmlParser(DocumentParser):
             return "Mercantil"
         elif "fiscal" in nombre_lower or "tributari" in nombre_lower:
             return "Fiscal"
-        elif "amparo" in nombre_lower:
-            return "Constitucional"
-        elif "constituc" in nombre_lower:
+        elif "amparo" in nombre_lower or "constituc" in nombre_lower:
             return "Constitucional"
         elif "administrat" in nombre_lower:
             return "Administrativo"
+
         return "General"
 
 
-# Instancia global reutilizable
+# instancia global
 dof_parser = DOFHtmlParser()

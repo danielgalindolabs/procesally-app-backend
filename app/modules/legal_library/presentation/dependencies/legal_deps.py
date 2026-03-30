@@ -7,6 +7,9 @@ from app.modules.legal_library.application.use_cases.bulk_ingest import (
 from app.modules.legal_library.application.use_cases.create_article import (
     CreateArticleUseCase,
 )
+from app.modules.legal_library.application.use_cases.delete_file import (
+    DeleteFileUseCase,
+)
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
 )
@@ -71,3 +74,9 @@ def get_bulk_ingest_use_case(
     document_parser: DocumentParser = Depends(get_document_parser),
 ) -> BulkIngestUseCase:
     return BulkIngestUseCase(repository, embedding_service, document_parser)
+
+
+def get_delete_file_use_case(
+    repository: LegalRepository = Depends(get_legal_repository),
+) -> DeleteFileUseCase:
+    return DeleteFileUseCase(repository)

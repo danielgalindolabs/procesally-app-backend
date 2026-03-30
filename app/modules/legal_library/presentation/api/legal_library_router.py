@@ -11,12 +11,16 @@ from app.modules.legal_library.application.use_cases.bulk_ingest import (
 from app.modules.legal_library.application.use_cases.create_article import (
     CreateArticleUseCase,
 )
+from app.modules.legal_library.application.use_cases.delete_file import (
+    DeleteFileUseCase,
+)
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
 )
 from app.modules.legal_library.presentation.dependencies.legal_deps import (
     get_bulk_ingest_use_case,
     get_create_article_use_case,
+    get_delete_file_use_case,
     get_search_articles_use_case,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
@@ -85,3 +89,18 @@ async def search_articles(
 
     # FastAPI casteará de List[ArticleAppOutputDTO] -> List[SearchResult]
     return results
+
+
+@router.delete("/files/{file_name}", status_code=status.HTTP_200_OK)
+async def delete_legal_file(
+    file_name: str,
+    delete_uc: DeleteFileUseCase = Depends(get_delete_file_use_case),
+):
+    """
+    Elimina todos los artículos asociados a un nombre de archivo específico.
+    """
+    # Mapeo a DTO de Aplicación
+    app_input = PresentationAppMapper.to_delete_file_input(file_name)
+
+    # Ejecución
+    return await delete_uc.execute(app_input)

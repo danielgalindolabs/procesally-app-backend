@@ -21,3 +21,8 @@ class LegalRepository(ABC):
     ) -> list[ArticleEntity]:
         """Busca artículos que sean similares a un vector dado y devuelve una lista de entidades."""
         pass
+
+    @abstractmethod
+    async def delete_articles_by_file(self, file_url: str) -> int:
+        """Elimina todos los artículos asociados a un archivo y retorna el conteo de eliminados."""
+        pass

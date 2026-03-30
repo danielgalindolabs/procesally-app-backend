@@ -53,3 +53,7 @@ class LegalRepositoryImpl(LegalRepository):
             DomainDatasourceMapper.datasource_output_to_domain(ds_out)
             for ds_out in ds_results
         ]
+
+    async def delete_articles_by_file(self, file_url: str) -> int:
+        """Contrato de repositorio que delega al datasource."""
+        return await self.datasource.delete_by_file(file_url)

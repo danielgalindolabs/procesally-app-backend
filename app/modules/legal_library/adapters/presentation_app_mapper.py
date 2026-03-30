@@ -1,5 +1,6 @@
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
+    DeleteFileAppInputDTO,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
     ArticleCreateRequest,
@@ -18,6 +19,10 @@ class PresentationAppMapper:
             archivo_json_url=str(request.archivo_json_url),
             libro_o_titulo=request.libro_o_titulo,
         )
+
+    @staticmethod
+    def to_delete_file_input(file_url: str) -> DeleteFileAppInputDTO:
+        return DeleteFileAppInputDTO(archivo_json_url=file_url)
 
     # Nota: El regreso desde AppOutputDTO a ArticleResponse (Presentation)
     # se suele resolver fácilmente si los campos coinciden porque Pydantic model_validate

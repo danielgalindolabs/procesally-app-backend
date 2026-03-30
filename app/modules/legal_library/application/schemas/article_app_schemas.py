@@ -22,3 +22,8 @@ class ArticleAppOutputDTO:
     archivo_json_url: str
     libro_o_titulo: Optional[str] = None
     similitud: Optional[float] = None
+
+
+@dataclass
+class DeleteFileAppInputDTO:
+    archivo_json_url: str

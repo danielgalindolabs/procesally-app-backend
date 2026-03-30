@@ -52,3 +52,8 @@ class LegalDatasource(ABC):
     ) -> list[DatasourceArticleOutputDTO]:
         """Busca artículos que sean similares a un vector y devuelve DTOs de Datasource."""
         pass
+
+    @abstractmethod
+    async def delete_by_file(self, file_url: str) -> int:
+        """Elimina artículos por el URL del archivo y retorna el conteo."""
+        pass
