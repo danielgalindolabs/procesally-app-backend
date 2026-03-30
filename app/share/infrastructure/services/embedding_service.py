@@ -1,8 +1,8 @@
 from openai import AsyncOpenAI
 import logging
-from app.config import settings
+from app.core.config import settings
 
-logger = logging.getLogger("app.core.embeddings")
+logger = logging.getLogger("app.share.infrastructure.services.embedding_service")
 
 class EmbeddingEngine:
     def __init__(self):

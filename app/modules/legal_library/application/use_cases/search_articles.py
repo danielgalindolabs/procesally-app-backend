@@ -1,6 +1,6 @@
 from app.modules.legal_library.presentation.schemas.article_schemas import SearchRequest
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
-from app.core.embeddings import engine as embedding_engine
+from app.share.infrastructure.services.embedding_service import engine as embedding_engine
 
 from app.share.exceptions.base_exceptions import InfrastructureException
 

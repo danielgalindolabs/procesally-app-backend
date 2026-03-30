@@ -1,7 +1,7 @@
 from app.modules.legal_library.presentation.schemas.article_schemas import ArticleCreateRequest
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
-from app.core.embeddings import engine as embedding_engine
+from app.share.infrastructure.services.embedding_service import engine as embedding_engine
 from app.modules.legal_library.exceptions.legal_exceptions import DuplicateArticleError
 
 class CreateArticleUseCase:

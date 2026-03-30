@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlmodel import SQLModel
 
 
-from app.config import settings
+from app.core.config import settings
 
 # Registrar todos los modelos SQLModel para que Alembic los detecte
 from app.modules.legal_library.infrastructure.models import LegalArticle  # noqa: F401

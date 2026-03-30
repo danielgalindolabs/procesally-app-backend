@@ -6,9 +6,9 @@ from contextlib import asynccontextmanager
 
 # Instalamos los middlewares y protectores en la aplicación
 from app.api.middlewares.cors import setup_cors
-from app.api.middlewares.exceptions import setup_exception_handlers
-from app.config import settings
-from app.api.routers import auth, users, legal
+from app.core.exceptions.global_handlers import setup_exception_handlers
+from app.core.config import settings
+from app.api.api_router import api_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,9 +24,7 @@ setup_cors(app)
 setup_exception_handlers(app)
 
 
-auth.add_routers(app)
-users.add_routers(app)
-legal.add_routers(app)
+app.include_router(api_router)
 
 @app.get("/", tags=["Health"])
 def root():
