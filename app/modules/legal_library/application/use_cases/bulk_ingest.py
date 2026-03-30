@@ -3,6 +3,7 @@ import logging
 from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
+    DocumentAppInputDTO,
 )
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
@@ -29,7 +30,19 @@ class BulkIngestUseCase:
         self.embedding_service = embedding_service
         self.document_parser = document_parser
 
-    async def execute(self, content: str, archivo_url: str) -> dict:
+    async def execute(
+        self,
+        content: str,
+        archivo_url: str,
+        document_metadata: DocumentAppInputDTO | None = None,
+    ) -> dict:
+        # 0. Registrar el documento legal de origen si viene la metadata
+        document_id = None
+        if document_metadata:
+            doc_entity = AppDomainMapper.document_app_to_domain(document_metadata)
+            saved_doc = await self.repository.create_document(doc_entity)
+            document_id = saved_doc.id
+
         # 1. Parsear el contenido con el parser inyectado (puede ser HTML, PDF, XML, etc.)
         try:
             parsed_articles = self.document_parser.parse(content)
@@ -61,6 +74,7 @@ class BulkIngestUseCase:
                     numero_articulo=art.numero_articulo,
                     cuerpo_texto=art.cuerpo_texto,
                     archivo_json_url=archivo_url,
+                    document_id=document_id,
                 )
                 article_entity = AppDomainMapper.app_input_to_domain(app_dto, vector)
 

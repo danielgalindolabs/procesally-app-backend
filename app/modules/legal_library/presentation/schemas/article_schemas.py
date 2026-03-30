@@ -24,6 +24,7 @@ class ArticleResponse(BaseModel):
     numero_articulo: str
     cuerpo_texto: str
     archivo_json_url: str
+    document_id: Optional[int] = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -37,7 +38,8 @@ class SearchRequest(BaseModel):
         None, description="Filtro opcional por materia (ej. 'Civil', 'Laboral')"
     )
     ley_o_codigo: Optional[str] = Field(
-        None, description="Filtro opcional por ley específica (ej. 'Código Civil Federal')"
+        None,
+        description="Filtro opcional por ley específica (ej. 'Código Civil Federal')",
     )
 
 

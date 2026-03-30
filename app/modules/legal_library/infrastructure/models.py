@@ -1,8 +1,25 @@
+import datetime
 from typing import Optional
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import Column, UniqueConstraint
 from sqlmodel import Field, SQLModel
+
+
+class LegalDocument(SQLModel, table=True):
+    __tablename__ = "legal_documents"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    titulo: str = Field(description="Nombre de la ley, libro o boletín")
+    nombre_archivo: str = Field(description="Nombre original del archivo cargado")
+    url_oficial: str = Field(description="URL al sitio oficial (ej. DOF)")
+    url_interna: Optional[str] = Field(
+        default=None, description="URL interna en nuestro storage (S3/local)"
+    )
+    fecha_carga: datetime.datetime = Field(
+        default_factory=datetime.datetime.utcnow,
+        description="Fecha y hora de registro en el sistema",
+    )
 
 
 class LegalArticle(SQLModel, table=True):
@@ -13,6 +30,11 @@ class LegalArticle(SQLModel, table=True):
     )
 
     id: Optional[int] = Field(default=None, primary_key=True)
+
+    # Relación opcional con Documento
+    document_id: Optional[int] = Field(
+        default=None, foreign_key="legal_documents.id", index=True
+    )
 
     materia_juridica: str = Field(description="Ej. 'Penal', 'Civil', 'Laboral'")
     ley_o_codigo: str = Field(

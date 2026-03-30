@@ -28,9 +28,24 @@ class LegalRouterServiceImpl(LegalRouterService):
             "finiquito",
             "vacaciones",
         ],
-        "Fiscal": ["impuesto", "SAT", "hacienda", "ISR", "IVA", "contributivo", "multa"],
+        "Fiscal": [
+            "impuesto",
+            "SAT",
+            "hacienda",
+            "ISR",
+            "IVA",
+            "contributivo",
+            "multa",
+        ],
         "Penal": ["delito", "prisión", "cárcel", "homicidio", "robo", "fiscalía", "MP"],
-        "Civil": ["matrimonio", "divorcio", "contrato", "herencia", "testamento", "daño"],
+        "Civil": [
+            "matrimonio",
+            "divorcio",
+            "contrato",
+            "herencia",
+            "testamento",
+            "daño",
+        ],
     }
 
     async def detect_materia(self, query: str) -> Optional[str]:
@@ -52,14 +67,14 @@ class LegalRouterServiceImpl(LegalRouterService):
             Consulta: "{query}"
             Respuesta (solo la palabra de la categoría o 'None'):
             """
-            
+
             response = await client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=10,
-                temperature=0
+                temperature=0,
             )
-            
+
             detected = response.choices[0].message.content.strip()
             if detected in self.CATEGORIES:
                 return detected

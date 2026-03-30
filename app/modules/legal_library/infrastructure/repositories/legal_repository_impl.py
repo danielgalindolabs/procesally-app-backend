@@ -7,6 +7,9 @@ from app.modules.legal_library.domain.datasources.legal_datasource import (
     LegalDatasource,
 )
 from app.modules.legal_library.domain.entities.article_entity import ArticleEntity
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
@@ -21,6 +24,18 @@ class LegalRepositoryImpl(LegalRepository):
 
     def __init__(self, datasource: LegalDatasource):
         self.datasource = datasource
+
+    async def create_document(
+        self, document: LegalDocumentEntity
+    ) -> LegalDocumentEntity:
+        # 1. Mapear de Dominio a DTO de Datasource
+        ds_input = DomainDatasourceMapper.document_domain_to_datasource_input(document)
+
+        # 2. Invocar al datasource
+        ds_output = await self.datasource.create_document(ds_input)
+
+        # 3. Mapear de regreso a Dominio
+        return DomainDatasourceMapper.document_datasource_output_to_domain(ds_output)
 
     async def create_article(self, article: ArticleEntity) -> Optional[ArticleEntity]:
         # 1. Mapear de Dominio a DTO esperado por el Datasource

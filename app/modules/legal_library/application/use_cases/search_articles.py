@@ -5,9 +5,7 @@ from app.modules.legal_library.application.schemas.article_app_schemas import (
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
-from app.modules.legal_library.domain.services.embedding_service import (
-    EmbeddingService,
-)
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )

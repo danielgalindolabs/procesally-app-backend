@@ -19,12 +19,8 @@ from app.modules.legal_library.domain.datasources.legal_datasource import (
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
-from app.modules.legal_library.domain.services.document_parser import (
-    DocumentParser,
-)
-from app.modules.legal_library.domain.services.embedding_service import (
-    EmbeddingService,
-)
+from app.modules.legal_library.domain.services.document_parser import DocumentParser
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )

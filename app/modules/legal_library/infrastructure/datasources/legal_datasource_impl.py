@@ -8,15 +8,46 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.modules.legal_library.domain.datasources.legal_datasource import (
     DatasourceArticleInputDTO,
     DatasourceArticleOutputDTO,
+    DatasourceDocumentInputDTO,
+    DatasourceDocumentOutputDTO,
     LegalDatasource,
 )
-from app.modules.legal_library.infrastructure.models import LegalArticle
+from app.modules.legal_library.infrastructure.models import LegalArticle, LegalDocument
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 
 class LegalDatasourceImpl(LegalDatasource):
     def __init__(self, db: AsyncSession):
         self.db = db
+
+    async def create_document(
+        self, ds_input: DatasourceDocumentInputDTO
+    ) -> DatasourceDocumentOutputDTO:
+        try:
+            doc_model = LegalDocument(
+                titulo=ds_input.titulo,
+                nombre_archivo=ds_input.nombre_archivo,
+                url_oficial=ds_input.url_oficial,
+                url_interna=ds_input.url_interna,
+            )
+            self.db.add(doc_model)
+            await self.db.commit()
+            await self.db.refresh(doc_model)
+
+            return DatasourceDocumentOutputDTO(
+                id=doc_model.id,  # type: ignore
+                titulo=doc_model.titulo,
+                nombre_archivo=doc_model.nombre_archivo,
+                url_oficial=doc_model.url_oficial,
+                fecha_carga=doc_model.fecha_carga,
+                url_interna=doc_model.url_interna,
+            )
+        except Exception as e:
+            await self.db.rollback()
+            raise InfrastructureException(
+                message=f"Error al registrar el documento legal: {str(e)}",
+                code="DB_DOC_INSERT_ERROR",
+            )
 
     async def create_article(
         self, ds_input: DatasourceArticleInputDTO
@@ -26,6 +57,7 @@ class LegalDatasourceImpl(LegalDatasource):
             article_model = LegalArticle(
                 materia_juridica=ds_input.materia_juridica,
                 ley_o_codigo=ds_input.ley_o_codigo,
+                document_id=ds_input.document_id,
                 libro_o_titulo=ds_input.libro_o_titulo,
                 numero_articulo=ds_input.numero_articulo,
                 cuerpo_texto=ds_input.cuerpo_texto,
@@ -41,6 +73,7 @@ class LegalDatasourceImpl(LegalDatasource):
                 id=article_model.id,  # type: ignore
                 materia_juridica=article_model.materia_juridica,
                 ley_o_codigo=article_model.ley_o_codigo,
+                document_id=article_model.document_id,
                 libro_o_titulo=article_model.libro_o_titulo,
                 numero_articulo=article_model.numero_articulo,
                 cuerpo_texto=article_model.cuerpo_texto,
@@ -72,6 +105,7 @@ class LegalDatasourceImpl(LegalDatasource):
             id=article_model.id,  # type: ignore
             materia_juridica=article_model.materia_juridica,
             ley_o_codigo=article_model.ley_o_codigo,
+            document_id=article_model.document_id,
             libro_o_titulo=article_model.libro_o_titulo,
             numero_articulo=article_model.numero_articulo,
             cuerpo_texto=article_model.cuerpo_texto,
@@ -90,16 +124,14 @@ class LegalDatasourceImpl(LegalDatasource):
         Búsqueda por similitud coseno usando el operador nativo de pgvector `<=>`.
         Soporta filtrado dinámico por materia y ley.
         """
-        query_parts = [
-            """
+        query_parts = ["""
             SELECT
                 id, materia_juridica, ley_o_codigo, libro_o_titulo,
                 numero_articulo, cuerpo_texto, archivo_json_url,
                 1 - (embedding <=> :vector) AS similitud
             FROM legal_articles
             WHERE embedding IS NOT NULL
-            """
-        ]
+            """]
         params = {"vector": str(vector), "limit": limit}
 
         if materia_juridica:

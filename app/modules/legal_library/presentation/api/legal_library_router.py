@@ -54,13 +54,15 @@ async def upload_article(
 @router.post("/upload", status_code=status.HTTP_200_OK)
 async def upload_dof_file(
     file: UploadFile = File(...),
+    titulo: str = "Documento Legal",
+    url_oficial: str = "https://www.dof.gob.mx/",
     bulk_uc: BulkIngestUseCase = Depends(get_bulk_ingest_use_case),
 ):
     """
     Sube un archivo HTML del DOF y procesa todos sus artículos automáticamente.
+    - Crea un registro en 'legal_documents' para seguimiento.
     - Extrae el nombre de la ley, libros, títulos y artículos.
-    - Genera embeddings para cada artículo.
-    - Almacena masivamente en la base de datos vectorial.
+    - Genera embeddings y almacena masivamente vinculando al documento.
     """
     content = await file.read()
     # Asumimos que el DOF usa UTF-8 o ISO-8859-1 (latin-1) usualmente.
@@ -69,8 +71,17 @@ async def upload_dof_file(
     except UnicodeDecodeError:
         html_str = content.decode("latin-1")
 
-    # El archivo_url en este caso es el nombre del archivo original
-    return await bulk_uc.execute(html_str, archivo_url=file.filename)
+    # Mapeo de metadata para el documento de origen
+    doc_metadata = PresentationAppMapper.to_document_app_input(
+        titulo=titulo,
+        nombre_archivo=file.filename or "archivo_desconocido",
+        url_oficial=url_oficial,
+    )
+
+    # El archivo_url para el campo antiguo se mantiene como fallback
+    return await bulk_uc.execute(
+        html_str, archivo_url=file.filename or "", document_metadata=doc_metadata
+    )
 
 
 @router.post("/search", response_model=List[SearchResult])

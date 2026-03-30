@@ -1,6 +1,29 @@
+import datetime
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
+
+
+@dataclass
+class DatasourceDocumentInputDTO:
+    """Estructura de entrada para un documento legal"""
+
+    titulo: str
+    nombre_archivo: str
+    url_oficial: str
+    url_interna: Optional[str] = None
+
+
+@dataclass
+class DatasourceDocumentOutputDTO:
+    """Estructura de salida para un documento legal"""
+
+    id: int
+    titulo: str
+    nombre_archivo: str
+    url_oficial: str
+    fecha_carga: datetime.datetime
+    url_interna: Optional[str] = None
 
 
 @dataclass
@@ -12,6 +35,7 @@ class DatasourceArticleInputDTO:
     numero_articulo: str
     cuerpo_texto: str
     archivo_json_url: str
+    document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
     embedding: Optional[list[float]] = None
 
@@ -26,6 +50,7 @@ class DatasourceArticleOutputDTO:
     numero_articulo: str
     cuerpo_texto: str
     archivo_json_url: str
+    document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
     embedding: Optional[list[float]] = None
     similitud: Optional[float] = None
@@ -33,10 +58,17 @@ class DatasourceArticleOutputDTO:
 
 class LegalDatasource(ABC):
     @abstractmethod
+    async def create_document(
+        self, ds_input: DatasourceDocumentInputDTO
+    ) -> DatasourceDocumentOutputDTO:
+        """Registra un nuevo documento legal de origen."""
+        pass
+
+    @abstractmethod
     async def create_article(
         self, ds_input: DatasourceArticleInputDTO
     ) -> Optional[DatasourceArticleOutputDTO]:
-        """Crea un artículo esperando un DTO de entrada y devuelve un DTO de salida."""
+        """Crea un artículo esperando un DTO de entrada e incluye el document_id si existe."""
         pass
 
     @abstractmethod

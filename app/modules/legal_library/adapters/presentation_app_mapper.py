@@ -1,6 +1,9 @@
+from typing import Optional
+
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
     DeleteFileAppInputDTO,
+    DocumentAppInputDTO,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
     ArticleCreateRequest,
@@ -18,6 +21,20 @@ class PresentationAppMapper:
             cuerpo_texto=request.cuerpo_texto,
             archivo_json_url=str(request.archivo_json_url),
             libro_o_titulo=request.libro_o_titulo,
+        )
+
+    @staticmethod
+    def to_document_app_input(
+        titulo: str,
+        nombre_archivo: str,
+        url_oficial: str,
+        url_interna: Optional[str] = None,
+    ) -> DocumentAppInputDTO:
+        return DocumentAppInputDTO(
+            titulo=titulo,
+            nombre_archivo=nombre_archivo,
+            url_oficial=url_oficial,
+            url_interna=url_interna,
         )
 
     @staticmethod

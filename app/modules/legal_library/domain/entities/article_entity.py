@@ -15,6 +15,7 @@ class ArticleEntity:
     numero_articulo: str
     cuerpo_texto: str
     archivo_json_url: str
+    document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
     id: Optional[int] = None
     embedding: Optional[list[float]] = None
