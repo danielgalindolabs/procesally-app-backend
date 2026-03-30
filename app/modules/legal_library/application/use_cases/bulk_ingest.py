@@ -1,7 +1,7 @@
 import logging
 
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import (
-    PostgresLegalDatasource,
+    LegalDatasource,
 )
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.share.domain.exceptions.dof_exceptions import InvalidDOFDocumentError
@@ -14,7 +14,7 @@ logger = logging.getLogger("app.legal_library.use_cases.bulk_ingest")
 
 
 class BulkIngestUseCase:
-    def __init__(self, repository: PostgresLegalDatasource):
+    def __init__(self, repository: LegalDatasource):
         self.repository = repository
 
     async def execute(self, html_content: str, archivo_url: str) -> dict:

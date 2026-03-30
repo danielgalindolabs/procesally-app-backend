@@ -9,7 +9,7 @@ from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 
-class PostgresLegalDatasource:
+class LegalDatasource:
     def __init__(self, db: AsyncSession):
         self.db = db
 

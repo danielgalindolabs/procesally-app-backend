@@ -1,5 +1,5 @@
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import (
-    PostgresLegalDatasource,
+    LegalDatasource,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import SearchRequest
 from app.share.exceptions.base_exceptions import InfrastructureException
@@ -9,7 +9,7 @@ from app.share.infrastructure.services.embedding_service import (
 
 
 class SearchArticlesUseCase:
-    def __init__(self, repository: PostgresLegalDatasource):
+    def __init__(self, repository: LegalDatasource):
         self.repository = repository
 
     async def execute(self, request: SearchRequest) -> list[dict]:

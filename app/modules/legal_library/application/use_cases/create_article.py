@@ -1,6 +1,6 @@
 from app.modules.legal_library.exceptions.legal_exceptions import DuplicateArticleError
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import (
-    PostgresLegalDatasource,
+    LegalDatasource,
 )
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.modules.legal_library.presentation.schemas.article_schemas import (
@@ -12,7 +12,7 @@ from app.share.infrastructure.services.embedding_service import (
 
 
 class CreateArticleUseCase:
-    def __init__(self, repository: PostgresLegalDatasource):
+    def __init__(self, repository: LegalDatasource):
         self.repository = repository
 
     async def execute(self, request: ArticleCreateRequest) -> LegalArticle:
