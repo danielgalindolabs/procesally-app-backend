@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     CORS_EXPOSE_HEADERS: List[str] = ["*"]
     CORS_MAX_AGE: int = 600
 
+    ALLOWED_DOMAINS: List[str] = ["www.dof.gob.mx", "www.ordenjuridico.gob.mx"]
+    ORDEN_JURIDICO_URL: str = "https://www.ordenjuridico.gob.mx/"
+
     @property
     def DATABASE_URL(self) -> str:
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.POSTGRES_DB}"

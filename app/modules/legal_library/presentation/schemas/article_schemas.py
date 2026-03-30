@@ -47,3 +47,41 @@ class SearchResult(ArticleResponse):
     similitud: float = Field(
         ..., description="Puntuación de similitud coseno (0 a 1, donde 1 es idéntico)"
     )
+
+
+class BulkUrlIngestRequest(BaseModel):
+    # Diccionario de { "Nombre de la Ley": "URL" }
+    urls: dict[str, HttpUrl] = Field(
+        ...,
+        description="Diccionario de títulos y URLs oficiales de descarga (solo dominios permitidos)",
+    )
+
+
+class DiscoverRequest(BaseModel):
+    index_url: HttpUrl = Field(
+        ...,
+        description="URL de la página índice para scrapear enlaces de leyes (solo dominios permitidos).",
+    )
+
+
+class DiscoverResponse(BaseModel):
+    total_found: int
+    urls: dict[str, str]
+
+
+class DocumentMetadataInfo(BaseModel):
+    id: str
+    fecha_de_publicacion: str
+    fecha_de_ultima_reforma: str
+
+
+class ParseIndexRequest(BaseModel):
+    html_content: str = Field(
+        ...,
+        description="Contenido HTML de la tabla de Orden Jurídico Nacional.",
+    )
+
+
+class ParseIndexResponse(BaseModel):
+    documentos: dict[str, DocumentMetadataInfo]
+

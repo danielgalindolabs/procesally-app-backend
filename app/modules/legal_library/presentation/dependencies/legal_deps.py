@@ -4,11 +4,20 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.modules.legal_library.application.use_cases.bulk_ingest import (
     BulkIngestUseCase,
 )
+from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
+    BulkUrlIngestUseCase,
+)
 from app.modules.legal_library.application.use_cases.create_article import (
     CreateArticleUseCase,
 )
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
+)
+from app.modules.legal_library.application.use_cases.discover_laws import (
+    DiscoverLawsUseCase,
+)
+from app.modules.legal_library.application.use_cases.parse_html_index import (
+    ParseHtmlIndexUseCase,
 )
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
@@ -19,8 +28,12 @@ from app.modules.legal_library.domain.datasources.legal_datasource import (
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
+from app.modules.legal_library.domain.services.document_downloader import (
+    DocumentDownloader,
+)
 from app.modules.legal_library.domain.services.document_parser import DocumentParser
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
+from app.modules.legal_library.domain.services.legal_indexer import LegalIndexer
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )
@@ -36,7 +49,11 @@ from app.modules.legal_library.infrastructure.services.embedding_service_impl im
 from app.modules.legal_library.infrastructure.services.legal_router_service_impl import (
     LegalRouterServiceImpl,
 )
+from app.modules.legal_library.infrastructure.services.orden_juridico_indexer import (
+    OrdenJuridicoIndexer,
+)
 from app.share.infrastructure.db.session import get_session
+from app.share.infrastructure.http_client import HTTPClient
 from app.share.infrastructure.parsers.dof_parser import DOFHtmlParser
 
 
@@ -62,6 +79,14 @@ def get_document_parser() -> DocumentParser:
 
 def get_router_service() -> LegalRouterService:
     return LegalRouterServiceImpl()
+
+
+def get_legal_indexer() -> LegalIndexer:
+    return OrdenJuridicoIndexer()
+
+
+def get_http_client() -> DocumentDownloader:
+    return HTTPClient()
 
 
 def get_create_article_use_case(
@@ -91,3 +116,22 @@ def get_delete_file_use_case(
     repository: LegalRepository = Depends(get_legal_repository),
 ) -> DeleteFileUseCase:
     return DeleteFileUseCase(repository)
+
+
+def get_bulk_url_ingest_use_case(
+    bulk_ingest_uc: BulkIngestUseCase = Depends(get_bulk_ingest_use_case),
+    document_downloader: DocumentDownloader = Depends(get_http_client),
+) -> BulkUrlIngestUseCase:
+    return BulkUrlIngestUseCase(bulk_ingest_uc, document_downloader)
+
+
+def get_discover_laws_use_case(
+    indexer: LegalIndexer = Depends(get_legal_indexer),
+    downloader: DocumentDownloader = Depends(get_http_client),
+) -> DiscoverLawsUseCase:
+    return DiscoverLawsUseCase(indexer, downloader)
+
+
+def get_parse_html_index_use_case() -> ParseHtmlIndexUseCase:
+    return ParseHtmlIndexUseCase()
+

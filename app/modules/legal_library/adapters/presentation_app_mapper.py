@@ -2,7 +2,9 @@ from typing import Optional
 
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
+    BulkUrlIngestAppInputDTO,
     DeleteFileAppInputDTO,
+    DiscoverLawsAppInputDTO,
     DocumentAppInputDTO,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
@@ -40,6 +42,16 @@ class PresentationAppMapper:
     @staticmethod
     def to_delete_file_input(file_url: str) -> DeleteFileAppInputDTO:
         return DeleteFileAppInputDTO(archivo_json_url=file_url)
+
+    @staticmethod
+    def to_bulk_url_input(urls: dict) -> BulkUrlIngestAppInputDTO:
+        # Convertimos HttpUrl a str si es necesario (Pydantic a Dataclass)
+        clean_urls = {k: str(v) for k, v in urls.items()}
+        return BulkUrlIngestAppInputDTO(urls=clean_urls)
+
+    @staticmethod
+    def to_discover_input(url: str) -> DiscoverLawsAppInputDTO:
+        return DiscoverLawsAppInputDTO(index_url=url)
 
     # Nota: El regreso desde AppOutputDTO a ArticleResponse (Presentation)
     # se suele resolver fácilmente si los campos coinciden porque Pydantic model_validate

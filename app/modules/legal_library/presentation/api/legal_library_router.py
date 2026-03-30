@@ -8,26 +8,43 @@ from app.modules.legal_library.adapters.presentation_app_mapper import (
 from app.modules.legal_library.application.use_cases.bulk_ingest import (
     BulkIngestUseCase,
 )
+from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
+    BulkUrlIngestUseCase,
+)
 from app.modules.legal_library.application.use_cases.create_article import (
     CreateArticleUseCase,
 )
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
 )
+from app.modules.legal_library.application.use_cases.discover_laws import (
+    DiscoverLawsUseCase,
+)
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
 )
 from app.modules.legal_library.presentation.dependencies.legal_deps import (
     get_bulk_ingest_use_case,
+    get_bulk_url_ingest_use_case,
     get_create_article_use_case,
     get_delete_file_use_case,
+    get_discover_laws_use_case,
+    get_parse_html_index_use_case,
     get_search_articles_use_case,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
     ArticleCreateRequest,
     ArticleResponse,
+    BulkUrlIngestRequest,
+    DiscoverRequest,
+    DiscoverResponse,
+    ParseIndexRequest,
+    ParseIndexResponse,
     SearchRequest,
     SearchResult,
+)
+from app.modules.legal_library.application.use_cases.parse_html_index import (
+    ParseHtmlIndexUseCase,
 )
 
 router = APIRouter()
@@ -84,6 +101,19 @@ async def upload_dof_file(
     )
 
 
+@router.post("/bulk-url", status_code=status.HTTP_200_OK)
+async def bulk_upload_by_url(
+    request: BulkUrlIngestRequest,
+    bulk_url_uc: BulkUrlIngestUseCase = Depends(get_bulk_url_ingest_use_case),
+):
+    """
+    Ingesta masiva de documentos legales a partir de un diccionario de URLs.
+    Cada URL debe pertenecer a un dominio permitido en la configuración.
+    """
+    app_input = PresentationAppMapper.to_bulk_url_input(request.urls)
+    return await bulk_url_uc.execute(app_input)
+
+
 @router.post("/search", response_model=List[SearchResult])
 async def search_articles(
     request: SearchRequest,
@@ -120,3 +150,43 @@ async def delete_legal_file(
 
     # Ejecución
     return await delete_uc.execute(app_input)
+
+
+@router.post(
+    "/discover", response_model=DiscoverResponse, status_code=status.HTTP_200_OK
+)
+async def discover_laws(
+    request: DiscoverRequest,
+    discover_uc: DiscoverLawsUseCase = Depends(get_discover_laws_use_case),
+):
+    """
+    Scrapea una página índice para extraer todos los enlaces a documentos legales
+    que sigan el patrón esperado. Retorna un diccionario con los títulos y URLs,
+    listo para usarse en el endpoint /bulk-url.
+    """
+    app_input = PresentationAppMapper.to_discover_input(str(request.index_url))
+    app_output = await discover_uc.execute(app_input)
+    return app_output
+
+
+@router.post(
+    "/parse-index-html",
+    response_model=dict,
+    status_code=status.HTTP_200_OK
+)
+async def parse_html_index(
+    request: ParseIndexRequest,
+    parse_uc: ParseHtmlIndexUseCase = Depends(get_parse_html_index_use_case),
+):
+    """
+    Recibe un HTML (ej. la tabla de leyes federales en ordenjuridico) y lo convierte 
+    en un Diccionario JSON estructurado con títulos, URLs e información de fechas.
+    """
+    # Usamos execute pasándole el contenido HTML directamente
+    # Dado que el UseCase retorna dict[str, dict], FastAPI lo serializará limpiamente.
+    result = parse_uc.execute(html_content=request.html_content)
+    
+    # Podemos retornarlo tal cual, matching el schema original (sin Wrapper) para que 
+    # se parezca exactamente al ejemplo pedido
+    return result
+
