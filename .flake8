@@ -1,0 +1,13 @@
+[flake8]
+max-line-length = 150
+extend-ignore = E203, W503, E402, W391
+exclude =
+    .git,
+    __pycache__,
+    docs/source/conf.py,
+    old,
+    build,
+    dist,
+    .venv,
+    app/share/infrastructure/db/alembic/env.py,
+    app/share/infrastructure/db/alembic/versions/

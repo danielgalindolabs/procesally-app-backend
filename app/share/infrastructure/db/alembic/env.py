@@ -6,11 +6,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
 
 from logging.config import fileConfig
 
+import sqlalchemy as sa
 from alembic import context
 from sqlalchemy.ext.asyncio import create_async_engine
-import sqlalchemy as sa
 from sqlmodel import SQLModel
-
 
 from app.core.config import settings
 
@@ -24,8 +23,9 @@ target_metadata = SQLModel.metadata
 
 
 import builtins
-import sqlmodel
+
 import pgvector.sqlalchemy
+import sqlmodel
 
 # Inyectar en builtins para que las migraciones los vean globalmente sin import
 builtins.sqlmodel = sqlmodel
@@ -57,16 +57,11 @@ def do_run_migrations(connection):
         user_module_prefix=None,
     )
 
-
     with context.begin_transaction():
         # Asegurar que la extensión vectorial existe antes de cualquier tabla
         connection.execute(sa.text("CREATE EXTENSION IF NOT EXISTS vector"))
-        
+
         context.run_migrations()
-
-
-
-
 
 
 async def run_migrations_online():

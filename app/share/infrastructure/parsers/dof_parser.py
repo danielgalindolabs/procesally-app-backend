@@ -1,8 +1,10 @@
-import re
 import logging
+import re
+
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
+
 
 class DOFParser:
     """
@@ -10,7 +12,9 @@ class DOFParser:
     Extrae artículos, libros, títulos y el nombre de la ley sin usar IA.
     """
 
-    ARTICLE_PATTERN = re.compile(r"Art[ií]culo\s+(\d+[a-z]?)[\.\s]*-?\s*", re.IGNORECASE)
+    ARTICLE_PATTERN = re.compile(
+        r"Art[ií]culo\s+(\d+[a-z]?)[\.\s]*-?\s*", re.IGNORECASE
+    )
     BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$", re.IGNORECASE)
     TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
     CHAPTER_PATTERN = re.compile(r"^CAP[IÍ]TULO\s+(.+)$", re.IGNORECASE)
@@ -99,8 +103,13 @@ class DOFParser:
                             continue
 
                         # Si es nota de reforma (color guinda), la ignoramos
-                        reform_span = next_p.find("span", style=re.compile(r"color:\s*#740033", re.IGNORECASE))
-                        if reform_span and reform_span.get_text(strip=True) == next_text:
+                        reform_span = next_p.find(
+                            "span", style=re.compile(r"color:\s*#740033", re.IGNORECASE)
+                        )
+                        if (
+                            reform_span
+                            and reform_span.get_text(strip=True) == next_text
+                        ):
                             i += 1
                             continue
 
@@ -108,23 +117,27 @@ class DOFParser:
                         next_bold = next_p.find("b")
                         if next_bold:
                             nb_text = next_bold.get_text(strip=True)
-                            if (self.ARTICLE_PATTERN.match(nb_text) or
-                                self.BOOK_PATTERN.match(nb_text) or
-                                self.TITLE_PATTERN.match(nb_text) or
-                                self.CHAPTER_PATTERN.match(nb_text)):
+                            if (
+                                self.ARTICLE_PATTERN.match(nb_text)
+                                or self.BOOK_PATTERN.match(nb_text)
+                                or self.TITLE_PATTERN.match(nb_text)
+                                or self.CHAPTER_PATTERN.match(nb_text)
+                            ):
                                 break
 
                         body += " " + next_text
                         i += 1
 
                     if body:
-                        articles.append({
-                            "materia_juridica": self._infer_materia(ley_nombre),
-                            "ley_o_codigo": ley_nombre,
-                            "libro_o_titulo": current_book or current_title,
-                            "numero_articulo": numero,
-                            "cuerpo_texto": body.strip(),
-                        })
+                        articles.append(
+                            {
+                                "materia_juridica": self._infer_materia(ley_nombre),
+                                "ley_o_codigo": ley_nombre,
+                                "libro_o_titulo": current_book or current_title,
+                                "numero_articulo": numero,
+                                "cuerpo_texto": body.strip(),
+                            }
+                        )
                     continue
 
             i += 1

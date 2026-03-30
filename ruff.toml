@@ -1,0 +1,8 @@
+[lint]
+ignore = ["E402"]
+
+[format]
+line-ending = "lf"
+
+[lint.pycodestyle]
+max-line-length = 150
