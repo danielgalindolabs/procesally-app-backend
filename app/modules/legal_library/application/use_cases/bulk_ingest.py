@@ -1,10 +1,10 @@
 import logging
 from app.modules.legal_library.infrastructure.models import LegalArticle
 from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
-from app.core.dof_parser import dof_parser
+from app.share.infrastructure.parsers.dof_parser import dof_parser
 from app.core.embeddings import engine as embedding_engine
 from app.modules.legal_library.exceptions.legal_exceptions import ArticleNotFoundError
-from app.core.exceptions_classes import InvalidDOFDocumentError
+from app.share.domain.exceptions.dof_exceptions import InvalidDOFDocumentError
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_ingest")

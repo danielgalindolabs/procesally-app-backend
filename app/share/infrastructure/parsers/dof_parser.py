@@ -2,7 +2,7 @@ import re
 import logging
 from bs4 import BeautifulSoup
 
-logger = logging.getLogger("app.core.dof_parser")
+logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
 
 class DOFParser:
     """
