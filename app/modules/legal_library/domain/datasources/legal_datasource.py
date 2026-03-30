@@ -48,7 +48,11 @@ class LegalDatasource(ABC):
 
     @abstractmethod
     async def search_by_vector(
-        self, vector: list[float], limit: int = 5
+        self,
+        vector: list[float],
+        limit: int = 5,
+        materia_juridica: Optional[str] = None,
+        ley_o_codigo: Optional[str] = None,
     ) -> list[DatasourceArticleOutputDTO]:
         """Busca artículos que sean similares a un vector y devuelve DTOs de Datasource."""
         pass

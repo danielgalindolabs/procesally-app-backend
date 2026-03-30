@@ -17,7 +17,11 @@ class LegalRepository(ABC):
 
     @abstractmethod
     async def search_similar_vectors(
-        self, vector: list[float], limit: int = 5
+        self,
+        vector: list[float],
+        limit: int = 5,
+        materia_juridica: Optional[str] = None,
+        ley_o_codigo: Optional[str] = None,
     ) -> list[ArticleEntity]:
         """Busca artículos que sean similares a un vector dado y devuelve una lista de entidades."""
         pass

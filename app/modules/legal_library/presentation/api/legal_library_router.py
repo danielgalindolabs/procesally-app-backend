@@ -84,8 +84,13 @@ async def search_articles(
     - Busca los artículos más similares usando distancia coseno (pgvector)
     - Retorna los resultados ordenados por relevancia
     """
-    # Pasamos solo las primitivas para no acoplar el Caso de Uso a esquemas de Presentación
-    results = await search_uc.execute(consulta=request.consulta, limite=request.limite)
+    # Pasamos las primitivas y filtros para no acoplar el Caso de Uso a esquemas de Presentación
+    results = await search_uc.execute(
+        consulta=request.consulta,
+        limite=request.limite,
+        materia_juridica=request.materia_juridica,
+        ley_o_codigo=request.ley_o_codigo,
+    )
 
     # FastAPI casteará de List[ArticleAppOutputDTO] -> List[SearchResult]
     return results

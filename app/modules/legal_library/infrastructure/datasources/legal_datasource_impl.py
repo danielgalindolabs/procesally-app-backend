@@ -80,23 +80,41 @@ class LegalDatasourceImpl(LegalDatasource):
         )
 
     async def search_by_vector(
-        self, vector: list[float], limit: int = 5
+        self,
+        vector: list[float],
+        limit: int = 5,
+        materia_juridica: Optional[str] = None,
+        ley_o_codigo: Optional[str] = None,
     ) -> list[DatasourceArticleOutputDTO]:
         """
         Búsqueda por similitud coseno usando el operador nativo de pgvector `<=>`.
+        Soporta filtrado dinámico por materia y ley.
         """
-        sql = text("""
+        query_parts = [
+            """
             SELECT
                 id, materia_juridica, ley_o_codigo, libro_o_titulo,
                 numero_articulo, cuerpo_texto, archivo_json_url,
                 1 - (embedding <=> :vector) AS similitud
             FROM legal_articles
             WHERE embedding IS NOT NULL
-            ORDER BY embedding <=> :vector
-            LIMIT :limit
-        """)
+            """
+        ]
+        params = {"vector": str(vector), "limit": limit}
 
-        result = await self.db.execute(sql, {"vector": str(vector), "limit": limit})
+        if materia_juridica:
+            query_parts.append("AND materia_juridica = :materia")
+            params["materia"] = materia_juridica
+
+        if ley_o_codigo:
+            query_parts.append("AND ley_o_codigo = :ley")
+            params["ley"] = ley_o_codigo
+
+        query_parts.append("ORDER BY embedding <=> :vector LIMIT :limit")
+
+        sql = text(" ".join(query_parts))
+
+        result = await self.db.execute(sql, params)
         rows = result.fetchall()
 
         return [
@@ -108,7 +126,7 @@ class LegalDatasourceImpl(LegalDatasource):
                 numero_articulo=row.numero_articulo,
                 cuerpo_texto=row.cuerpo_texto,
                 archivo_json_url=row.archivo_json_url,
-                embedding=None,  # Optimization: Not always returning full embeddings on search
+                embedding=None,
                 similitud=round(float(row.similitud), 4),
             )
             for row in rows

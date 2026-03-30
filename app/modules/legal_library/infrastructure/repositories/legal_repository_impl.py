@@ -42,11 +42,17 @@ class LegalRepositoryImpl(LegalRepository):
         return DomainDatasourceMapper.datasource_output_to_domain(ds_output)
 
     async def search_similar_vectors(
-        self, vector: list[float], limit: int = 5
+        self,
+        vector: list[float],
+        limit: int = 5,
+        materia_juridica: Optional[str] = None,
+        ley_o_codigo: Optional[str] = None,
     ) -> list[ArticleEntity]:
 
         # Obtenemos los DTOs de Datasource (pueden venir de SQL, Mongo, Memoria, etc)
-        ds_results = await self.datasource.search_by_vector(vector, limit)
+        ds_results = await self.datasource.search_by_vector(
+            vector, limit, materia_juridica, ley_o_codigo
+        )
 
         # Retornamos como entidades estrictas de negocio
         return [
