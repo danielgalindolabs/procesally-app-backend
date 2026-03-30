@@ -1,27 +1,41 @@
-from app.modules.legal_library.infrastructure.datasources.legal_datasource import (
-    LegalDatasource,
+from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
+from app.modules.legal_library.application.schemas.article_app_schemas import (
+    ArticleAppOutputDTO,
 )
-from app.modules.legal_library.presentation.schemas.article_schemas import SearchRequest
+from app.modules.legal_library.domain.repositories.legal_repository import (
+    LegalRepository,
+)
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
 from app.share.exceptions.base_exceptions import InfrastructureException
-from app.share.infrastructure.services.embedding_service import (
-    engine as embedding_engine,
-)
 
 
 class SearchArticlesUseCase:
-    def __init__(self, repository: LegalDatasource):
+    """Caso de uso orquestador para la búsqueda semántica.
+    Depende EXCLUSIVAMENTE de contratos de dominio.
+    """
+
+    def __init__(
+        self, repository: LegalRepository, embedding_service: EmbeddingService
+    ):
         self.repository = repository
+        self.embedding_service = embedding_service
 
-    async def execute(self, request: SearchRequest) -> list[dict]:
+    async def execute(self, consulta: str, limite: int) -> list[ArticleAppOutputDTO]:
         try:
-            # 1. Convertir la consulta en lenguaje natural a un vector semántico
-            query_vector = await embedding_engine.generate_embedding(request.consulta)
+            # 1. Convertir la consulta textual a vector semántico usando el servicio de dominio
+            query_vector = await self.embedding_service.generate_embedding(consulta)
 
-            # 2. Buscar los artículos más cercanos en el espacio vectorial
-            return await self.repository.search_by_vector(query_vector, request.limite)
+            # 2. Buscar Entidades de Dominio en el repositorio
+            entities = await self.repository.search_similar_vectors(
+                query_vector, limite
+            )
+
+            # 3. Mapear de vuelta a DTOs de Aplicación
+            return [AppDomainMapper.domain_to_app_output(e) for e in entities]
+
         except Exception as e:
             if "openai" in str(e).lower():
-                raise  # Let the global handler catch OpenAI specific errors
+                raise
             raise InfrastructureException(
                 message=f"Error durante la búsqueda semántica: {str(e)}",
                 code="SEARCH_ERROR",

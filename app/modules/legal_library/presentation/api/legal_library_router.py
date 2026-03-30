@@ -2,6 +2,9 @@ from typing import List
 
 from fastapi import APIRouter, Depends, File, UploadFile, status
 
+from app.modules.legal_library.adapters.presentation_app_mapper import (
+    PresentationAppMapper,
+)
 from app.modules.legal_library.application.use_cases.bulk_ingest import (
     BulkIngestUseCase,
 )
@@ -34,7 +37,14 @@ async def upload_article(
     """
     Ingesta un nuevo artículo legal en la biblioteca manual.
     """
-    return await create_uc.execute(request)
+    # 1. Mapea el Request HTTP a un DTO de Aplicación
+    app_input = PresentationAppMapper.to_app_input(request)
+
+    # 2. Ejecuta caso de uso
+    app_output = await create_uc.execute(app_input)
+
+    # FastAPI casteará automáticamente el AppOutputDTO a ArticleResponse gracias a response_model
+    return app_output
 
 
 @router.post("/upload", status_code=status.HTTP_200_OK)
@@ -70,4 +80,8 @@ async def search_articles(
     - Busca los artículos más similares usando distancia coseno (pgvector)
     - Retorna los resultados ordenados por relevancia
     """
-    return await search_uc.execute(request)
+    # Pasamos solo las primitivas para no acoplar el Caso de Uso a esquemas de Presentación
+    results = await search_uc.execute(consulta=request.consulta, limite=request.limite)
+
+    # FastAPI casteará de List[ArticleAppOutputDTO] -> List[SearchResult]
+    return results
