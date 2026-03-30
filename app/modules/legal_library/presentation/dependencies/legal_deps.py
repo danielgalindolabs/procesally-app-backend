@@ -16,6 +16,7 @@ from app.modules.legal_library.domain.datasources.legal_datasource import (
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
+from app.modules.legal_library.domain.services.document_parser import DocumentParser
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
 from app.modules.legal_library.infrastructure.datasources.legal_datasource_impl import (
     LegalDatasourceImpl,
@@ -27,6 +28,7 @@ from app.modules.legal_library.infrastructure.services.embedding_service_impl im
     OpenAIEmbeddingService,
 )
 from app.share.infrastructure.db.session import get_session
+from app.share.infrastructure.parsers.dof_parser import DOFHtmlParser
 
 
 def get_legal_datasource(
@@ -43,6 +45,10 @@ def get_legal_repository(
 
 def get_embedding_service() -> EmbeddingService:
     return OpenAIEmbeddingService()
+
+
+def get_document_parser() -> DocumentParser:
+    return DOFHtmlParser()
 
 
 def get_create_article_use_case(
@@ -62,5 +68,6 @@ def get_search_articles_use_case(
 def get_bulk_ingest_use_case(
     repository: LegalRepository = Depends(get_legal_repository),
     embedding_service: EmbeddingService = Depends(get_embedding_service),
+    document_parser: DocumentParser = Depends(get_document_parser),
 ) -> BulkIngestUseCase:
-    return BulkIngestUseCase(repository, embedding_service)
+    return BulkIngestUseCase(repository, embedding_service, document_parser)

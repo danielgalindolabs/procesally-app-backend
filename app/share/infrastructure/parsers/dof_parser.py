@@ -3,13 +3,19 @@ import re
 
 from bs4 import BeautifulSoup
 
+from app.modules.legal_library.domain.services.document_parser import (
+    DocumentParser,
+    ParsedArticle,
+)
+
 logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
 
 
-class DOFParser:
+class DOFHtmlParser(DocumentParser):
     """
     Parser determinístico para HTMLs exportados del DOF (Diario Oficial de la Federación).
     Extrae artículos, libros, títulos y el nombre de la ley sin usar IA.
+    Implementa el contrato DocumentParser del dominio.
     """
 
     ARTICLE_PATTERN = re.compile(
@@ -19,8 +25,8 @@ class DOFParser:
     TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
     CHAPTER_PATTERN = re.compile(r"^CAP[IÍ]TULO\s+(.+)$", re.IGNORECASE)
 
-    def parse(self, html_content: str) -> list[dict]:
-        soup = BeautifulSoup(html_content, "html.parser")
+    def parse(self, content: str) -> list[ParsedArticle]:
+        soup = BeautifulSoup(content, "html.parser")
 
         ley_nombre = self._extract_law_name(soup)
         articles = self._extract_articles(soup, ley_nombre)
@@ -44,7 +50,9 @@ class DOFParser:
 
         return "Ley Desconocida"
 
-    def _extract_articles(self, soup: BeautifulSoup, ley_nombre: str) -> list[dict]:
+    def _extract_articles(
+        self, soup: BeautifulSoup, ley_nombre: str
+    ) -> list[ParsedArticle]:
         articles = []
         current_book = None
         current_title = None
@@ -130,13 +138,13 @@ class DOFParser:
 
                     if body:
                         articles.append(
-                            {
-                                "materia_juridica": self._infer_materia(ley_nombre),
-                                "ley_o_codigo": ley_nombre,
-                                "libro_o_titulo": current_book or current_title,
-                                "numero_articulo": numero,
-                                "cuerpo_texto": body.strip(),
-                            }
+                            ParsedArticle(
+                                materia_juridica=self._infer_materia(ley_nombre),
+                                ley_o_codigo=ley_nombre,
+                                libro_o_titulo=current_book or current_title,
+                                numero_articulo=numero,
+                                cuerpo_texto=body.strip(),
+                            )
                         )
                     continue
 
@@ -167,4 +175,4 @@ class DOFParser:
 
 
 # Instancia global reutilizable
-dof_parser = DOFParser()
+dof_parser = DOFHtmlParser()
