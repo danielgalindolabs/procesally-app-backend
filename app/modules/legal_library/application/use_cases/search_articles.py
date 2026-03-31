@@ -139,19 +139,20 @@ class SearchArticlesUseCase:
     async def execute(
         self,
         consulta: str,
-        limite: int,
+        limite: Optional[int] = None,
         materia_juridica: str | None = None,
         ley_o_codigo: str | None = None,
     ) -> list[ArticleAppOutputDTO]:
         try:
-            # 1. Inferencia de Ley (RAG Intelligence)
+            # 1. Parámetros dinámicos (Senior Fix #3)
+            # Si el usuario no pide un límite específico, buscamos 15 pero filtraremos dinámicamente.
+            search_limit = limite or 15
+            
+            # --- Inferencia de Ley (RAG Intelligence) ---
             inferred_law = self._extract_law_name(consulta)
             if not ley_o_codigo and inferred_law:
                 ley_o_codigo = inferred_law
 
-            # Smart Fallback: 
-            # - Si es DIRECTA/HÍBRIDA y no hay ley, usamos CIVIL como default.
-            # - Si es SEMÁNTICA pura y no hay ley, dejamos que busque en TODA la base (ley_o_codigo = None).
             extracted_numbers = self._extract_article_numbers(consulta)
             intent = self._determine_intent(consulta, extracted_numbers, inferred_law)
             
@@ -190,7 +191,6 @@ class SearchArticlesUseCase:
                 seen_articles = set()
                 deduplicated_sql = []
                 for res in sql_results:
-                    # Un artículo es único por Ley + Número
                     key = (res.ley_o_codigo.lower(), res.numero_articulo.lower())
                     if key not in seen_articles:
                         seen_articles.add(key)
@@ -201,7 +201,6 @@ class SearchArticlesUseCase:
 
             # --- DECISIÓN DE FLUJO ---
             if intent == "direct" and sql_results:
-                # En modo directo, NO re-rankeamos para no romper el orden exacto de los artículos solicitado.
                 entities = sql_results
             else:
                 # --- RUTA SEMÁNTICA (Vector Search) ---
@@ -211,13 +210,12 @@ Materia jurídica: {materia_juridica or "No especificada"}
 Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo else 'en toda la legislación'} con interpretación jurídica.
 """.strip()
 
-                # Generación de embedding separada para evitar solapamientos de loop
                 query_vector = await self.embedding_service.generate_embedding(
                     query_enriquecida
                 )
 
-                # Recuperación Ampliada (Problem 3) para permitir re-ranking y evitar pérdida de recall
-                top_k_vector = limite * 5
+                # Usamos search_limit ampliado para el re-ranking
+                top_k_vector = search_limit * 3
                 semantic_results = await self.repository.search_similar_vectors(
                     query_vector,
                     top_k_vector,
@@ -225,11 +223,10 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
                     ley_o_codigo=ley_o_codigo,
                 )
 
-                # --- MERGE INTELIGENTE Y DEDUPLICACIÓN POR CLAVE COMPUESTA ---
+                # --- MERGE INTELIGENTE ---
                 seen_keys = set()
                 merged_list = []
                 for e in sql_results + semantic_results:
-                    # Un artículo es igual a otro si tienen la misma ley y número
                     key = (e.ley_o_codigo.lower(), e.numero_articulo.lower())
                     if key not in seen_keys:
                         seen_keys.add(key)
@@ -239,7 +236,6 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
 
                 # --- RE-RANKING HÍBRIDO ---
                 def calculate_boosted_score(entity) -> float:
-                    # El match exacto vía SQL manda
                     if entity.similitud == 0.99:
                         return 0.99
 
@@ -247,12 +243,10 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
                     content_lower = entity.cuerpo_texto.lower()
                     query_terms = [t for t in consulta.lower().split() if len(t) > 3]
 
-                    # Boost por coincidencia de términos clave
                     for term in query_terms:
                         if term in content_lower:
                             score += 0.04
 
-                    # Fallback de seguridad: si el número está pero SQL no respondió (ej. distinta ley)
                     for n_str in extracted_numbers:
                         if n_str.lower() in entity.numero_articulo.lower():
                             score = max(score, 0.92)
@@ -262,8 +256,28 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
 
                 entities.sort(key=calculate_boosted_score, reverse=True)
 
-            # 4. Mapear de vuelta a DTOs de Aplicación y Recortar al límite
-            final_entities = entities[:limite]
+            # --- CORTE INTELIGENTE (Opción 3: Dynamic Top-K) ---
+            # 1. Resultados de Alta Confianza (Estructural o > 0.82)
+            high_quality = [e for e in entities if e.similitud >= 0.82]
+            
+            # 2. Resultados de Relevancia Media (Base semántica decente)
+            mid_quality = [e for e in entities if 0.70 <= e.similitud < 0.82]
+            
+            # Decidimos qué tan "honesto" ser basado en la densidad de resultados
+            if high_quality:
+                # Si hay calidad alta, mostramos todo lo bueno + opcionalmente un poco de ruido si se pidió explícitamente limit
+                filtered_entities = high_quality
+                if len(filtered_entities) < 3:
+                     # Completamos con los siguientes mejores hasta 3 si superan el suelo de ruido.
+                     filtered_entities += mid_quality[:3 - len(filtered_entities)]
+            else:
+                # Si no hay nada "excelente", mostramos los top 3 que superen el suelo 0.70
+                filtered_entities = mid_quality[:3]
+
+            # Si el usuario pidió un límite específico, forzamos el recorte superior.
+            final_limit = limite or len(filtered_entities)
+            final_entities = filtered_entities[:final_limit]
+
             return [AppDomainMapper.domain_to_app_output(e) for e in final_entities]
 
         except Exception as e:

@@ -28,8 +28,8 @@ async def run_audit():
         for label, query in AUDIT_CASES:
             print(f"\nQUERY: [{label}] -> \"{query}\"")
             
-            # Sin sleep, el AsyncClient maneja correctamente la secuencialidad
-            response = await client.post("/api/v1/legal/search", json={"consulta": query, "limite": 5})
+            # Sin limite explícito, el sistema decide el Top-K dinámico (Opción 3)
+            response = await client.post("/api/v1/legal/search", json={"consulta": query})
             
             if response.status_code != 200:
                 print(f"❌ ERROR: status {response.status_code}")
