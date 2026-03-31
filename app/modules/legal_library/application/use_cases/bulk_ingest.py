@@ -1,4 +1,5 @@
 import logging
+from typing import Dict, Optional
 
 from app.modules.legal_library.adapters.app_domain_mapper import \
     AppDomainMapper
@@ -34,8 +35,8 @@ class BulkIngestUseCase:
         self,
         content: str,
         archivo_url: str,
-        document_metadata: DocumentAppInputDTO | None = None,
-    ) -> dict:
+        document_metadata: Optional[DocumentAppInputDTO] = None,
+    ) -> Dict:
         # 0. Registrar el documento legal de origen si viene la metadata
         document_id = None
         if document_metadata:

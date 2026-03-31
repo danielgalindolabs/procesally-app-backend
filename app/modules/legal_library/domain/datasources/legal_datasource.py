@@ -1,7 +1,7 @@
 import datetime
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -41,7 +41,7 @@ class DatasourceArticleInputDTO:
     archivo_json_url: str
     document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
-    embedding: Optional[list[float]] = None
+    embedding: Optional[List[float]] = None
 
 
 @dataclass
@@ -56,7 +56,7 @@ class DatasourceArticleOutputDTO:
     archivo_json_url: str
     document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
-    embedding: Optional[list[float]] = None
+    embedding: Optional[List[float]] = None
     similitud: Optional[float] = None
 
 
@@ -84,19 +84,19 @@ class LegalDatasource(ABC):
 
     @abstractmethod
     async def get_articles_by_numbers(
-        self, numbers: list[str], ley: str
-    ) -> list[DatasourceArticleOutputDTO]:
+        self, numbers: List[str], ley: str
+    ) -> List[DatasourceArticleOutputDTO]:
         """Obtiene varios artículos por sus números y ley."""
         pass
 
     @abstractmethod
     async def search_by_vector(
         self,
-        vector: list[float],
+        vector: List[float],
         limit: int = 5,
         materia_juridica: Optional[str] = None,
         ley_o_codigo: Optional[str] = None,
-    ) -> list[DatasourceArticleOutputDTO]:
+    ) -> List[DatasourceArticleOutputDTO]:
         """Busca artículos que sean similares a un vector y devuelve DTOs de Datasource."""
         pass
 

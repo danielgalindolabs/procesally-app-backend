@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from app.modules.legal_library.adapters.domain_datasource_mapper import \
     DomainDatasourceMapper
@@ -54,8 +54,8 @@ class LegalRepositoryImpl(LegalRepository):
         return DomainDatasourceMapper.datasource_output_to_domain(ds_output)
 
     async def get_articles_by_numbers(
-        self, numbers: list[str], ley: str
-    ) -> list[ArticleEntity]:
+        self, numbers: List[str], ley: str
+    ) -> List[ArticleEntity]:
         ds_outputs = await self.datasource.get_articles_by_numbers(numbers, ley)
         return [
             DomainDatasourceMapper.datasource_output_to_domain(ds_output)
@@ -64,11 +64,11 @@ class LegalRepositoryImpl(LegalRepository):
 
     async def search_similar_vectors(
         self,
-        vector: list[float],
+        vector: List[float],
         limit: int = 5,
         materia_juridica: Optional[str] = None,
         ley_o_codigo: Optional[str] = None,
-    ) -> list[ArticleEntity]:
+    ) -> List[ArticleEntity]:
 
         # Obtenemos los DTOs de Datasource (pueden venir de SQL, Mongo, Memoria, etc)
         ds_results = await self.datasource.search_by_vector(
@@ -97,7 +97,9 @@ class LegalRepositoryImpl(LegalRepository):
             return None
         return DomainDatasourceMapper.document_datasource_output_to_domain(ds_output)
 
-    async def get_document_by_filename(self, filename: str) -> Optional[LegalDocumentEntity]:
+    async def get_document_by_filename(
+        self, filename: str
+    ) -> Optional[LegalDocumentEntity]:
         ds_output = await self.datasource.get_document_by_filename(filename)
         if ds_output is None:
             return None

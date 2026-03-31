@@ -1,5 +1,6 @@
 import logging
 import re
+from typing import List, Optional
 
 from bs4 import BeautifulSoup
 
@@ -24,7 +25,7 @@ class DOFHtmlParser(DocumentParser):
     # 🔥 FIX: romanos ilimitados
     FRACTION_PATTERN = re.compile(r"\b([IVXLCDM]+)\.\s")
 
-    def parse(self, content: str) -> list[ParsedArticle]:
+    def parse(self, content: str) -> List[ParsedArticle]:
         soup = BeautifulSoup(content, "html.parser")
 
         ley_nombre = self._extract_law_name(soup)
@@ -84,7 +85,6 @@ class DOFHtmlParser(DocumentParser):
         buffer = []
 
         for text in paragraphs:
-
             if self.BOOK_PATTERN.match(text):
                 current_book = text
                 continue
@@ -157,10 +157,10 @@ class DOFHtmlParser(DocumentParser):
     def _build_article(
         self,
         numero: str,
-        buffer: list[str],
+        buffer: List[str],
         ley_nombre: str,
-        current_book: str | None,
-        current_title: str | None,
+        current_book: Optional[str],
+        current_title: Optional[str],
     ) -> ParsedArticle:
 
         body = " ".join(buffer)

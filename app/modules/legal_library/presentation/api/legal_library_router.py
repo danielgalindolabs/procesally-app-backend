@@ -25,24 +25,6 @@ from app.modules.legal_library.presentation.schemas.article_schemas import (
 router = APIRouter()
 
 
-# @router.post("/", response_model=ArticleResponse, status_code=status.HTTP_201_CREATED)
-# async def upload_article(
-#     request: ArticleCreateRequest,
-#     create_uc: CreateArticleUseCase = Depends(get_create_article_use_case),
-# ):
-#     """
-#     Ingesta un nuevo artículo legal en la biblioteca manual.
-#     """
-#     # 1. Mapea el Request HTTP a un DTO de Aplicación
-#     app_input = PresentationAppMapper.to_app_input(request)
-
-#     # 2. Ejecuta caso de uso
-#     app_output = await create_uc.execute(app_input)
-
-#     # FastAPI casteará automáticamente el AppOutputDTO a ArticleResponse gracias a response_model
-#     return app_output
-
-
 @router.post("/upload", status_code=status.HTTP_200_OK)
 async def upload_dof_file(
     file: UploadFile = File(...),

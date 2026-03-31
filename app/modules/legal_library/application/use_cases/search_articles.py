@@ -32,20 +32,31 @@ class SearchArticlesUseCase:
 
     def _extract_article_numbers(self, query: str) -> List[str]:
         """Extrae números de artículos (Dígitos y Palabras) para máxima robustez."""
-        # Normalizamos acentos y pasamos a lower
-        q_norm = query.lower().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
-        
-        # Mapeo de palabras a números (Caso 9 Error Humano)
+        q_norm = (
+            query.lower()
+            .replace("á", "a")
+            .replace("é", "e")
+            .replace("í", "i")
+            .replace("ó", "o")
+            .replace("ú", "u")
+        )
+
         word_to_num = {
-            "uno": "1", "dos": "2", "tres": "3", "cuatro": "4", "cinco": "5",
-            "seis": "6", "siete": "7", "ocho": "8", "nueve": "9", "diez": "10",
+            "uno": "1",
+            "dos": "2",
+            "tres": "3",
+            "cuatro": "4",
+            "cinco": "5",
+            "seis": "6",
+            "siete": "7",
+            "ocho": "8",
+            "nueve": "9",
+            "diez": "10",
         }
-        
-        # Primero reemplazamos palabras por dígitos solo si vienen después de "artículo"
+
         for word, num in word_to_num.items():
             q_norm = re.sub(rf"(articulo\s+){word}\b", rf"\g<1>{num}", q_norm)
 
-        # Pattern que busca "art", "articulo", "articulos" seguido de secuencias numéricas
         pattern = r"(?:art(?:iculo)?s?\.?)\s*(\d+(?:\s*,\s*\d+|\s*y\s*\d+|\s*e\s*\d+)*)"
         matches = re.findall(pattern, q_norm)
 
@@ -61,9 +72,15 @@ class SearchArticlesUseCase:
         return [x for x in numbers if not (x in seen or seen.add(x))]
 
     def _extract_law_name(self, query: str) -> Optional[str]:
-        """Infiere el nombre de la ley/código mencionado en la consulta (RAG Intelligence)."""
-        # Normalizamos para búsqueda de ley (sin acentos en los alias para mayor recall)
-        q_norm = query.upper().replace("Á", "A").replace("É", "E").replace("Í", "I").replace("Ó", "O").replace("Ú", "U")
+        """Infiere el nombre de la ley/código mencionado en la consulta."""
+        q_norm = (
+            query.upper()
+            .replace("Á", "A")
+            .replace("É", "E")
+            .replace("Í", "I")
+            .replace("Ó", "O")
+            .replace("Ú", "U")
+        )
 
         laws_map = {
             "CODIGO CIVIL FEDERAL": "CÓDIGO CIVIL FEDERAL",
@@ -97,10 +114,8 @@ class SearchArticlesUseCase:
             "JUSTICIA MILITAR": "Código de Justicia Militar",
         }
 
-        # Match de alias orientado a precisión (más largo primero)
         sorted_keys = sorted(laws_map.keys(), key=len, reverse=True)
         for term in sorted_keys:
-            # Buscamos el término como palabra delimitada para evitar falsos positivos (Grave #4)
             if re.search(rf"\b{term}\b", q_norm):
                 official = laws_map[term]
                 logger.info(f"Detección de Ley (Senior): '{term}' -> '{official}'")
@@ -108,8 +123,10 @@ class SearchArticlesUseCase:
 
         return None
 
-    def _determine_intent(self, query: str, numbers: List[str], law_detected: Optional[str] = None) -> str:
-        """Determina la intención con precisión legal (Senior UX)."""
+    def _determine_intent(
+        self, query: str, numbers: List[str], law_detected: Optional[str] = None
+    ) -> str:
+        """Determina la intención de búsqueda (direct, hybrid, semantic)."""
         if not numbers:
             return "semantic"
 
@@ -117,19 +134,32 @@ class SearchArticlesUseCase:
 
         # Palabras clave semánticas
         semantic_keywords = [
-            "explica", "relacion", "diferencia", "comparar", "ejemplo",
-            "interpretación", "caso", "aplica", "porque", "por que",
-            "cómo", "como", "cuándo", "cuando", "qué establece", 
-            "que establece", "qué dice", "que dice",
+            "explica",
+            "relacion",
+            "diferencia",
+            "comparar",
+            "ejemplo",
+            "interpretación",
+            "caso",
+            "aplica",
+            "porque",
+            "por que",
+            "cómo",
+            "como",
+            "cuándo",
+            "cuando",
+            "qué establece",
+            "que establece",
+            "qué dice",
+            "que dice",
         ]
 
         # Si hay números Y ley explícita, es DIRECTA a menos que haya carga semántica pesada
         has_semantic_intent = any(k in q_lower for k in semantic_keywords)
-        
+
         if has_semantic_intent:
             return "hybrid"
 
-        # Si hay ley y artículos -> 100% Directo (Senior Fix #2)
         if law_detected:
             return "direct"
 
@@ -139,54 +169,53 @@ class SearchArticlesUseCase:
         self,
         consulta: str,
         limite: Optional[int] = None,
-        materia_juridica: str | None = None,
-        ley_o_codigo: str | None = None,
-    ) -> list[ArticleAppOutputDTO]:
+        materia_juridica: Optional[str] = None,
+        ley_o_codigo: Optional[str] = None,
+    ) -> List[ArticleAppOutputDTO]:
         try:
-            # 1. Parámetros dinámicos (Senior Fix #3)
-            # Si el usuario no pide un límite específico, buscamos 15 pero filtraremos dinámicamente.
             search_limit = limite or 15
-            
-            # --- Inferencia de Ley (RAG Intelligence) ---
+
             inferred_law = self._extract_law_name(consulta)
             if not ley_o_codigo and inferred_law:
                 ley_o_codigo = inferred_law
 
             extracted_numbers = self._extract_article_numbers(consulta)
             intent = self._determine_intent(consulta, extracted_numbers, inferred_law)
-            
+
             if not ley_o_codigo and intent != "semantic":
                 ley_o_codigo = "CÓDIGO CIVIL FEDERAL"
 
-            # 2. Router: Detección de materia
             if not materia_juridica:
                 materia_juridica = await self.router_service.detect_materia(consulta)
-            
+
             if inferred_law:
-                logger.info(f"Omitiendo filtro de materia por detección de ley: {inferred_law}")
+                logger.info(
+                    f"Omitiendo filtro de materia por detección de ley: {inferred_law}"
+                )
                 materia_juridica = None
 
-            # Debug logs para validación de suite
             logger.info(
                 f"Búsqueda | Intent: {intent} | Context: {ley_o_codigo or 'Global'} | Query: {consulta}"
             )
 
             entities = []
 
-            # --- RUTA ESTRUCTURADA (SQL Bypass) ---
             sql_results = []
             if extracted_numbers and ley_o_codigo:
                 sql_results = await self.repository.get_articles_by_numbers(
                     extracted_numbers, ley_o_codigo
                 )
 
-                # Preservar el orden solicitado y deduplicar shards (Senior Fix #3)
                 def normalize_num(s: str) -> str:
                     return re.sub(r"[^0-9]", "", s).lstrip("0")
 
-                order_map = {normalize_num(n): i for i, n in enumerate(extracted_numbers)}
-                sql_results.sort(key=lambda x: order_map.get(normalize_num(x.numero_articulo), 999))
-                
+                order_map = {
+                    normalize_num(n): i for i, n in enumerate(extracted_numbers)
+                }
+                sql_results.sort(
+                    key=lambda x: order_map.get(normalize_num(x.numero_articulo), 999)
+                )
+
                 seen_articles = set()
                 deduplicated_sql = []
                 for res in sql_results:
@@ -195,18 +224,16 @@ class SearchArticlesUseCase:
                         seen_articles.add(key)
                         res.similitud = 0.99
                         deduplicated_sql.append(res)
-                
+
                 sql_results = deduplicated_sql
 
-            # --- DECISIÓN DE FLUJO ---
             if intent == "direct" and sql_results:
                 entities = sql_results
             else:
-                # --- RUTA SEMÁNTICA (Vector Search) ---
                 query_enriquecida = f"""
 Consulta legal: {consulta}
 Materia jurídica: {materia_juridica or "No especificada"}
-Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo else 'en toda la legislación'} con interpretación jurídica.
+Contexto: Buscar artículos relevantes {"en " + ley_o_codigo if ley_o_codigo else "en toda la legislación"} con interpretación jurídica.
 """.strip()
 
                 query_vector = await self.embedding_service.generate_embedding(
@@ -233,7 +260,6 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
 
                 entities = merged_list
 
-                # --- RE-RANKING HÍBRIDO ---
                 def calculate_boosted_score(entity) -> float:
                     if entity.similitud == 0.99:
                         return 0.99
@@ -258,35 +284,28 @@ Contexto: Buscar artículos relevantes {'en ' + ley_o_codigo if ley_o_codigo els
             # --- CORTE INTELIGENTE (Opción 3: Dynamic Top-K) ---
             # 1. Resultados de Alta Confianza (Estructural o > 0.82)
             high_quality = [e for e in entities if e.similitud >= 0.82]
-            
+
             # 2. Resultados de Relevancia Media (Base semántica decente)
             mid_quality = [e for e in entities if 0.70 <= e.similitud < 0.82]
-            
-            # Decidimos qué tan "honesto" ser basado en la densidad de resultados
+
             if high_quality:
-                # Si hay calidad alta, mostramos todo lo bueno + opcionalmente un poco de ruido si se pidió explícitamente limit
                 filtered_entities = high_quality
                 if len(filtered_entities) < 3:
-                     # Completamos con los siguientes mejores hasta 3 si superan el suelo de ruido.
-                     filtered_entities += mid_quality[:3 - len(filtered_entities)]
+                    filtered_entities += mid_quality[: 3 - len(filtered_entities)]
             else:
-                # Si no hay nada "excelente", mostramos los top 3 que superen el suelo 0.70
                 filtered_entities = mid_quality[:3]
 
-            # Si el usuario pidió un límite específico, forzamos el recorte superior.
             final_limit = limite or len(filtered_entities)
             final_entities = filtered_entities[:final_limit]
 
             return [AppDomainMapper.domain_to_app_output(e) for e in final_entities]
 
         except Exception as e:
-            # Registro detallado del error para depuración en producción
             logger.error(
                 f"Error crítico en HybridSearch | Query: '{consulta}' | Error: {str(e)}",
                 exc_info=True,
             )
             if "openai" in str(e).lower() or "asyncpg" in str(e).lower():
-                # Propagamos excepciones conocidas para que el handler global las gestione
                 raise
             raise InfrastructureException(
                 message=f"Error durante el procesamiento de la búsqueda legal: {str(e)}",

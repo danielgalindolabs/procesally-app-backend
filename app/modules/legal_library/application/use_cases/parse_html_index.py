@@ -1,18 +1,12 @@
 import logging
 import re
+from typing import Dict
 
 from bs4 import BeautifulSoup
-from pydantic import BaseModel
 
 from app.core.config import settings
 
 logger = logging.getLogger("app.legal_library.use_cases.parse_html_index")
-
-
-class DocumentMetadata(BaseModel):
-    id: str
-    fecha_de_publicacion: str
-    fecha_de_ultima_reforma: str
 
 
 class ParseHtmlIndexUseCase:
@@ -24,7 +18,7 @@ class ParseHtmlIndexUseCase:
 
     def execute(
         self, html_content: str, base_url: str = settings.ORDEN_JURIDICO_URL
-    ) -> dict[str, dict]:
+    ) -> Dict[str, Dict]:
         soup = BeautifulSoup(html_content, "html.parser")
         results = {}
 
@@ -64,7 +58,6 @@ class ParseHtmlIndexUseCase:
                     fecha_ref = tds[3].get_text(strip=True)
 
                     if nombre:
-
                         results[nombre] = {
                             "id": full_url,
                             "fecha_de_publicacion": fecha_pub,

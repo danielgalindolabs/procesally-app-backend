@@ -1,5 +1,5 @@
 import re
-from typing import Optional
+from typing import List, Optional
 
 from sqlalchemy import text
 from sqlmodel import delete, select
@@ -102,35 +102,31 @@ class LegalDatasourceImpl(LegalDatasource):
         return self._map_article_to_dto(article_model)
 
     async def get_articles_by_numbers(
-        self, numbers: list[str], ley: str
-    ) -> list[DatasourceArticleOutputDTO]:
-        """Recupera artículos específicos por su número y ley con alta tolerancia de formato."""
+        self, numbers: List[str], ley: str
+    ) -> List[DatasourceArticleOutputDTO]:
+        """Recupera artículos específicos por su número y ley."""
         from sqlalchemy import func, literal, or_
 
-        # Estrategia de Expansión: Buscamos "Art. 1" y "1" para cada número
         all_variants = []
         for n in numbers:
             low_n = n.lower()
             all_variants.append(low_n)
-            # Si viene con "Art. ", agregamos la versión numérica pura
             raw_num = re.sub(r"[^0-9]", "", low_n).lstrip("0")
             if raw_num:
                 all_variants.append(raw_num)
-        
-        # Deduplicamos variantes
+
         search_nums = list(set(all_variants))
 
-        # Búsqueda robusta por ley y lista expandida de números
-        # Si se detectó una ley, nos cerramos a ella para evitar homónimos (Senior Fix #1)
         statement = select(LegalArticle).where(
             or_(
                 func.lower(LegalArticle.ley_o_codigo) == ley.lower(),
-                # Match inverso para casos donde la base tiene el nombre corto (ej: "Código Civil Federal")
-                func.lower(literal(ley)).contains(func.lower(LegalArticle.ley_o_codigo))
+                func.lower(literal(ley)).contains(
+                    func.lower(LegalArticle.ley_o_codigo)
+                ),
             ),
             func.lower(LegalArticle.numero_articulo).in_(search_nums),
         )
-        
+
         result = await self.db.exec(statement)
         article_models = result.all()
         return [self._map_article_to_dto(model) for model in article_models]
@@ -152,11 +148,11 @@ class LegalDatasourceImpl(LegalDatasource):
 
     async def search_by_vector(
         self,
-        vector: list[float],
+        vector: List[float],
         limit: int = 5,
         materia_juridica: Optional[str] = None,
         ley_o_codigo: Optional[str] = None,
-    ) -> list[DatasourceArticleOutputDTO]:
+    ) -> List[DatasourceArticleOutputDTO]:
         """
         Búsqueda por similitud coseno usando el operador nativo de pgvector `<=>`.
         Soporta filtrado dinámico por materia y ley.
@@ -178,7 +174,6 @@ class LegalDatasourceImpl(LegalDatasource):
             params["materia"] = materia_juridica
 
         if ley_o_codigo:
-            # Match robusto inverso para búsqueda vectorial
             query_parts.append("AND :ley_full ILIKE '%' || ley_o_codigo || '%'")
             params["ley_full"] = ley_o_codigo
 
@@ -186,7 +181,6 @@ class LegalDatasourceImpl(LegalDatasource):
 
         sql = text(" ".join(query_parts))
 
-        # IMPORTANTE: Consumir el resultado inmediatamente y liberar conexión
         result = await self.db.exec(sql, params=params)
         rows = result.all()
         await self.db.commit()
@@ -269,7 +263,9 @@ class LegalDatasourceImpl(LegalDatasource):
     async def get_document_by_filename(
         self, filename: str
     ) -> Optional[DatasourceDocumentOutputDTO]:
-        statement = select(LegalDocument).where(LegalDocument.nombre_archivo == filename)
+        statement = select(LegalDocument).where(
+            LegalDocument.nombre_archivo == filename
+        )
         result = await self.db.exec(statement)
         doc_model = result.first()
 

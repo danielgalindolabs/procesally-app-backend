@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import List, Optional
 
 from app.modules.legal_library.domain.entities.article_entity import \
     ArticleEntity
@@ -27,19 +27,19 @@ class LegalRepository(ABC):
 
     @abstractmethod
     async def get_articles_by_numbers(
-        self, numbers: list[str], ley: str
-    ) -> list[ArticleEntity]:
+        self, numbers: List[str], ley: str
+    ) -> List[ArticleEntity]:
         """Obtiene varios artículos por sus números y ley."""
         pass
 
     @abstractmethod
     async def search_similar_vectors(
         self,
-        vector: list[float],
+        vector: List[float],
         limit: int = 5,
         materia_juridica: Optional[str] = None,
         ley_o_codigo: Optional[str] = None,
-    ) -> list[ArticleEntity]:
+    ) -> List[ArticleEntity]:
         """Busca artículos que sean similares a un vector dado y devuelve una lista de entidades."""
         pass
 
@@ -59,7 +59,9 @@ class LegalRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_document_by_filename(self, filename: str) -> Optional[LegalDocumentEntity]:
+    async def get_document_by_filename(
+        self, filename: str
+    ) -> Optional[LegalDocumentEntity]:
         """Obtiene un documento por su nombre de archivo."""
         pass
 

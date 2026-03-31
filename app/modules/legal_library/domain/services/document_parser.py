@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -16,6 +16,6 @@ class ParsedArticle:
 
 class DocumentParser(ABC):
     @abstractmethod
-    def parse(self, content: str) -> list[ParsedArticle]:
+    def parse(self, content: str) -> List[ParsedArticle]:
         """Parsea un documento legal y devuelve una lista de artículos extraídos."""
         pass

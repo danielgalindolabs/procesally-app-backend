@@ -1,4 +1,5 @@
 import logging
+from typing import List, Optional
 from urllib.parse import urlparse
 
 import httpx
@@ -14,9 +15,7 @@ logger = logging.getLogger("app.share.infrastructure.http_client")
 
 
 class HTTPClient(DocumentDownloader):
-    """Cliente HTTP con validación de dominios permitidos."""
-
-    def __init__(self, allowed_domains: list[str] | None = None):
+    def __init__(self, allowed_domains: Optional[List[str]] = None):
         self.allowed_domains = allowed_domains or settings.ALLOWED_DOMAINS
 
     def _validate_domain(self, url: str):

@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional
+from typing import List, Optional
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import Column
@@ -54,5 +54,6 @@ class LegalArticle(SQLModel, table=True):
         description="URL al bucket (S3/Cloud) donde vive el JSON original crudo"
     )
 
-    # El vector semántico calculado por OpenAI (text-embedding-3-small = 1536 dims)
-    embedding: list[float] | None = Field(default=None, sa_column=Column(Vector(1536)))
+    embedding: Optional[List[float]] = Field(
+        default=None, sa_column=Column(Vector(1536))
+    )
