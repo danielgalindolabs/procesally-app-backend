@@ -1,31 +1,56 @@
-from fastapi import HTTPException
-from app.modules.legal_library.presentation.schemas.article_schemas import ArticleCreateRequest
-from app.modules.legal_library.infrastructure.models import LegalArticle
-from app.modules.legal_library.infrastructure.datasources.legal_datasource import PostgresLegalDatasource
-from app.core.embeddings import engine as embedding_engine
+from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
+from app.modules.legal_library.application.schemas.article_app_schemas import (
+    ArticleAppInputDTO,
+    ArticleAppOutputDTO,
+)
+from app.modules.legal_library.domain.repositories.legal_repository import (
+    LegalRepository,
+)
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
+from app.modules.legal_library.exceptions.legal_exceptions import DuplicateArticleError
+
 
 class CreateArticleUseCase:
-    def __init__(self, repository: PostgresLegalDatasource):
-        self.repository = repository
+    """Caso de uso orquestador para la creación de artículos.
+    Depende EXCLUSIVAMENTE de contratos de dominio e inyecta DTOs de Aplicación.
+    """
 
-    async def execute(self, request: ArticleCreateRequest) -> LegalArticle:
-        # 1. Calcular embedding de forma asíncrona sin bloquear
-        vector = await embedding_engine.generate_embedding(request.cuerpo_texto)
-        
-        # 2. Construir la entidad SQLModel usando los datos puros
-        articleModel = LegalArticle(
-            materia_juridica=request.materia_juridica,
-            ley_o_codigo=request.ley_o_codigo,
-            libro_o_titulo=request.libro_o_titulo,
-            numero_articulo=request.numero_articulo,
-            cuerpo_texto=request.cuerpo_texto,
-            archivo_json_url=str(request.archivo_json_url),
-            embedding=vector
-        )
-        
-        # 3. Lanzar a infraestructura (este método ya captura los repetidos)
-        try:
-            return await self.repository.create_article(articleModel)
-        except ValueError as e:
-            # Domain exception traducida a HTTP de forma estandarizada global
-            raise HTTPException(status_code=409, detail=str(e))
+    def __init__(
+        self, repository: LegalRepository, embedding_service: EmbeddingService
+    ):
+        self.repository = repository
+        self.embedding_service = embedding_service
+
+    async def execute(self, request_dto: ArticleAppInputDTO) -> ArticleAppOutputDTO:
+        # 1. Enriquecer el texto con metadata para el embedding
+        fecha_pub = request_dto.fecha_publicacion or "N/A"
+        fecha_ref = request_dto.fecha_ultima_reforma or "N/A"
+
+        rich_text = f"""
+Ley: {request_dto.ley_o_codigo}
+Materia: {request_dto.materia_juridica}
+Título: {request_dto.libro_o_titulo or "N/A"}
+Artículo: {request_dto.numero_articulo}
+Publicación: {fecha_pub}
+Reforma: {fecha_ref}
+
+Contenido:
+{request_dto.cuerpo_texto}
+""".strip()
+
+        # Generar embedding a través de Servicio de Dominio
+        vector = await self.embedding_service.generate_embedding(rich_text)
+
+        # 2. Convertir el App DTO a Entidad de Dominio
+        article_entity = AppDomainMapper.app_input_to_domain(request_dto, vector)
+
+        # 3. Lanzar a repositorio de Dominio
+        saved_entity = await self.repository.create_article(article_entity)
+
+        if saved_entity is None:
+            raise DuplicateArticleError(
+                request_dto.numero_articulo, request_dto.ley_o_codigo
+            )
+
+        # 4. Mapear Entidad resultante de vuelta a DTO de App
+        return AppDomainMapper.domain_to_app_output(saved_entity)

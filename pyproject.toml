@@ -9,20 +9,27 @@ dependencies = [
     "pgvector>=0.3.1",
     "psycopg2-binary>=2.9.9",
     "python-dotenv>=1.0.1",
-    "sentence-transformers>=3.0.1",
     "sqlmodel>=0.0.21",
     "uvicorn[standard]>=0.30.1",
     "pydantic-settings>=2.6.0",
     "asyncpg>=0.30.0",
     "alembic>=1.14.0",
     "greenlet>=3.3.2",
+    "beautifulsoup4>=4.14.3",
+    "python-multipart>=0.0.22",
+    "openai>=2.29.0",
+    "httpx>=0.28.1",
+    "charset-normalizer>=3.4.4",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=8.3.4",
     "pytest-asyncio>=0.25.0",
-    "httpx>=0.28.1"
+    "flake8>=7.3.0",
+    "black>=26.3.1",
+    "isort>=8.0.1",
+    "ruff>=0.15.8",
 ]
 
 [tool.pytest.ini_options]
@@ -31,3 +38,6 @@ asyncio_default_fixture_loop_scope = "session"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 pythonpath = ["."]
+
+[tool.black]
+target-version = ['py312']

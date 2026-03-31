@@ -37,4 +37,7 @@ htmlcov/
 .vscode/
 .idea/
 *.swp
-*.swo
+# Alembic
+app/share/infrastructure/db/alembic/versions/*.py
+!app/share/infrastructure/db/alembic/versions/.gitkeep
+
