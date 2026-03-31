@@ -30,8 +30,13 @@ class BulkUrlIngestUseCase:
         total_success = 0
         total_errors = 0
 
-        for titulo, url in input_dto.urls.items():
+        for titulo, info in input_dto.urls.items():
             try:
+                # info es un dict: { "url": str, "fecha_pub": str, "fecha_ref": str }
+                url = info["url"]
+                fecha_pub = info.get("fecha_pub")
+                fecha_ref = info.get("fecha_ref")
+
                 logger.info(f"Procesando descarga para: {titulo} desde {url}")
 
                 # 1. Descargar contenido a través de la abstracción
@@ -43,6 +48,8 @@ class BulkUrlIngestUseCase:
                     nombre_archivo=url.split("/")[-1] or f"{titulo}.html",
                     url_oficial=url,
                     url_interna=None,
+                    fecha_publicacion=fecha_pub,
+                    fecha_ultima_reforma=fecha_ref,
                 )
 
                 # 3. Delegar al BulkIngestUseCase existente para parsear e insertar

@@ -38,7 +38,6 @@ from app.modules.legal_library.presentation.schemas.article_schemas import (
     BulkUrlIngestRequest,
     DiscoverRequest,
     DiscoverResponse,
-    ParseIndexRequest,
     ParseIndexResponse,
     SearchRequest,
     SearchResult,
@@ -175,18 +174,21 @@ async def discover_laws(
     status_code=status.HTTP_200_OK
 )
 async def parse_html_index(
-    request: ParseIndexRequest,
+    file: UploadFile = File(...),
     parse_uc: ParseHtmlIndexUseCase = Depends(get_parse_html_index_use_case),
 ):
     """
-    Recibe un HTML (ej. la tabla de leyes federales en ordenjuridico) y lo convierte 
+    Recibe un archivo HTML (ej. la tabla de leyes federales en ordenjuridico) y lo convierte 
     en un Diccionario JSON estructurado con títulos, URLs e información de fechas.
     """
+    content = await file.read()
+    try:
+        html_str = content.decode("utf-8")
+    except UnicodeDecodeError:
+        html_str = content.decode("latin-1")
+
     # Usamos execute pasándole el contenido HTML directamente
-    # Dado que el UseCase retorna dict[str, dict], FastAPI lo serializará limpiamente.
-    result = parse_uc.execute(html_content=request.html_content)
+    result = parse_uc.execute(html_content=html_str)
     
-    # Podemos retornarlo tal cual, matching el schema original (sin Wrapper) para que 
-    # se parezca exactamente al ejemplo pedido
     return result
 

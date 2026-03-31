@@ -12,6 +12,8 @@ class DatasourceDocumentInputDTO:
     nombre_archivo: str
     url_oficial: str
     url_interna: Optional[str] = None
+    fecha_publicacion: Optional[str] = None
+    fecha_ultima_reforma: Optional[str] = None
 
 
 @dataclass
@@ -24,6 +26,8 @@ class DatasourceDocumentOutputDTO:
     url_oficial: str
     fecha_carga: datetime.datetime
     url_interna: Optional[str] = None
+    fecha_publicacion: Optional[str] = None
+    fecha_ultima_reforma: Optional[str] = None
 
 
 @dataclass

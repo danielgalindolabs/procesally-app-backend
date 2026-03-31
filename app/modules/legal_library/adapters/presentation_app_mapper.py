@@ -45,9 +45,16 @@ class PresentationAppMapper:
 
     @staticmethod
     def to_bulk_url_input(urls: dict) -> BulkUrlIngestAppInputDTO:
-        # Convertimos HttpUrl a str si es necesario (Pydantic a Dataclass)
-        clean_urls = {k: str(v) for k, v in urls.items()}
-        return BulkUrlIngestAppInputDTO(urls=clean_urls)
+        # urls es un dict de { str: DocumentMetadataInfo }
+        # Convertimos a { str: { "url": str, "fecha_pub": str, "fecha_ref": str } }
+        clean_data = {}
+        for titulo, info in urls.items():
+            clean_data[titulo] = {
+                "url": str(info.id),
+                "fecha_pub": info.fecha_de_publicacion,
+                "fecha_ref": info.fecha_de_ultima_reforma,
+            }
+        return BulkUrlIngestAppInputDTO(urls=clean_data)
 
     @staticmethod
     def to_discover_input(url: str) -> DiscoverLawsAppInputDTO:

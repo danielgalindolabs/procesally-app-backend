@@ -20,6 +20,8 @@ class DomainDatasourceMapper:
             nombre_archivo=entity.nombre_archivo,
             url_oficial=entity.url_oficial,
             url_interna=entity.url_interna,
+            fecha_publicacion=entity.fecha_publicacion,
+            fecha_ultima_reforma=entity.fecha_ultima_reforma,
         )
 
     @staticmethod
@@ -33,6 +35,8 @@ class DomainDatasourceMapper:
             url_oficial=ds_output.url_oficial,
             url_interna=ds_output.url_interna,
             fecha_carga=ds_output.fecha_carga,
+            fecha_publicacion=ds_output.fecha_publicacion,
+            fecha_ultima_reforma=ds_output.fecha_ultima_reforma,
         )
 
     @staticmethod

@@ -49,11 +49,17 @@ class SearchResult(ArticleResponse):
     )
 
 
+class DocumentMetadataInfo(BaseModel):
+    id: str
+    fecha_de_publicacion: str
+    fecha_de_ultima_reforma: str
+
+
 class BulkUrlIngestRequest(BaseModel):
-    # Diccionario de { "Nombre de la Ley": "URL" }
-    urls: dict[str, HttpUrl] = Field(
+    # Diccionario de { "Nombre de la Ley": DocumentMetadataInfo }
+    urls: dict[str, DocumentMetadataInfo] = Field(
         ...,
-        description="Diccionario de títulos y URLs oficiales de descarga (solo dominios permitidos)",
+        description="Diccionario de títulos y metadatos (URL, fechas) del documento",
     )
 
 
@@ -69,17 +75,7 @@ class DiscoverResponse(BaseModel):
     urls: dict[str, str]
 
 
-class DocumentMetadataInfo(BaseModel):
-    id: str
-    fecha_de_publicacion: str
-    fecha_de_ultima_reforma: str
 
-
-class ParseIndexRequest(BaseModel):
-    html_content: str = Field(
-        ...,
-        description="Contenido HTML de la tabla de Orden Jurídico Nacional.",
-    )
 
 
 class ParseIndexResponse(BaseModel):

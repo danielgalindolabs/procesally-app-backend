@@ -8,6 +8,8 @@ class DocumentAppInputDTO:
     nombre_archivo: str
     url_oficial: str
     url_interna: Optional[str] = None
+    fecha_publicacion: Optional[str] = None
+    fecha_ultima_reforma: Optional[str] = None
 
 
 @dataclass
@@ -43,8 +45,8 @@ class DeleteFileAppInputDTO:
 class BulkUrlIngestAppInputDTO:
     """DTO para la entrada de carga masiva por URL."""
 
-    # Un diccionario de { "Título": "URL_Original" }
-    urls: dict[str, str]
+    # Un diccionario de { "Título": { "url": "...", "fecha_pub": "...", "fecha_ref": "..." } }
+    urls: dict[str, dict[str, str]]
 
 
 @dataclass

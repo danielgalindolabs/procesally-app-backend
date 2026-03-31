@@ -16,6 +16,12 @@ class LegalDocument(SQLModel, table=True):
     url_interna: Optional[str] = Field(
         default=None, description="URL interna en nuestro storage (S3/local)"
     )
+    fecha_publicacion: Optional[str] = Field(
+        default=None, description="Fecha de publicación original"
+    )
+    fecha_ultima_reforma: Optional[str] = Field(
+        default=None, description="Fecha de la última reforma reportada"
+    )
     fecha_carga: datetime.datetime = Field(
         default_factory=datetime.datetime.utcnow,
         description="Fecha y hora de registro en el sistema",

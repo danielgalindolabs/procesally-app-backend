@@ -29,6 +29,8 @@ class LegalDatasourceImpl(LegalDatasource):
                 nombre_archivo=ds_input.nombre_archivo,
                 url_oficial=ds_input.url_oficial,
                 url_interna=ds_input.url_interna,
+                fecha_publicacion=ds_input.fecha_publicacion,
+                fecha_ultima_reforma=ds_input.fecha_ultima_reforma,
             )
             self.db.add(doc_model)
             await self.db.commit()
@@ -41,6 +43,8 @@ class LegalDatasourceImpl(LegalDatasource):
                 url_oficial=doc_model.url_oficial,
                 fecha_carga=doc_model.fecha_carga,
                 url_interna=doc_model.url_interna,
+                fecha_publicacion=doc_model.fecha_publicacion,
+                fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
             )
         except Exception as e:
             await self.db.rollback()

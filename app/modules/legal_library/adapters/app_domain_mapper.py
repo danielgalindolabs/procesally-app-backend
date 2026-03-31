@@ -34,6 +34,8 @@ class AppDomainMapper:
             nombre_archivo=app_dto.nombre_archivo,
             url_oficial=app_dto.url_oficial,
             url_interna=app_dto.url_interna,
+            fecha_publicacion=app_dto.fecha_publicacion,
+            fecha_ultima_reforma=app_dto.fecha_ultima_reforma,
         )
 
     @staticmethod
