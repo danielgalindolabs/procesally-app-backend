@@ -85,9 +85,6 @@ class LegalDatasourceImpl(LegalDatasource):
                 embedding=article_model.embedding,
             )
 
-        except IntegrityError:
-            await self.db.rollback()
-            return None
         except Exception as e:
             await self.db.rollback()
             raise InfrastructureException(

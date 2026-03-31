@@ -56,7 +56,6 @@ class BulkIngestUseCase:
             raise InvalidDOFDocumentError()
 
         inserted = 0
-        skipped = 0
         errors = []
 
         for art in parsed_articles:
@@ -79,12 +78,8 @@ class BulkIngestUseCase:
                 article_entity = AppDomainMapper.app_input_to_domain(app_dto, vector)
 
                 # 4. Lanzar a repositorio de Dominio
-                result = await self.repository.create_article(article_entity)
-
-                if result is None:
-                    skipped += 1
-                else:
-                    inserted += 1
+                await self.repository.create_article(article_entity)
+                inserted += 1
 
             except Exception as e:
                 errors.append(f"{art.numero_articulo}: {str(e)}")
@@ -98,6 +93,5 @@ class BulkIngestUseCase:
             "ley": ley_nombre,
             "total_extraidos": len(parsed_articles),
             "insertados": inserted,
-            "duplicados_omitidos": skipped,
             "errores": errors,
         }

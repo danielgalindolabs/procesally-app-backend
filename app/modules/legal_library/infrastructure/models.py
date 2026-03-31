@@ -2,7 +2,7 @@ import datetime
 from typing import Optional
 
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import Column, UniqueConstraint
+from sqlalchemy import Column
 from sqlmodel import Field, SQLModel
 
 
@@ -30,10 +30,6 @@ class LegalDocument(SQLModel, table=True):
 
 class LegalArticle(SQLModel, table=True):
     __tablename__ = "legal_articles"
-    # Evitar duplicados exactos: No pueden haber dos "Art. 1" en el mismo "Código Penal"
-    __table_args__ = (
-        UniqueConstraint("ley_o_codigo", "numero_articulo", name="uq_ley_articulo"),
-    )
 
     id: Optional[int] = Field(default=None, primary_key=True)
 

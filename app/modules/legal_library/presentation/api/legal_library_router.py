@@ -33,7 +33,6 @@ from app.modules.legal_library.presentation.schemas.article_schemas import (
     ArticleCreateRequest,
     ArticleResponse,
     BulkUrlIngestRequest,
-    ParseIndexResponse,
     SearchRequest,
     SearchResult,
 )
@@ -44,22 +43,22 @@ from app.modules.legal_library.application.use_cases.parse_html_index import (
 router = APIRouter()
 
 
-@router.post("/", response_model=ArticleResponse, status_code=status.HTTP_201_CREATED)
-async def upload_article(
-    request: ArticleCreateRequest,
-    create_uc: CreateArticleUseCase = Depends(get_create_article_use_case),
-):
-    """
-    Ingesta un nuevo artículo legal en la biblioteca manual.
-    """
-    # 1. Mapea el Request HTTP a un DTO de Aplicación
-    app_input = PresentationAppMapper.to_app_input(request)
+# @router.post("/", response_model=ArticleResponse, status_code=status.HTTP_201_CREATED)
+# async def upload_article(
+#     request: ArticleCreateRequest,
+#     create_uc: CreateArticleUseCase = Depends(get_create_article_use_case),
+# ):
+#     """
+#     Ingesta un nuevo artículo legal en la biblioteca manual.
+#     """
+#     # 1. Mapea el Request HTTP a un DTO de Aplicación
+#     app_input = PresentationAppMapper.to_app_input(request)
 
-    # 2. Ejecuta caso de uso
-    app_output = await create_uc.execute(app_input)
+#     # 2. Ejecuta caso de uso
+#     app_output = await create_uc.execute(app_input)
 
-    # FastAPI casteará automáticamente el AppOutputDTO a ArticleResponse gracias a response_model
-    return app_output
+#     # FastAPI casteará automáticamente el AppOutputDTO a ArticleResponse gracias a response_model
+#     return app_output
 
 
 @router.post("/upload", status_code=status.HTTP_200_OK)
@@ -78,7 +77,7 @@ async def upload_dof_file(
     content = await file.read()
     # Usamos charset-normalizer para decodificar archivos subidos (ej. DOF o local)
     decoded = from_bytes(content).best()
-    html_str = decoded.string if decoded else content.decode("utf-8", errors="replace")
+    html_str = str(decoded) if decoded else content.decode("utf-8", errors="replace")
 
     # Mapeo de metadata para el documento de origen
     doc_metadata = PresentationAppMapper.to_document_app_input(
@@ -160,7 +159,7 @@ async def parse_html_index(
     content = await file.read()
     # Decodificación robusta usando charset-normalizer
     decoded = from_bytes(content).best()
-    html_str = decoded.string if decoded else content.decode("utf-8", errors="replace")
+    html_str = str(decoded) if decoded else content.decode("utf-8", errors="replace")
 
     # Usamos execute pasándole el contenido HTML directamente
     result = parse_uc.execute(html_content=html_str)
