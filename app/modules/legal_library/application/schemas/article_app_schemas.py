@@ -21,6 +21,8 @@ class ArticleAppInputDTO:
     archivo_json_url: str
     document_id: Optional[int] = None
     libro_o_titulo: Optional[str] = None
+    fecha_publicacion: Optional[str] = None
+    fecha_ultima_reforma: Optional[str] = None
 
 
 @dataclass
@@ -39,7 +41,6 @@ class ArticleAppOutputDTO:
 @dataclass
 class DeleteFileAppInputDTO:
     archivo_json_url: str
-
 
 
 @dataclass

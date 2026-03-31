@@ -14,6 +14,8 @@ class ArticleCreateRequest(BaseModel):
     archivo_json_url: HttpUrl = Field(
         ..., description="URL al archivo original en tu bucket/almacenamiento"
     )
+    fecha_publicacion: Optional[str] = Field(None, description="Ej. '18-01-1952'")
+    fecha_ultima_reforma: Optional[str] = Field(None, description="Ej. '03-01-1979'")
 
 
 class ArticleResponse(BaseModel):
@@ -61,9 +63,6 @@ class BulkUrlIngestRequest(BaseModel):
         ...,
         description="Diccionario de títulos y metadatos (URL, fechas) del documento",
     )
-
-
-
 
 
 class ParseIndexResponse(BaseModel):

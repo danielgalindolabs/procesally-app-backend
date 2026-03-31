@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from charset_normalizer import from_bytes
 from fastapi import APIRouter, Depends, File, UploadFile, status
@@ -12,11 +12,11 @@ from app.modules.legal_library.application.use_cases.bulk_ingest import (
 from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
     BulkUrlIngestUseCase,
 )
-from app.modules.legal_library.application.use_cases.create_article import (
-    CreateArticleUseCase,
-)
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
+)
+from app.modules.legal_library.application.use_cases.parse_html_index import (
+    ParseHtmlIndexUseCase,
 )
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
@@ -24,20 +24,14 @@ from app.modules.legal_library.application.use_cases.search_articles import (
 from app.modules.legal_library.presentation.dependencies.legal_deps import (
     get_bulk_ingest_use_case,
     get_bulk_url_ingest_use_case,
-    get_create_article_use_case,
     get_delete_file_use_case,
     get_parse_html_index_use_case,
     get_search_articles_use_case,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
-    ArticleCreateRequest,
-    ArticleResponse,
     BulkUrlIngestRequest,
     SearchRequest,
     SearchResult,
-)
-from app.modules.legal_library.application.use_cases.parse_html_index import (
-    ParseHtmlIndexUseCase,
 )
 
 router = APIRouter()
@@ -66,6 +60,8 @@ async def upload_dof_file(
     file: UploadFile = File(...),
     titulo: str = "Documento Legal",
     url_oficial: str = "https://www.dof.gob.mx/",
+    fecha_publicacion: Optional[str] = None,
+    fecha_ultima_reforma: Optional[str] = None,
     bulk_uc: BulkIngestUseCase = Depends(get_bulk_ingest_use_case),
 ):
     """
@@ -84,6 +80,8 @@ async def upload_dof_file(
         titulo=titulo,
         nombre_archivo=file.filename or "archivo_desconocido",
         url_oficial=url_oficial,
+        fecha_publicacion=fecha_publicacion,
+        fecha_ultima_reforma=fecha_ultima_reforma,
     )
 
     # El archivo_url para el campo antiguo se mantiene como fallback
@@ -143,17 +141,13 @@ async def delete_legal_file(
     return await delete_uc.execute(app_input)
 
 
-@router.post(
-    "/parse-index-html",
-    response_model=dict,
-    status_code=status.HTTP_200_OK
-)
+@router.post("/parse-index-html", response_model=dict, status_code=status.HTTP_200_OK)
 async def parse_html_index(
     file: UploadFile = File(...),
     parse_uc: ParseHtmlIndexUseCase = Depends(get_parse_html_index_use_case),
 ):
     """
-    Recibe un archivo HTML (ej. la tabla de leyes federales en ordenjuridico) y lo convierte 
+    Recibe un archivo HTML (ej. la tabla de leyes federales en ordenjuridico) y lo convierte
     en un Diccionario JSON estructurado con títulos, URLs e información de fechas.
     """
     content = await file.read()
@@ -163,6 +157,5 @@ async def parse_html_index(
 
     # Usamos execute pasándole el contenido HTML directamente
     result = parse_uc.execute(html_content=html_str)
-    
-    return result
 
+    return result

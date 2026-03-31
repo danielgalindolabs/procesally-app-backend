@@ -22,10 +22,21 @@ class CreateArticleUseCase:
         self.embedding_service = embedding_service
 
     async def execute(self, request_dto: ArticleAppInputDTO) -> ArticleAppOutputDTO:
-        # 1. Usar contrato de dominio para calcular embedding de forma asíncrona
-        vector = await self.embedding_service.generate_embedding(
-            request_dto.cuerpo_texto
+        # 1. Enriquecer el texto con metadata para el embedding
+        fecha_pub = request_dto.fecha_publicacion or "N/A"
+        fecha_ref = request_dto.fecha_ultima_reforma or "N/A"
+
+        rich_text = (
+            f"Materia: {request_dto.materia_juridica}. "
+            f"Ley: {request_dto.ley_o_codigo}. "
+            f"Art: {request_dto.numero_articulo}. "
+            f"Publicación: {fecha_pub}. "
+            f"Reforma: {fecha_ref}. "
+            f"Contenido: {request_dto.cuerpo_texto}"
         )
+
+        # Generar embedding a través de Servicio de Dominio
+        vector = await self.embedding_service.generate_embedding(rich_text)
 
         # 2. Convertir el App DTO a Entidad de Dominio
         article_entity = AppDomainMapper.app_input_to_domain(request_dto, vector)

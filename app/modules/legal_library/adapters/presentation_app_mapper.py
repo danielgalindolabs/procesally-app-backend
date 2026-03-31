@@ -22,6 +22,8 @@ class PresentationAppMapper:
             cuerpo_texto=request.cuerpo_texto,
             archivo_json_url=str(request.archivo_json_url),
             libro_o_titulo=request.libro_o_titulo,
+            fecha_publicacion=request.fecha_publicacion,
+            fecha_ultima_reforma=request.fecha_ultima_reforma,
         )
 
     @staticmethod
@@ -30,12 +32,16 @@ class PresentationAppMapper:
         nombre_archivo: str,
         url_oficial: str,
         url_interna: Optional[str] = None,
+        fecha_publicacion: Optional[str] = None,
+        fecha_ultima_reforma: Optional[str] = None,
     ) -> DocumentAppInputDTO:
         return DocumentAppInputDTO(
             titulo=titulo,
             nombre_archivo=nombre_archivo,
             url_oficial=url_oficial,
             url_interna=url_interna,
+            fecha_publicacion=fecha_publicacion,
+            fecha_ultima_reforma=fecha_ultima_reforma,
         )
 
     @staticmethod
@@ -54,7 +60,6 @@ class PresentationAppMapper:
                 "fecha_ref": info.fecha_de_ultima_reforma,
             }
         return BulkUrlIngestAppInputDTO(urls=clean_data)
-
 
     # Nota: El regreso desde AppOutputDTO a ArticleResponse (Presentation)
     # se suele resolver fácilmente si los campos coinciden porque Pydantic model_validate

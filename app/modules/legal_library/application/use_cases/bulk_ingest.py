@@ -60,10 +60,27 @@ class BulkIngestUseCase:
 
         for art in parsed_articles:
             try:
-                # 2. Generar embedding a través de Servicio de Dominio
-                vector = await self.embedding_service.generate_embedding(
-                    art.cuerpo_texto
+                # 2. Enriquecer el texto con metadata para el embedding
+                fecha_pub = (
+                    document_metadata.fecha_publicacion if document_metadata else "N/A"
                 )
+                fecha_ref = (
+                    document_metadata.fecha_ultima_reforma
+                    if document_metadata
+                    else "N/A"
+                )
+
+                rich_text = (
+                    f"Materia: {art.materia_juridica}. "
+                    f"Ley: {art.ley_o_codigo}. "
+                    f"Art: {art.numero_articulo}. "
+                    f"Publicación: {fecha_pub}. "
+                    f"Reforma: {fecha_ref}. "
+                    f"Contenido: {art.cuerpo_texto}"
+                )
+
+                # Generar embedding a través de Servicio de Dominio
+                vector = await self.embedding_service.generate_embedding(rich_text)
 
                 # 3. Construir DTO y Entidad
                 app_dto = ArticleAppInputDTO(

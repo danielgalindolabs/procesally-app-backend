@@ -37,14 +37,16 @@ class HTTPClient(DocumentDownloader):
             try:
                 response = await client.get(url)
                 response.raise_for_status()
-                
+
                 # Usamos charset-normalizer para una decodificación robusta (especialmente para sitios con Windows-1252/ISO-8859-1)
                 # que no especifican correctamente el charset en los headers.
                 decoded = from_bytes(response.content).best()
                 if decoded and decoded.encoding:
-                    logger.info(f"Decodificando {url} usando {decoded.encoding} (coherencia: {decoded.coherence})")
+                    logger.info(
+                        f"Decodificando {url} usando {decoded.encoding} (coherencia: {decoded.coherence})"
+                    )
                     return str(decoded)
-                
+
                 return response.text
             except httpx.HTTPStatusError as e:
                 logger.error(f"Error HTTP al descargar {url}: {e.response.status_code}")

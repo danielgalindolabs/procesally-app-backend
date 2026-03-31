@@ -1,7 +1,6 @@
 from typing import Optional
 
 from sqlalchemy import text
-from sqlalchemy.exc import IntegrityError
 from sqlmodel import delete, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
