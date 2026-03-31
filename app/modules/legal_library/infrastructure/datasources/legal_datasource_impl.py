@@ -101,6 +101,25 @@ class LegalDatasourceImpl(LegalDatasource):
         if article_model is None:
             return None
 
+        return self._map_article_to_dto(article_model)
+
+    async def get_articles_by_numbers(
+        self, numbers: list[str], ley: str
+    ) -> list[DatasourceArticleOutputDTO]:
+        """Recupera artículos específicos por su número y ley."""
+        statement = select(LegalArticle).where(
+            LegalArticle.ley_o_codigo == ley,
+            LegalArticle.numero_articulo.in_(numbers),
+        )
+        result = await self.db.exec(statement)
+        # SQLModel all() returns a list of instances
+        article_models = result.all()
+
+        return [self._map_article_to_dto(model) for model in article_models]
+
+    def _map_article_to_dto(
+        self, article_model: LegalArticle
+    ) -> DatasourceArticleOutputDTO:
         return DatasourceArticleOutputDTO(
             id=article_model.id,  # type: ignore
             materia_juridica=article_model.materia_juridica,
@@ -128,7 +147,7 @@ class LegalDatasourceImpl(LegalDatasource):
             SELECT
                 id, materia_juridica, ley_o_codigo, libro_o_titulo,
                 numero_articulo, cuerpo_texto, archivo_json_url,
-                1 - (embedding <=> :vector) AS similitud
+                1 / (1 + (embedding <=> :vector)) AS similitud
             FROM legal_articles
             WHERE embedding IS NOT NULL
             """]

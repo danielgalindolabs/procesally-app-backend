@@ -26,14 +26,17 @@ class CreateArticleUseCase:
         fecha_pub = request_dto.fecha_publicacion or "N/A"
         fecha_ref = request_dto.fecha_ultima_reforma or "N/A"
 
-        rich_text = (
-            f"Materia: {request_dto.materia_juridica}. "
-            f"Ley: {request_dto.ley_o_codigo}. "
-            f"Art: {request_dto.numero_articulo}. "
-            f"Publicación: {fecha_pub}. "
-            f"Reforma: {fecha_ref}. "
-            f"Contenido: {request_dto.cuerpo_texto}"
-        )
+        rich_text = f"""
+Ley: {request_dto.ley_o_codigo}
+Materia: {request_dto.materia_juridica}
+Título: {request_dto.libro_o_titulo or "N/A"}
+Artículo: {request_dto.numero_articulo}
+Publicación: {fecha_pub}
+Reforma: {fecha_ref}
+
+Contenido:
+{request_dto.cuerpo_texto}
+""".strip()
 
         # Generar embedding a través de Servicio de Dominio
         vector = await self.embedding_service.generate_embedding(rich_text)

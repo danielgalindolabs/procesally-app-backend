@@ -56,6 +56,15 @@ class LegalRepositoryImpl(LegalRepository):
             return None
         return DomainDatasourceMapper.datasource_output_to_domain(ds_output)
 
+    async def get_articles_by_numbers(
+        self, numbers: list[str], ley: str
+    ) -> list[ArticleEntity]:
+        ds_outputs = await self.datasource.get_articles_by_numbers(numbers, ley)
+        return [
+            DomainDatasourceMapper.datasource_output_to_domain(ds_output)
+            for ds_output in ds_outputs
+        ]
+
     async def search_similar_vectors(
         self,
         vector: list[float],

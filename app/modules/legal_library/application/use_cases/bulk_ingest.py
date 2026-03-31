@@ -97,14 +97,17 @@ class BulkIngestUseCase:
                     else "N/A"
                 )
 
-                rich_text = (
-                    f"Materia: {art.materia_juridica}. "
-                    f"Ley: {art.ley_o_codigo}. "
-                    f"Art: {art.numero_articulo}. "
-                    f"Publicación: {fecha_pub}. "
-                    f"Reforma: {fecha_ref}. "
-                    f"Contenido: {art.cuerpo_texto}"
-                )
+                rich_text = f"""
+Ley: {art.ley_o_codigo}
+Materia: {art.materia_juridica}
+Título: {art.libro_o_titulo or "N/A"}
+Artículo: {art.numero_articulo}
+Publicación: {fecha_pub}
+Reforma: {fecha_ref}
+
+Contenido:
+{art.cuerpo_texto}
+""".strip()
 
                 # Generar embedding a través de Servicio de Dominio
                 vector = await self.embedding_service.generate_embedding(rich_text)

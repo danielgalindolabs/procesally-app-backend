@@ -83,6 +83,13 @@ class LegalDatasource(ABC):
         pass
 
     @abstractmethod
+    async def get_articles_by_numbers(
+        self, numbers: list[str], ley: str
+    ) -> list[DatasourceArticleOutputDTO]:
+        """Obtiene varios artículos por sus números y ley."""
+        pass
+
+    @abstractmethod
     async def search_by_vector(
         self,
         vector: list[float],
