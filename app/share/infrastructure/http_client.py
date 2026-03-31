@@ -5,13 +5,10 @@ import httpx
 from charset_normalizer import from_bytes
 
 from app.core.config import settings
-from app.modules.legal_library.domain.services.document_downloader import (
-    DocumentDownloader,
-)
-from app.share.exceptions.http_exceptions import (
-    DisallowedDomainError,
-    HTTPDownloadError,
-)
+from app.modules.legal_library.domain.services.document_downloader import \
+    DocumentDownloader
+from app.share.exceptions.http_exceptions import (DisallowedDomainError,
+                                                  HTTPDownloadError)
 
 logger = logging.getLogger("app.share.infrastructure.http_client")
 

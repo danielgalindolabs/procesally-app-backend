@@ -6,13 +6,10 @@ from sqlmodel import delete, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.modules.legal_library.domain.datasources.legal_datasource import (
-    DatasourceArticleInputDTO,
-    DatasourceArticleOutputDTO,
-    DatasourceDocumentInputDTO,
-    DatasourceDocumentOutputDTO,
-    LegalDatasource,
-)
-from app.modules.legal_library.infrastructure.models import LegalArticle, LegalDocument
+    DatasourceArticleInputDTO, DatasourceArticleOutputDTO,
+    DatasourceDocumentInputDTO, DatasourceDocumentOutputDTO, LegalDatasource)
+from app.modules.legal_library.infrastructure.models import (LegalArticle,
+                                                             LegalDocument)
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 
@@ -108,7 +105,7 @@ class LegalDatasourceImpl(LegalDatasource):
         self, numbers: list[str], ley: str
     ) -> list[DatasourceArticleOutputDTO]:
         """Recupera artículos específicos por su número y ley con alta tolerancia de formato."""
-        from sqlalchemy import func, or_, literal
+        from sqlalchemy import func, literal, or_
 
         # Estrategia de Expansión: Buscamos "Art. 1" y "1" para cada número
         all_variants = []

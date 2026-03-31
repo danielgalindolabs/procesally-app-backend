@@ -1,11 +1,9 @@
 import logging
 
-from app.modules.legal_library.application.schemas.article_app_schemas import (
-    DeleteFileAppInputDTO,
-)
-from app.modules.legal_library.domain.repositories.legal_repository import (
-    LegalRepository,
-)
+from app.modules.legal_library.application.schemas.article_app_schemas import \
+    DeleteFileAppInputDTO
+from app.modules.legal_library.domain.repositories.legal_repository import \
+    LegalRepository
 
 logger = logging.getLogger("app.legal_library.use_cases.delete_file")
 

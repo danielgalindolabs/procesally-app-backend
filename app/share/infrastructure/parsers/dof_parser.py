@@ -4,9 +4,7 @@ import re
 from bs4 import BeautifulSoup
 
 from app.modules.legal_library.domain.services.document_parser import (
-    DocumentParser,
-    ParsedArticle,
-)
+    DocumentParser, ParsedArticle)
 
 logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
 
