@@ -17,9 +17,6 @@ from app.modules.legal_library.application.use_cases.create_article import (
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
 )
-from app.modules.legal_library.application.use_cases.discover_laws import (
-    DiscoverLawsUseCase,
-)
 from app.modules.legal_library.application.use_cases.search_articles import (
     SearchArticlesUseCase,
 )
@@ -28,7 +25,6 @@ from app.modules.legal_library.presentation.dependencies.legal_deps import (
     get_bulk_url_ingest_use_case,
     get_create_article_use_case,
     get_delete_file_use_case,
-    get_discover_laws_use_case,
     get_parse_html_index_use_case,
     get_search_articles_use_case,
 )
@@ -36,8 +32,6 @@ from app.modules.legal_library.presentation.schemas.article_schemas import (
     ArticleCreateRequest,
     ArticleResponse,
     BulkUrlIngestRequest,
-    DiscoverRequest,
-    DiscoverResponse,
     ParseIndexResponse,
     SearchRequest,
     SearchResult,
@@ -149,23 +143,6 @@ async def delete_legal_file(
 
     # Ejecución
     return await delete_uc.execute(app_input)
-
-
-@router.post(
-    "/discover", response_model=DiscoverResponse, status_code=status.HTTP_200_OK
-)
-async def discover_laws(
-    request: DiscoverRequest,
-    discover_uc: DiscoverLawsUseCase = Depends(get_discover_laws_use_case),
-):
-    """
-    Scrapea una página índice para extraer todos los enlaces a documentos legales
-    que sigan el patrón esperado. Retorna un diccionario con los títulos y URLs,
-    listo para usarse en el endpoint /bulk-url.
-    """
-    app_input = PresentationAppMapper.to_discover_input(str(request.index_url))
-    app_output = await discover_uc.execute(app_input)
-    return app_output
 
 
 @router.post(

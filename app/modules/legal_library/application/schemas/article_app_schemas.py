@@ -41,24 +41,10 @@ class DeleteFileAppInputDTO:
     archivo_json_url: str
 
 
+
 @dataclass
 class BulkUrlIngestAppInputDTO:
     """DTO para la entrada de carga masiva por URL."""
 
     # Un diccionario de { "Título": { "url": "...", "fecha_pub": "...", "fecha_ref": "..." } }
     urls: dict[str, dict[str, str]]
-
-
-@dataclass
-class DiscoverLawsAppInputDTO:
-    """DTO para solicitar el descubrimiento de leyes desde una URL índice."""
-
-    index_url: str
-
-
-@dataclass
-class DiscoverLawsAppOutputDTO:
-    """DTO de salida tras el descubrimiento de leyes."""
-
-    total_found: int
-    urls: dict[str, str]

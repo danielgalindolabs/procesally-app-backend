@@ -4,7 +4,6 @@ from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
     BulkUrlIngestAppInputDTO,
     DeleteFileAppInputDTO,
-    DiscoverLawsAppInputDTO,
     DocumentAppInputDTO,
 )
 from app.modules.legal_library.presentation.schemas.article_schemas import (
@@ -56,9 +55,6 @@ class PresentationAppMapper:
             }
         return BulkUrlIngestAppInputDTO(urls=clean_data)
 
-    @staticmethod
-    def to_discover_input(url: str) -> DiscoverLawsAppInputDTO:
-        return DiscoverLawsAppInputDTO(index_url=url)
 
     # Nota: El regreso desde AppOutputDTO a ArticleResponse (Presentation)
     # se suele resolver fácilmente si los campos coinciden porque Pydantic model_validate

@@ -63,21 +63,8 @@ class BulkUrlIngestRequest(BaseModel):
     )
 
 
-class DiscoverRequest(BaseModel):
-    index_url: HttpUrl = Field(
-        ...,
-        description="URL de la página índice para scrapear enlaces de leyes (solo dominios permitidos).",
-    )
-
-
-class DiscoverResponse(BaseModel):
-    total_found: int
-    urls: dict[str, str]
-
-
 
 
 
 class ParseIndexResponse(BaseModel):
     documentos: dict[str, DocumentMetadataInfo]
-

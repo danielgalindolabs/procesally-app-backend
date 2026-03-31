@@ -13,9 +13,6 @@ from app.modules.legal_library.application.use_cases.create_article import (
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
 )
-from app.modules.legal_library.application.use_cases.discover_laws import (
-    DiscoverLawsUseCase,
-)
 from app.modules.legal_library.application.use_cases.parse_html_index import (
     ParseHtmlIndexUseCase,
 )
@@ -33,7 +30,6 @@ from app.modules.legal_library.domain.services.document_downloader import (
 )
 from app.modules.legal_library.domain.services.document_parser import DocumentParser
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
-from app.modules.legal_library.domain.services.legal_indexer import LegalIndexer
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )
@@ -48,9 +44,6 @@ from app.modules.legal_library.infrastructure.services.embedding_service_impl im
 )
 from app.modules.legal_library.infrastructure.services.legal_router_service_impl import (
     LegalRouterServiceImpl,
-)
-from app.modules.legal_library.infrastructure.services.orden_juridico_indexer import (
-    OrdenJuridicoIndexer,
 )
 from app.share.infrastructure.db.session import get_session
 from app.share.infrastructure.http_client import HTTPClient
@@ -79,10 +72,6 @@ def get_document_parser() -> DocumentParser:
 
 def get_router_service() -> LegalRouterService:
     return LegalRouterServiceImpl()
-
-
-def get_legal_indexer() -> LegalIndexer:
-    return OrdenJuridicoIndexer()
 
 
 def get_http_client() -> DocumentDownloader:
@@ -125,13 +114,5 @@ def get_bulk_url_ingest_use_case(
     return BulkUrlIngestUseCase(bulk_ingest_uc, document_downloader)
 
 
-def get_discover_laws_use_case(
-    indexer: LegalIndexer = Depends(get_legal_indexer),
-    downloader: DocumentDownloader = Depends(get_http_client),
-) -> DiscoverLawsUseCase:
-    return DiscoverLawsUseCase(indexer, downloader)
-
-
 def get_parse_html_index_use_case() -> ParseHtmlIndexUseCase:
     return ParseHtmlIndexUseCase()
-
