@@ -37,6 +37,29 @@ class BulkUrlIngestUseCase:
                 fecha_pub = info.get("fecha_pub")
                 fecha_ref = info.get("fecha_ref")
 
+                # VALIDACIÓN: ¿Ya existe? ¿Ha cambiado? Evitamos descarga si está al día.
+                existing_doc = await self.bulk_ingest_uc.repository.get_document_by_url(
+                    url
+                )
+
+                if existing_doc:
+                    if existing_doc.fecha_ultima_reforma == fecha_ref:
+                        logger.info(
+                            f"Omitiendo descarga de {titulo}: Ya está al día (reforma: {fecha_ref})"
+                        )
+                        results[titulo] = {
+                            "status": "skipped",
+                            "motivo": "Documento ya existe y no tiene cambios en su metadata.",
+                        }
+                        continue
+                    else:
+                        logger.warning(
+                            f"Detectado cambio en {titulo}. Borrando versión anterior para actualizar."
+                        )
+                        await self.bulk_ingest_uc.repository.delete_document(
+                            existing_doc.id  # type: ignore
+                        )
+
                 logger.info(f"Procesando descarga para: {titulo} desde {url}")
 
                 # 1. Descargar contenido a través de la abstracción

@@ -40,3 +40,23 @@ class LegalRepository(ABC):
     async def delete_articles_by_file(self, file_url: str) -> int:
         """Elimina todos los artículos asociados a un archivo y retorna el conteo de eliminados."""
         pass
+
+    @abstractmethod
+    async def get_document_by_url(self, url: str) -> Optional[LegalDocumentEntity]:
+        """Obtiene un documento por su URL oficial."""
+        pass
+
+    @abstractmethod
+    async def get_document_by_title(self, title: str) -> Optional[LegalDocumentEntity]:
+        """Obtiene un documento por su título."""
+        pass
+
+    @abstractmethod
+    async def get_document_by_filename(self, filename: str) -> Optional[LegalDocumentEntity]:
+        """Obtiene un documento por su nombre de archivo."""
+        pass
+
+    @abstractmethod
+    async def delete_document(self, doc_id: int) -> bool:
+        """Elimina un documento y todos sus artículos asociados."""
+        pass

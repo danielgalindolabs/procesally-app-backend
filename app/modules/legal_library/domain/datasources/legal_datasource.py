@@ -97,3 +97,29 @@ class LegalDatasource(ABC):
     async def delete_by_file(self, file_url: str) -> int:
         """Elimina artículos por el URL del archivo y retorna el conteo."""
         pass
+
+    @abstractmethod
+    async def get_document_by_url(
+        self, url: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        """Obtiene un documento por su URL oficial."""
+        pass
+
+    @abstractmethod
+    async def get_document_by_title(
+        self, title: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        """Obtiene un documento por su título."""
+        pass
+
+    @abstractmethod
+    async def get_document_by_filename(
+        self, filename: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        """Obtiene un documento por su nombre de archivo."""
+        pass
+
+    @abstractmethod
+    async def delete_document(self, doc_id: int) -> bool:
+        """Elimina un documento y debería limpiar sus artículos asociados."""
+        pass

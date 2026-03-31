@@ -17,19 +17,38 @@ class DeleteFileUseCase:
         self.repository = repository
 
     async def execute(self, input_dto: DeleteFileAppInputDTO) -> dict:
-        """Ejecuta la eliminación y retorna el resultado."""
+        """Ejecuta la eliminación completa del documento y sus artículos."""
+        filename = input_dto.archivo_json_url
+        logger.info(f"Iniciando eliminación total para el archivo: {filename}")
+
+        # 1. Buscar el documento por nombre de archivo
+        existing_doc = await self.repository.get_document_by_filename(filename)
+
+        if not existing_doc:
+            # Fallback: intentar borrar solo artículos si el documento no existe (legacy)
+            logger.warning(
+                f"No se encontró record de documento para {filename}. "
+                "Intentando borrar artículos huérfanos."
+            )
+            count = await self.repository.delete_articles_by_file(filename)
+            return {
+                "archivo": filename,
+                "documento_eliminado": False,
+                "articulos_eliminados": count,
+                "status": "partial_success_orphans" if count > 0 else "not_found",
+            }
+
+        # 2. Borrado total (Documento + Artículos asociados por document_id)
+        doc_id = existing_doc.id
+        await self.repository.delete_document(doc_id)  # type: ignore
+
         logger.info(
-            f"Iniciando eliminación de artículos para el archivo: {input_dto.archivo_json_url}"
+            f"Eliminación completa de {filename} (ID: {doc_id}) realizada con éxito."
         )
-
-        count = await self.repository.delete_articles_by_file(
-            input_dto.archivo_json_url
-        )
-
-        logger.info(f"Eliminación completada. {count} artículos eliminados.")
 
         return {
-            "archivo": input_dto.archivo_json_url,
-            "articulos_eliminados": count,
-            "status": "success" if count > 0 else "no_articles_found",
+            "archivo": filename,
+            "documento_id": doc_id,
+            "documento_eliminado": True,
+            "status": "success",
         }

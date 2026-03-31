@@ -39,6 +39,33 @@ class BulkIngestUseCase:
         # 0. Registrar el documento legal de origen si viene la metadata
         document_id = None
         if document_metadata:
+            # VALIDACIÓN: Evitar duplicados por título en subidas manuales o automáticas
+            # Si el documento ya existe con la misma fecha de reforma, no procesamos.
+            existing_doc = await self.repository.get_document_by_title(
+                document_metadata.titulo
+            )
+
+            if existing_doc:
+                if (
+                    existing_doc.fecha_ultima_reforma
+                    == document_metadata.fecha_ultima_reforma
+                ):
+                    logger.info(
+                        f"Omitiendo {document_metadata.titulo}: Ya existe con la misma fecha de reforma."
+                    )
+                    return {
+                        "ley": document_metadata.titulo,
+                        "status": "skipped",
+                        "total_extraidos": 0,
+                        "insertados": 0,
+                        "motivo": "Versión idéntica ya presente en la biblioteca.",
+                    }
+                else:
+                    logger.warning(
+                        f"Actualizando {document_metadata.titulo}: Borrando artículos previos."
+                    )
+                    await self.repository.delete_document(existing_doc.id)  # type: ignore
+
             doc_entity = AppDomainMapper.document_app_to_domain(document_metadata)
             saved_doc = await self.repository.create_document(doc_entity)
             document_id = saved_doc.id

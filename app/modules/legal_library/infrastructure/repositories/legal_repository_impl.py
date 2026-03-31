@@ -78,3 +78,24 @@ class LegalRepositoryImpl(LegalRepository):
     async def delete_articles_by_file(self, file_url: str) -> int:
         """Contrato de repositorio que delega al datasource."""
         return await self.datasource.delete_by_file(file_url)
+
+    async def get_document_by_url(self, url: str) -> Optional[LegalDocumentEntity]:
+        ds_output = await self.datasource.get_document_by_url(url)
+        if ds_output is None:
+            return None
+        return DomainDatasourceMapper.document_datasource_output_to_domain(ds_output)
+
+    async def get_document_by_title(self, title: str) -> Optional[LegalDocumentEntity]:
+        ds_output = await self.datasource.get_document_by_title(title)
+        if ds_output is None:
+            return None
+        return DomainDatasourceMapper.document_datasource_output_to_domain(ds_output)
+
+    async def get_document_by_filename(self, filename: str) -> Optional[LegalDocumentEntity]:
+        ds_output = await self.datasource.get_document_by_filename(filename)
+        if ds_output is None:
+            return None
+        return DomainDatasourceMapper.document_datasource_output_to_domain(ds_output)
+
+    async def delete_document(self, doc_id: int) -> bool:
+        return await self.datasource.delete_document(doc_id)

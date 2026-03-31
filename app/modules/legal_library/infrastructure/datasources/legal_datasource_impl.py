@@ -181,3 +181,87 @@ class LegalDatasourceImpl(LegalDatasource):
                 message=f"Error al eliminar artículos: {str(e)}",
                 code="DB_DELETE_ERROR",
             )
+
+    async def get_document_by_url(
+        self, url: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        statement = select(LegalDocument).where(LegalDocument.url_oficial == url)
+        result = await self.db.exec(statement)
+        doc_model = result.first()
+
+        if doc_model is None:
+            return None
+
+        return DatasourceDocumentOutputDTO(
+            id=doc_model.id,  # type: ignore
+            titulo=doc_model.titulo,
+            nombre_archivo=doc_model.nombre_archivo,
+            url_oficial=doc_model.url_oficial,
+            fecha_carga=doc_model.fecha_carga,
+            url_interna=doc_model.url_interna,
+            fecha_publicacion=doc_model.fecha_publicacion,
+            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
+        )
+
+    async def get_document_by_title(
+        self, title: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        statement = select(LegalDocument).where(LegalDocument.titulo == title)
+        result = await self.db.exec(statement)
+        doc_model = result.first()
+
+        if doc_model is None:
+            return None
+
+        return DatasourceDocumentOutputDTO(
+            id=doc_model.id,  # type: ignore
+            titulo=doc_model.titulo,
+            nombre_archivo=doc_model.nombre_archivo,
+            url_oficial=doc_model.url_oficial,
+            fecha_carga=doc_model.fecha_carga,
+            url_interna=doc_model.url_interna,
+            fecha_publicacion=doc_model.fecha_publicacion,
+            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
+        )
+
+    async def get_document_by_filename(
+        self, filename: str
+    ) -> Optional[DatasourceDocumentOutputDTO]:
+        statement = select(LegalDocument).where(LegalDocument.nombre_archivo == filename)
+        result = await self.db.exec(statement)
+        doc_model = result.first()
+
+        if doc_model is None:
+            return None
+
+        return DatasourceDocumentOutputDTO(
+            id=doc_model.id,  # type: ignore
+            titulo=doc_model.titulo,
+            nombre_archivo=doc_model.nombre_archivo,
+            url_oficial=doc_model.url_oficial,
+            fecha_carga=doc_model.fecha_carga,
+            url_interna=doc_model.url_interna,
+            fecha_publicacion=doc_model.fecha_publicacion,
+            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
+        )
+
+    async def delete_document(self, doc_id: int) -> bool:
+        try:
+            # 1. Eliminar artículos asociados primero
+            art_statement = delete(LegalArticle).where(
+                LegalArticle.document_id == doc_id
+            )
+            await self.db.exec(art_statement)
+
+            # 2. Eliminar el documento
+            doc_statement = delete(LegalDocument).where(LegalDocument.id == doc_id)
+            await self.db.exec(doc_statement)
+
+            await self.db.commit()
+            return True
+        except Exception as e:
+            await self.db.rollback()
+            raise InfrastructureException(
+                message=f"Error al eliminar el documento y sus artículos: {str(e)}",
+                code="DB_DELETE_ERROR",
+            )
