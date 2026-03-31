@@ -1,11 +1,14 @@
 from typing import Optional
 
 from app.modules.legal_library.application.schemas.article_app_schemas import (
-    ArticleAppInputDTO, ArticleAppOutputDTO, DocumentAppInputDTO)
-from app.modules.legal_library.domain.entities.article_entity import \
-    ArticleEntity
-from app.modules.legal_library.domain.entities.legal_document_entity import \
-    LegalDocumentEntity
+    ArticleAppInputDTO,
+    ArticleAppOutputDTO,
+    DocumentAppInputDTO,
+)
+from app.modules.legal_library.domain.entities.article_entity import ArticleEntity
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
 
 
 class AppDomainMapper:

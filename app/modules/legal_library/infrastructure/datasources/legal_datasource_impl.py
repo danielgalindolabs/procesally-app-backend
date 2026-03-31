@@ -6,10 +6,13 @@ from sqlmodel import delete, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.modules.legal_library.domain.datasources.legal_datasource import (
-    DatasourceArticleInputDTO, DatasourceArticleOutputDTO,
-    DatasourceDocumentInputDTO, DatasourceDocumentOutputDTO, LegalDatasource)
-from app.modules.legal_library.infrastructure.models import (LegalArticle,
-                                                             LegalDocument)
+    DatasourceArticleInputDTO,
+    DatasourceArticleOutputDTO,
+    DatasourceDocumentInputDTO,
+    DatasourceDocumentOutputDTO,
+    LegalDatasource,
+)
+from app.modules.legal_library.infrastructure.models import LegalArticle, LegalDocument
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 
@@ -157,16 +160,14 @@ class LegalDatasourceImpl(LegalDatasource):
         Búsqueda por similitud coseno usando el operador nativo de pgvector `<=>`.
         Soporta filtrado dinámico por materia y ley.
         """
-        query_parts = [
-            """
+        query_parts = ["""
             SELECT
                 id, materia_juridica, ley_o_codigo, libro_o_titulo,
                 numero_articulo, cuerpo_texto, archivo_json_url,
                 1 / (1 + (embedding <=> :vector)) AS similitud
             FROM legal_articles
             WHERE embedding IS NOT NULL
-            """
-        ]
+            """]
         params = {"vector": str(vector), "limit": limit}
 
         if materia_juridica:

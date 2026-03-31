@@ -1,10 +1,14 @@
 from typing import Optional
 
 from app.modules.legal_library.application.schemas.article_app_schemas import (
-    ArticleAppInputDTO, BulkUrlIngestAppInputDTO, DeleteFileAppInputDTO,
-    DocumentAppInputDTO)
-from app.modules.legal_library.presentation.schemas.article_schemas import \
-    ArticleCreateRequest
+    ArticleAppInputDTO,
+    BulkUrlIngestAppInputDTO,
+    DeleteFileAppInputDTO,
+    DocumentAppInputDTO,
+)
+from app.modules.legal_library.presentation.schemas.article_schemas import (
+    ArticleCreateRequest,
+)
 
 
 class PresentationAppMapper:

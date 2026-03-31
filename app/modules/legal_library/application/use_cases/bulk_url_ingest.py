@@ -1,11 +1,15 @@
 import logging
 
 from app.modules.legal_library.application.schemas.article_app_schemas import (
-    BulkUrlIngestAppInputDTO, DocumentAppInputDTO)
-from app.modules.legal_library.application.use_cases.bulk_ingest import \
-    BulkIngestUseCase
-from app.modules.legal_library.domain.services.document_downloader import \
-    DocumentDownloader
+    BulkUrlIngestAppInputDTO,
+    DocumentAppInputDTO,
+)
+from app.modules.legal_library.application.use_cases.bulk_ingest import (
+    BulkIngestUseCase,
+)
+from app.modules.legal_library.domain.services.document_downloader import (
+    DocumentDownloader,
+)
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_url_ingest")
 

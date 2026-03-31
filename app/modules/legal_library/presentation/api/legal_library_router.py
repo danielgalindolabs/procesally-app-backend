@@ -3,24 +3,36 @@ from typing import List, Optional
 from charset_normalizer import from_bytes
 from fastapi import APIRouter, Depends, File, UploadFile, status
 
-from app.modules.legal_library.adapters.presentation_app_mapper import \
-    PresentationAppMapper
-from app.modules.legal_library.application.use_cases.bulk_ingest import \
-    BulkIngestUseCase
-from app.modules.legal_library.application.use_cases.bulk_url_ingest import \
-    BulkUrlIngestUseCase
-from app.modules.legal_library.application.use_cases.delete_file import \
-    DeleteFileUseCase
-from app.modules.legal_library.application.use_cases.parse_html_index import \
-    ParseHtmlIndexUseCase
-from app.modules.legal_library.application.use_cases.search_articles import \
-    SearchArticlesUseCase
+from app.modules.legal_library.adapters.presentation_app_mapper import (
+    PresentationAppMapper,
+)
+from app.modules.legal_library.application.use_cases.bulk_ingest import (
+    BulkIngestUseCase,
+)
+from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
+    BulkUrlIngestUseCase,
+)
+from app.modules.legal_library.application.use_cases.delete_file import (
+    DeleteFileUseCase,
+)
+from app.modules.legal_library.application.use_cases.parse_html_index import (
+    ParseHtmlIndexUseCase,
+)
+from app.modules.legal_library.application.use_cases.search_articles import (
+    SearchArticlesUseCase,
+)
 from app.modules.legal_library.presentation.dependencies.legal_deps import (
-    get_bulk_ingest_use_case, get_bulk_url_ingest_use_case,
-    get_delete_file_use_case, get_parse_html_index_use_case,
-    get_search_articles_use_case)
+    get_bulk_ingest_use_case,
+    get_bulk_url_ingest_use_case,
+    get_delete_file_use_case,
+    get_parse_html_index_use_case,
+    get_search_articles_use_case,
+)
 from app.modules.legal_library.presentation.schemas.article_schemas import (
-    BulkUrlIngestRequest, SearchRequest, SearchResult)
+    BulkUrlIngestRequest,
+    SearchRequest,
+    SearchResult,
+)
 
 router = APIRouter()
 

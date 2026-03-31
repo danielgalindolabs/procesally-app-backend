@@ -1,13 +1,13 @@
-from app.modules.legal_library.adapters.app_domain_mapper import \
-    AppDomainMapper
+from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
 from app.modules.legal_library.application.schemas.article_app_schemas import (
-    ArticleAppInputDTO, ArticleAppOutputDTO)
-from app.modules.legal_library.domain.repositories.legal_repository import \
-    LegalRepository
-from app.modules.legal_library.domain.services.embedding_service import \
-    EmbeddingService
-from app.modules.legal_library.exceptions.legal_exceptions import \
-    DuplicateArticleError
+    ArticleAppInputDTO,
+    ArticleAppOutputDTO,
+)
+from app.modules.legal_library.domain.repositories.legal_repository import (
+    LegalRepository,
+)
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
+from app.modules.legal_library.exceptions.legal_exceptions import DuplicateArticleError
 
 
 class CreateArticleUseCase:

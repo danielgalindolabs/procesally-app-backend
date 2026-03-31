@@ -35,7 +35,9 @@ class SearchRequest(BaseModel):
     consulta: str = Field(
         ..., description="Texto en lenguaje natural para buscar artículos similares"
     )
-    limite: Optional[int] = Field(None, ge=1, le=50, description="Cantidad máxima opcional de resultados")
+    limite: Optional[int] = Field(
+        None, ge=1, le=50, description="Cantidad máxima opcional de resultados"
+    )
     materia_juridica: Optional[str] = Field(
         None, description="Filtro opcional por materia (ej. 'Civil', 'Laboral')"
     )

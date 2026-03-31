@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
 from app.modules.auth.presentation.api.auth_router import router as auth_router
-from app.modules.legal_library.presentation.api.legal_library_router import \
-    router as legal_router
-from app.modules.users.presentation.api.users_router import \
-    router as users_router
+from app.modules.legal_library.presentation.api.legal_library_router import (
+    router as legal_router,
+)
+from app.modules.users.presentation.api.users_router import router as users_router
 
 api_router = APIRouter()
 

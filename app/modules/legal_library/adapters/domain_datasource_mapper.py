@@ -1,10 +1,13 @@
 from app.modules.legal_library.domain.datasources.legal_datasource import (
-    DatasourceArticleInputDTO, DatasourceArticleOutputDTO,
-    DatasourceDocumentInputDTO, DatasourceDocumentOutputDTO)
-from app.modules.legal_library.domain.entities.article_entity import \
-    ArticleEntity
-from app.modules.legal_library.domain.entities.legal_document_entity import \
-    LegalDocumentEntity
+    DatasourceArticleInputDTO,
+    DatasourceArticleOutputDTO,
+    DatasourceDocumentInputDTO,
+    DatasourceDocumentOutputDTO,
+)
+from app.modules.legal_library.domain.entities.article_entity import ArticleEntity
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
 
 
 class DomainDatasourceMapper:

@@ -1,8 +1,9 @@
 import re
 from typing import Optional
 
-from app.modules.legal_library.domain.services.legal_router_service import \
-    LegalRouterService
+from app.modules.legal_library.domain.services.legal_router_service import (
+    LegalRouterService,
+)
 from app.share.infrastructure.services.embedding_service import engine
 
 

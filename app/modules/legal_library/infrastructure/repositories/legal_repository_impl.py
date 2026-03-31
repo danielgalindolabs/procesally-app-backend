@@ -1,15 +1,18 @@
 from typing import List, Optional
 
-from app.modules.legal_library.adapters.domain_datasource_mapper import \
-    DomainDatasourceMapper
-from app.modules.legal_library.domain.datasources.legal_datasource import \
-    LegalDatasource
-from app.modules.legal_library.domain.entities.article_entity import \
-    ArticleEntity
-from app.modules.legal_library.domain.entities.legal_document_entity import \
-    LegalDocumentEntity
-from app.modules.legal_library.domain.repositories.legal_repository import \
-    LegalRepository
+from app.modules.legal_library.adapters.domain_datasource_mapper import (
+    DomainDatasourceMapper,
+)
+from app.modules.legal_library.domain.datasources.legal_datasource import (
+    LegalDatasource,
+)
+from app.modules.legal_library.domain.entities.article_entity import ArticleEntity
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
+from app.modules.legal_library.domain.repositories.legal_repository import (
+    LegalRepository,
+)
 
 
 class LegalRepositoryImpl(LegalRepository):

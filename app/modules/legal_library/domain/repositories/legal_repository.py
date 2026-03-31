@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from app.modules.legal_library.domain.entities.article_entity import \
-    ArticleEntity
-from app.modules.legal_library.domain.entities.legal_document_entity import \
-    LegalDocumentEntity
+from app.modules.legal_library.domain.entities.article_entity import ArticleEntity
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
 
 
 class LegalRepository(ABC):

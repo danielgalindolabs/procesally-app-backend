@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.api.api_router import api_router
+
 # Instalamos los middlewares y protectores en la aplicación
 from app.api.middlewares.cors import setup_cors
 from app.core.config import settings

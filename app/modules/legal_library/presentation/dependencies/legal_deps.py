@@ -1,38 +1,50 @@
 from fastapi import Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.modules.legal_library.application.use_cases.bulk_ingest import \
-    BulkIngestUseCase
-from app.modules.legal_library.application.use_cases.bulk_url_ingest import \
-    BulkUrlIngestUseCase
-from app.modules.legal_library.application.use_cases.create_article import \
-    CreateArticleUseCase
-from app.modules.legal_library.application.use_cases.delete_file import \
-    DeleteFileUseCase
-from app.modules.legal_library.application.use_cases.parse_html_index import \
-    ParseHtmlIndexUseCase
-from app.modules.legal_library.application.use_cases.search_articles import \
-    SearchArticlesUseCase
-from app.modules.legal_library.domain.datasources.legal_datasource import \
-    LegalDatasource
-from app.modules.legal_library.domain.repositories.legal_repository import \
-    LegalRepository
-from app.modules.legal_library.domain.services.document_downloader import \
-    DocumentDownloader
-from app.modules.legal_library.domain.services.document_parser import \
-    DocumentParser
-from app.modules.legal_library.domain.services.embedding_service import \
-    EmbeddingService
-from app.modules.legal_library.domain.services.legal_router_service import \
-    LegalRouterService
-from app.modules.legal_library.infrastructure.datasources.legal_datasource_impl import \
-    LegalDatasourceImpl
-from app.modules.legal_library.infrastructure.repositories.legal_repository_impl import \
-    LegalRepositoryImpl
-from app.modules.legal_library.infrastructure.services.embedding_service_impl import \
-    OpenAIEmbeddingService
-from app.modules.legal_library.infrastructure.services.legal_router_service_impl import \
-    LegalRouterServiceImpl
+from app.modules.legal_library.application.use_cases.bulk_ingest import (
+    BulkIngestUseCase,
+)
+from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
+    BulkUrlIngestUseCase,
+)
+from app.modules.legal_library.application.use_cases.create_article import (
+    CreateArticleUseCase,
+)
+from app.modules.legal_library.application.use_cases.delete_file import (
+    DeleteFileUseCase,
+)
+from app.modules.legal_library.application.use_cases.parse_html_index import (
+    ParseHtmlIndexUseCase,
+)
+from app.modules.legal_library.application.use_cases.search_articles import (
+    SearchArticlesUseCase,
+)
+from app.modules.legal_library.domain.datasources.legal_datasource import (
+    LegalDatasource,
+)
+from app.modules.legal_library.domain.repositories.legal_repository import (
+    LegalRepository,
+)
+from app.modules.legal_library.domain.services.document_downloader import (
+    DocumentDownloader,
+)
+from app.modules.legal_library.domain.services.document_parser import DocumentParser
+from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
+from app.modules.legal_library.domain.services.legal_router_service import (
+    LegalRouterService,
+)
+from app.modules.legal_library.infrastructure.datasources.legal_datasource_impl import (
+    LegalDatasourceImpl,
+)
+from app.modules.legal_library.infrastructure.repositories.legal_repository_impl import (
+    LegalRepositoryImpl,
+)
+from app.modules.legal_library.infrastructure.services.embedding_service_impl import (
+    OpenAIEmbeddingService,
+)
+from app.modules.legal_library.infrastructure.services.legal_router_service_impl import (
+    LegalRouterServiceImpl,
+)
 from app.share.infrastructure.db.session import get_session
 from app.share.infrastructure.http_client import HTTPClient
 from app.share.infrastructure.parsers.dof_parser import DOFHtmlParser
