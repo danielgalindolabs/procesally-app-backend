@@ -40,7 +40,9 @@ class ParseHtmlIndexUseCase:
                     clean_path = raw_path.replace(".././", "").replace("../", "").replace("./", "")
                     if clean_path.endswith(".doc"):
                         clean_path = clean_path[:-4] + ".html"
-                        
+
+                    clean_path = clean_path.replace("Documentos/Federal/", "Documentos/Federal/html/")
+
                     full_url = f"{base_url.rstrip('/')}/{clean_path.lstrip('/')}"
                     
                     # Tercer td: fecha de publicacion
@@ -50,6 +52,7 @@ class ParseHtmlIndexUseCase:
                     fecha_ref = tds[3].get_text(strip=True)
                     
                     if nombre:
+
                         results[nombre] = {
                             "id": full_url,
                             "fecha_de_publicacion": fecha_pub,
@@ -57,4 +60,7 @@ class ParseHtmlIndexUseCase:
                         }
         
         logger.info(f"Se parsearon {len(results)} documentos de la tabla HTML.")
+        results={
+            "urls": results
+        }
         return results
