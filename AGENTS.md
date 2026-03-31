@@ -187,6 +187,45 @@ Example: `feat(legal_library): add vector search use case`
 
 ## Configuration
 
+### Configuration Files Location
+All configuration files are in `app/core/`:
+- `config.py` - Application settings (env variables)
+- `legal_laws.yaml` - Law mappings and keywords for legal search
+- `legal_config.py` - Loader for legal_laws.yaml
+
+### Legal Laws Configuration (`app/core/legal_config.py`)
+Este archivo Python contiene todos los diccionarios hardcodeados para la búsqueda legal:
+
+```python
+LAW_MAPPINGS = {
+    "CODIGO CIVIL FEDERAL": "CÓDIGO CIVIL FEDERAL",
+    "TRABAJO": "Ley Federal del Trabajo",
+    # Añadir nuevas leyes aquí...
+}
+
+SEMANTIC_KEYWORDS = [
+    "explica",
+    "relacion",
+    "interpretación",
+    # ...
+]
+
+NUMBER_WORDS = {
+    "uno": "1",
+    "dos": "2",
+    # ...
+}
+```
+
+**Para agregar/modificar leyes o keywords**: Editar `app/core/legal_config.py`.
+
+### Environment Variables
+Settings loaded from `.env` file:
+- `POSTGRES_*` - Database connection
+- `OPENAI_API_KEY` - AI API key
+- `EMBEDDING_MODEL_NAME` - Embedding model (default: text-embedding-3-small)
+
+## Settings
 - **Max line length**: 150 characters
 - **Python version**: 3.12+
 - **Async mode**: `asyncio_mode = "auto"` for tests

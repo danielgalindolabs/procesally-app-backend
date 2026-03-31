@@ -2,6 +2,7 @@ import logging
 import re
 from typing import List, Optional, Tuple
 
+from app.core.legal_config import LAW_MAPPINGS, NUMBER_WORDS, SEMANTIC_KEYWORDS
 from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppOutputDTO,
@@ -43,20 +44,7 @@ class SearchArticlesUseCase:
             .replace("ú", "u")
         )
 
-        word_to_num = {
-            "uno": "1",
-            "dos": "2",
-            "tres": "3",
-            "cuatro": "4",
-            "cinco": "5",
-            "seis": "6",
-            "siete": "7",
-            "ocho": "8",
-            "nueve": "9",
-            "diez": "10",
-        }
-
-        for word, num in word_to_num.items():
+        for word, num in NUMBER_WORDS.items():
             q_norm = re.sub(rf"(articulo\s+){word}\b", rf"\g<1>{num}", q_norm)
 
         pattern = r"(?:art(?:iculo)?s?\.?)\s*(\d+(?:\s*,\s*\d+|\s*y\s*\d+|\s*e\s*\d+)*)"
@@ -73,40 +61,7 @@ class SearchArticlesUseCase:
         seen = set()
         unique_numbers = [x for x in numbers if not (x in seen or seen.add(x))]
 
-        semantic_keywords = [
-            "explica",
-            "relacion",
-            "diferencia",
-            "comparar",
-            "ejemplo",
-            "interpretación",
-            "interpretar",
-            "caso",
-            "aplica",
-            "aplicar",
-            "porque",
-            "por que",
-            "porqué",
-            "cómo",
-            "como",
-            "cuándo",
-            "cuando",
-            "qué establece",
-            "que establece",
-            "qué dice",
-            "que dice",
-            "define",
-            "definición",
-            "concepto",
-            "significa",
-            "requisitos",
-            "condiciones",
-            "procedimiento",
-            "pasos",
-            "ejemplos",
-        ]
-
-        has_semantic_context = any(k in query.lower() for k in semantic_keywords)
+        has_semantic_context = any(k in query.lower() for k in SEMANTIC_KEYWORDS)
 
         return unique_numbers, has_semantic_context
 
@@ -121,188 +76,11 @@ class SearchArticlesUseCase:
             .replace("Ú", "U")
         )
 
-        laws_map = {
-            # Códigos principales
-            "CODIGO CIVIL FEDERAL": "CÓDIGO CIVIL FEDERAL",
-            "CIVIL FEDERAL": "CÓDIGO CIVIL FEDERAL",
-            "CCF": "CÓDIGO CIVIL FEDERAL",
-            "CODIGO DE COMERCIO": "CÓDIGO DE COMERCIO",
-            "COMERCIO": "CÓDIGO DE COMERCIO",
-            "CODIGO PENAL": "CÓDIGO PENAL FEDERAL",
-            "PENAL FEDERAL": "CÓDIGO PENAL FEDERAL",
-            "CODIGO FEDERAL DE PROCEDIMIENTOS CIVILES": "CÓDIGO FEDERAL DE PROCEDIMIENTOS CIVILES",
-            "CFPC": "CÓDIGO FEDERAL DE PROCEDIMIENTOS CIVILES",
-            "CODIGO DE JUSTICIA MILITAR": "CÓDIGO DE JUSTICIA MILITAR",
-            "JUSTICIA MILITAR": "CÓDIGO DE JUSTICIA MILITAR",
-            "CODIGO FISCAL DE LA FEDERACION": "CÓDIGO FISCAL DE LA FEDERACIÓN",
-            "CFF": "CÓDIGO FISCAL DE LA FEDERACIÓN",
-            "CODIGO NACIONAL DE PROCEDIMIENTOS PENALES": "CÓDIGO NACIONAL DE PROCEDIMIENTOS PENALES",
-            "CNPP": "CÓDIGO NACIONAL DE PROCEDIMIENTOS PENALES",
-            "CODIGO ELECTORAL": "Código Electoral Federal",
-            # Leyes constitucionales y de justicia
-            "LEY DE AMPARO": "Ley de Amparo, Reglamentaria de los Artículos 103 y 107 de la Constitución Política de los Estados Unidos Mexicanos",
-            "AMPARO": "Ley de Amparo, Reglamentaria de los Artículos 103 y 107 de la Constitución Política de los Estados Unidos Mexicanos",
-            "LEY ORGANICA DEL PODER JUDICIAL": "Ley Orgánica del Poder Judicial de la Federación",
-            "ORGANICA DEL PODER JUDICIAL": "Ley Orgánica del Poder Judicial de la Federación",
-            "LOPJF": "Ley Orgánica del Poder Judicial de la Federación",
-            "PODER JUDICIAL": "Ley Orgánica del Poder Judicial de la Federación",
-            "LEY ORGANICA DE LA ADMINISTRACION PUBLICA": "Ley Orgánica de la Administración Pública Federal",
-            "LOAPF": "Ley Orgánica de la Administración Pública Federal",
-            "ADMINISTRACION PUBLICA": "Ley Orgánica de la Administración Pública Federal",
-            # Leyes laborales
-            "LEY FEDERAL DEL TRABAJO": "Ley Federal del Trabajo",
-            "LFT": "Ley Federal del Trabajo",
-            "TRABAJO": "Ley Federal del Trabajo",
-            "TRABAJADOR": "Ley Federal del Trabajo",
-            "TRABAJADORES": "Ley Federal del Trabajo",
-            "PATRON": "Ley Federal del Trabajo",
-            "SALARIO": "Ley Federal del Trabajo",
-            "INFONAVIT": "Ley del Instituto del Fondo Nacional de la Vivienda para los Trabajadores",
-            "FONACOT": "Ley del Instituto Nacional del Fondo Profesional para los Trabajadores",
-            # Leyes de salud y educativo
-            "LEY GENERAL DE SALUD": "Ley General de Salud",
-            "LGS": "Ley General de Salud",
-            "SALUD": "Ley General de Salud",
-            "LEY GENERAL DE EDUCACION": "Ley General de Educación",
-            "LGE": "Ley General de Educación",
-            "EDUCACION": "Ley General de Educación",
-            "EDUCATIVA": "Ley General de Educación",
-            "SEP": "Ley General de Educación",
-            # Leyes mercantiles y financieras
-            "LEY DEL MERCADO DE VALORES": "Ley del Mercado de Valores",
-            "LMV": "Ley del Mercado de Valores",
-            "MERCADO DE VALORES": "Ley del Mercado de Valores",
-            "VALORES": "Ley del Mercado de Valores",
-            "LEY DE INSTITUCIONES DE CREDITO": "Ley de Instituciones de Crédito",
-            "LIC": "Ley de Instituciones de Crédito",
-            "CREDITO": "Ley de Instituciones de Crédito",
-            "BANCARIA": "Ley de Instituciones de Crédito",
-            "BANCARIO": "Ley de Instituciones de Crédito",
-            "LEY DE PROTECCION Y DEFENSA AL USUARIO DE SERVICIOS FINANCIEROS": "Ley de Protección y Defensa al Usuario de Servicios Financieros",
-            "CONDUSEF": "Ley de Protección y Defensa al Usuario de Servicios Financieros",
-            "USUARIO FINANCIERO": "Ley de Protección y Defensa al Usuario de Servicios Financieros",
-            "LEY DE OPERACIONES CON MATERIALES PELIGROSOS": "Ley de Operaciones con Materiales Peligrosos",
-            "MATERIALES PELIGROSOS": "Ley de Operaciones con Materiales Peligrosos",
-            "LEY DE LA READAPTACION SOCIAL": "Ley de la Readaptación Social",
-            "READAPTACION SOCIAL": "Ley de la Readaptación Social",
-            "LEY DE RECURSOS HIDRAULICOS": "Ley de Recursos Hidráulicos",
-            "RECURSOS HIDRAULICOS": "Ley de Recursos Hidráulicos",
-            "LEY DE RESPONSABILIDADES ADMINISTRATIVAS": "Ley de Responsabilidades Administrativas",
-            "RESPONSABILIDADES ADMINISTRATIVAS": "Ley de Responsabilidades Administrativas",
-            "LEY DE RESPONSABILIDAD CIVIL": "Ley de Responsabilidad Civil",
-            "RESPONSABILIDAD CIVIL": "Ley de Responsabilidad Civil",
-            "LEY DE SALVAGUARDIA DEL PATRIMONIO CULTURAL": "Ley de Salvaguarda del Patrimonio Cultural",
-            "PATRIMONIO CULTURAL": "Ley de Salvaguarda del Patrimonio Cultural",
-            "LEY DE SEGURIDAD NACIONAL": "Ley de Seguridad Nacional",
-            "SEGURIDAD NACIONAL": "Ley de Seguridad Nacional",
-            "LEY DE SIMPLIFICACION REGULATORIA": "Ley de Simplificación Regulatoria",
-            "SIMPLIFICACION REGULATORIA": "Ley de Simplificación Regulatoria",
-            "LEY DE SISTEMA DE ALERTA Y AVISO": "Ley de Sistema de Alerta y Aviso",
-            "ALERTA Y AVISO": "Ley de Sistema de Alerta y Aviso",
-            "LEY DE TELECOMUNICACIONES": "Ley Federal de Telecomunicaciones y Radiodifusión",
-            "TELECOMUNICACIONES": "Ley Federal de Telecomunicaciones y Radiodifusión",
-            "RADIODIFUSION": "Ley Federal de Telecomunicaciones y Radiodifusión",
-            "LFTA": "Ley Federal de Telecomunicaciones y Radiodifusión",
-            "LEY DE TIERRAS": "Ley de Tierras",
-            "TIERRAS": "Ley de Tierras",
-            "LEY DE VIALIDAD": "Ley de Vialidad",
-            "VIALIDAD": "Ley de Vialidad",
-            "LEY DE VISITADURIA": "Ley de Visitaduría",
-            "VISITADURIA": "Ley de Visitaduría",
-            "LEY DEL BOLETIN DE RESPONSABILIDADES": "Ley del Boletín de Responsabilidades",
-            "BOLETIN DE RESPONSABILIDADES": "Ley del Boletín de Responsabilidades",
-            "LEY DEL CONSEJO NACIONAL DE FOMENTO": "Ley del Consejo Nacional de Fomento",
-            "CONSEJO NACIONAL DE FOMENTO": "Ley del Consejo Nacional de Fomento",
-            "LEY DEL FONDO DEgarantia y FOMENTO": "Ley del Fondo de Garantía y Fomento",
-            "FONDO DEgarantia": "Ley del Fondo de Garantía y Fomento",
-            "LEY DEL INSTITUTO DE CAPACITACION": "Ley del Instituto de Capacitación",
-            "INSTITUTO DE CAPACITACION": "Ley del Instituto de Capacitación",
-            "LEY DEL INSTITUTO FEDERAL ELECTORAL": "Ley General de Instituciones y Procedimientos Electorales",
-            "IFE": "Ley General de Instituciones y Procedimientos Electorales",
-            "INSTITUTO FEDERAL ELECTORAL": "Ley General de Instituciones y Procedimientos Electorales",
-            "IE": "Ley General de Instituciones y Procedimientos Electorales",
-            "ELECTORAL": "Ley General de Instituciones y Procedimientos Electorales",
-            "LEY DEL NOTARIADO": "Ley del Notariado",
-            "NOTARIADO": "Ley del Notariado",
-            "NOTARIO": "Ley del Notariado",
-            "LEY DEL PATRONATO DE LA RESERVA": "Ley del Patronato de la Reserva",
-            "LEY DEL SEGURO": "Ley sobre el Contrato de Seguro",
-            "CONTRATO DE SEGURO": "Ley sobre el Contrato de Seguro",
-            "SEGURO": "Ley sobre el Contrato de Seguro",
-            "SEGURIDAD SOCIAL": "Ley del Seguro General",
-            "SEGURO SOCIAL": "Ley del Seguro General",
-            "IMSS": "Ley del Seguro General",
-            "ISSSTE": "Ley del Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado",
-            # Leyes de combate al narco
-            "LEY DE SALUD": "Ley General de Salud",
-            "ESTUPEFACIENTES": "Ley General de Salud",
-            "NARCOTICOS": "Ley General de Salud",
-            "PSICOTROPICOS": "Ley General de Salud",
-            # Leyes de-planeacion
-            "LEY DE PLANEACION": "Ley de Planeación",
-            "PLANEACION": "Ley de Planeación",
-            "PLAN NACIONAL": "Ley de Planeación",
-            # Leyes de-rmacion
-            "LEY DE informacion": "Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental",
-            "informacion": "Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental",
-            # Leyes de arch
-            "LEY DE ARCHIVOS": "Ley Federal de Archivos",
-            "ARCHIVOS": "Ley Federal de Archivos",
-            "ARCHIVO": "Ley Federal de Archivos",
-            # Leyes diversas
-            "LEY DE CAZA": "Ley de Caza",
-            "CAZA": "Ley de Caza",
-            "LEY DE MONUMENTOS": "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos",
-            "MONUMENTOS": "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos",
-            "ARQUEOLOGICOS": "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos",
-            "ZONAS ARQUEOLOGICAS": "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos",
-            "MONUMENTOS ARQUEOLOGICOS": "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos",
-            "LEY DEL IMPUESTO AUTOMOVIL": "Ley del Impuesto sobre Automóviles Nuevos",
-            "IMPuesto AUTOMOVIL": "Ley del Impuesto sobre Automóviles Nuevos",
-            "AUTOMOVILES": "Ley del Impuesto sobre Automóviles Nuevos",
-            "LEY DE BEBIDAS": "Ley Federal de Bebidas",
-            "BEBIDAS": "Ley Federal de Bebidas",
-            "ALCOHOL": "Ley Federal de Bebidas",
-            "LEY DE PLANEACION AGRARIA": "Ley de Planeación Agraria",
-            "PLANEACION AGRARIA": "Ley de Planeación Agraria",
-            "LEY DE RADICACION": "Ley de Radicación",
-            "RADICACION": "Ley de Radicación",
-            "LEY DE REFORMA AGRARIA": "Ley de Reforma Agraria",
-            "REFORMA AGRARIA": "Ley de Reforma Agraria",
-            "LEY DE RESPONSABILIDADES": "Ley de Responsabilidades",
-            "RESPONSABILIDADES": "Ley de Responsabilidades",
-            "LEY DE SANEAMIENTO": "Ley de Saneamiento",
-            "SANEAMIENTO": "Ley de Saneamiento",
-            "LEY DE SERVICIO": "Ley de Servicio",
-            "SERVICIO": "Ley de Servicio",
-            "LEY DE TESORERIA": "Ley de Tesorería",
-            "TESORERIA": "Ley de Tesorería",
-            "LEY ORGANICA DE LA PROCURADURIA": "Ley Orgánica de la Procuradoria Federal del Consumidor",
-            "PROCURADURIA DEL CONSUMIDOR": "Ley Orgánica da Procuradoria Federal del Consumidor",
-            "PROFECO": "Ley Orgánica de la Procuradoria Federal del Consumidor",
-            "CONSUMIDOR": "Ley Orgánica de la Procuradoria Federal del Consumidor",
-            # Leyes de juegos y sorteos
-            "LEY DE JUEGOS": "Ley Federal de Juegos y Sorteos",
-            "JUEGOS Y SORTEOS": "Ley Federal de Juegos y Sorteos",
-            "APUESTAS": "Ley Federal de Juegos y Sorteos",
-            "SORTEOS": "Ley Federal de Juegos y Sorteos",
-            # Leyes proc
-            "CODIGO FEDERAL DE INSTITUCIONES": "Código Federal de Instituciones y Procedimientos Electorales",
-            # Leyes varias
-            "LEY ORGANICA DEL CONGRESO": "Ley Orgánica del Congreso General de los Estados Unidos Mexicanos",
-            "CONGRESO": "Ley Orgánica del Congreso General de los Estados Unidos Mexicanos",
-            "LEY DE INGRESOS": "Ley de Ingresos de la Federación",
-            "PRESUPUESTO": "Ley Federal de Presupuesto y Responsabilidad Hacendaria",
-            "PRESUPUESTO Y RESPONSABILIDAD HACENDARIA": "Ley Federal de Presupuesto y Responsabilidad Hacendaria",
-            # Laws
-            "CODIGO": "CÓDIGO CIVIL FEDERAL",
-            "LEY": "Ley Federal del Trabajo",
-        }
+        sorted_keys = sorted(LAW_MAPPINGS.keys(), key=len, reverse=True)
 
-        sorted_keys = sorted(laws_map.keys(), key=len, reverse=True)
         for term in sorted_keys:
             if re.search(rf"\b{term}\b", q_norm):
-                return laws_map[term]
+                return LAW_MAPPINGS[term]
 
         return None
 
