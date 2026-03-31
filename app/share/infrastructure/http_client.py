@@ -2,6 +2,7 @@ import logging
 from urllib.parse import urlparse
 
 import httpx
+from charset_normalizer import from_bytes
 
 from app.core.config import settings
 from app.modules.legal_library.domain.services.document_downloader import (
@@ -36,6 +37,14 @@ class HTTPClient(DocumentDownloader):
             try:
                 response = await client.get(url)
                 response.raise_for_status()
+                
+                # Usamos charset-normalizer para una decodificación robusta (especialmente para sitios con Windows-1252/ISO-8859-1)
+                # que no especifican correctamente el charset en los headers.
+                decoded = from_bytes(response.content).best()
+                if decoded and decoded.encoding:
+                    logger.info(f"Decodificando {url} usando {decoded.encoding} (confianza: {decoded.confidence})")
+                    return decoded.string
+                
                 return response.text
             except httpx.HTTPStatusError as e:
                 logger.error(f"Error HTTP al descargar {url}: {e.response.status_code}")

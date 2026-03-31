@@ -1,5 +1,6 @@
 from typing import List
 
+from charset_normalizer import from_bytes
 from fastapi import APIRouter, Depends, File, UploadFile, status
 
 from app.modules.legal_library.adapters.presentation_app_mapper import (
@@ -75,11 +76,9 @@ async def upload_dof_file(
     - Genera embeddings y almacena masivamente vinculando al documento.
     """
     content = await file.read()
-    # Asumimos que el DOF usa UTF-8 o ISO-8859-1 (latin-1) usualmente.
-    try:
-        html_str = content.decode("utf-8")
-    except UnicodeDecodeError:
-        html_str = content.decode("latin-1")
+    # Usamos charset-normalizer para decodificar archivos subidos (ej. DOF o local)
+    decoded = from_bytes(content).best()
+    html_str = decoded.string if decoded else content.decode("utf-8", errors="replace")
 
     # Mapeo de metadata para el documento de origen
     doc_metadata = PresentationAppMapper.to_document_app_input(
@@ -159,10 +158,9 @@ async def parse_html_index(
     en un Diccionario JSON estructurado con títulos, URLs e información de fechas.
     """
     content = await file.read()
-    try:
-        html_str = content.decode("utf-8")
-    except UnicodeDecodeError:
-        html_str = content.decode("latin-1")
+    # Decodificación robusta usando charset-normalizer
+    decoded = from_bytes(content).best()
+    html_str = decoded.string if decoded else content.decode("utf-8", errors="replace")
 
     # Usamos execute pasándole el contenido HTML directamente
     result = parse_uc.execute(html_content=html_str)
