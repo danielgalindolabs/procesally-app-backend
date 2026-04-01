@@ -57,9 +57,16 @@ class LegalDatasourceImpl(LegalDatasource):
         self, ds_input: DatasourceArticleInputDTO
     ) -> Optional[DatasourceArticleOutputDTO]:
         try:
+            # Convert List[str] to comma-separated string for DB storage
+            materia_str = (
+                ", ".join(ds_input.materia_juridica)
+                if ds_input.materia_juridica
+                else ""
+            )
+
             # Construir modelo SQLModel desde el DTO del Datasource
             article_model = LegalArticle(
-                materia_juridica=ds_input.materia_juridica,
+                materia_juridica=materia_str,
                 ley_o_codigo=ds_input.ley_o_codigo,
                 document_id=ds_input.document_id,
                 libro_o_titulo=ds_input.libro_o_titulo,
@@ -73,9 +80,16 @@ class LegalDatasourceImpl(LegalDatasource):
             await self.db.commit()
             await self.db.refresh(article_model)
 
+            # Convert back to List[str] for output
+            materia_list = (
+                [m.strip() for m in article_model.materia_juridica.split(",")]
+                if article_model.materia_juridica
+                else []
+            )
+
             return DatasourceArticleOutputDTO(
                 id=article_model.id,  # type: ignore
-                materia_juridica=article_model.materia_juridica,
+                materia_juridica=materia_list,
                 ley_o_codigo=article_model.ley_o_codigo,
                 document_id=article_model.document_id,
                 libro_o_titulo=article_model.libro_o_titulo,
@@ -137,9 +151,15 @@ class LegalDatasourceImpl(LegalDatasource):
     def _map_article_to_dto(
         self, article_model: LegalArticle
     ) -> DatasourceArticleOutputDTO:
+        # Convert comma-separated string to list
+        materia_list = (
+            [m.strip() for m in article_model.materia_juridica.split(",")]
+            if article_model.materia_juridica
+            else []
+        )
         return DatasourceArticleOutputDTO(
             id=article_model.id,  # type: ignore
-            materia_juridica=article_model.materia_juridica,
+            materia_juridica=materia_list,
             ley_o_codigo=article_model.ley_o_codigo,
             document_id=article_model.document_id,
             libro_o_titulo=article_model.libro_o_titulo,
@@ -171,8 +191,8 @@ class LegalDatasourceImpl(LegalDatasource):
         params = {"vector": str(vector), "limit": limit}
 
         if materia_juridica:
-            query_parts.append("AND materia_juridica = :materia")
-            params["materia"] = materia_juridica
+            query_parts.append("AND UPPER(materia_juridica) LIKE UPPER(:materia)")
+            params["materia"] = f"%{materia_juridica}%"
 
         if ley_o_codigo:
             query_parts.append("AND :ley_full ILIKE '%' || UPPER(ley_o_codigo) || '%'")
@@ -189,7 +209,11 @@ class LegalDatasourceImpl(LegalDatasource):
         return [
             DatasourceArticleOutputDTO(
                 id=row.id,
-                materia_juridica=row.materia_juridica,
+                materia_juridica=(
+                    [m.strip() for m in row.materia_juridica.split(",")]
+                    if row.materia_juridica
+                    else []
+                ),
                 ley_o_codigo=row.ley_o_codigo,
                 libro_o_titulo=row.libro_o_titulo,
                 numero_articulo=row.numero_articulo,

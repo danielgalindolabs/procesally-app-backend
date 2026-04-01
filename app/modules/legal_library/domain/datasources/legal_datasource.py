@@ -34,7 +34,7 @@ class DatasourceDocumentOutputDTO:
 class DatasourceArticleInputDTO:
     """Estructura mínima de entrada al Datasource"""
 
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str
@@ -49,7 +49,7 @@ class DatasourceArticleOutputDTO:
     """Estructura mínima de salida del Datasource"""
 
     id: int
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str

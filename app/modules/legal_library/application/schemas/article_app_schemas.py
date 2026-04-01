@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -14,7 +14,7 @@ class DocumentAppInputDTO:
 
 @dataclass
 class ArticleAppInputDTO:
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str
@@ -28,7 +28,7 @@ class ArticleAppInputDTO:
 @dataclass
 class ArticleAppOutputDTO:
     id: int
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str

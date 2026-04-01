@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -10,7 +10,7 @@ class ArticleEntity:
     Contiene únicamente las reglas y atributos del negocio.
     """
 
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str

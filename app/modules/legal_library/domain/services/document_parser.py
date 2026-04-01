@@ -7,7 +7,7 @@ from typing import List, Optional
 class ParsedArticle:
     """Estructura pura que representa un artículo extraído de cualquier documento legal."""
 
-    materia_juridica: str
+    materia_juridica: List[str]
     ley_o_codigo: str
     numero_articulo: str
     cuerpo_texto: str

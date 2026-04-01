@@ -31,8 +31,8 @@ def _load_materia_map() -> Dict[str, str]:
 
                 for law_name in urls.keys():
                     law_lower = law_name.lower()
-                    materia = _infer_materia_from_keywords(law_lower)
-                    materia_map[law_name] = materia
+                    materias = _infer_materia_from_keywords(law_lower)
+                    materia_map[law_name] = ", ".join(materias)
 
             logger.info(
                 f"Cargados {len(materia_map)} mapeos de materias desde laws.json"
@@ -44,17 +44,135 @@ def _load_materia_map() -> Dict[str, str]:
     return materia_map
 
 
-def _infer_materia_from_keywords(nombre_lower: str) -> str:
-    """Infiere la materia jurídica basándose en keywords del nombre de la ley."""
-    if "penal" in nombre_lower:
-        return "Penal"
-    elif "civil" in nombre_lower:
-        return "Civil"
-    elif "trabajo" in nombre_lower or "laboral" in nombre_lower:
-        return "Laboral"
-    elif "comercio" in nombre_lower or "mercantil" in nombre_lower:
-        return "Mercantil"
-    elif any(
+def _infer_materia_from_keywords(nombre_lower: str) -> List[str]:
+    """Infiere la(s) materia(s) jurídica(s) basándose en keywords del nombre de la ley."""
+    materias = set()
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "penal",
+            "delito",
+            "cárcel",
+            "prisión",
+            "víctima",
+            "imputado",
+            "sentencia penal",
+        ]
+    ):
+        materias.add("Penal")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "civil",
+            "personas",
+            "familia",
+            "matrimonio",
+            "divorcio",
+            "tutela",
+            "curatela",
+            "patria potestad",
+            "alimentos",
+            "parentesco",
+            "filiación",
+            "adopción",
+            "sucesiones",
+            "herencia",
+            "testamento",
+            "legado",
+            "obligaciones",
+            "contratos",
+            "bienes",
+            "posesión",
+            "usucapión",
+            "hipoteca",
+            "prenda",
+            "servidumbre",
+            "nuda propiedad",
+            "usufructo",
+        ]
+    ):
+        materias.add("Civil")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "trabajo",
+            "laboral",
+            "empleado",
+            "patrón",
+            "salario",
+            "jornada",
+            "vacaciones",
+            "aguinaldo",
+            "indemnización",
+            "despido",
+            "huelga",
+            "sindicato",
+            "contrato individual",
+            "condiciones generales",
+            "tiempoextra",
+            "descanso",
+            "maternal",
+            "menor",
+        ]
+    ):
+        materias.add("Laboral")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "seguridad social",
+            "seguro social",
+            "previsión social",
+            "afiliación",
+            "pensión",
+            "jubilación",
+            "vejez",
+            "invalidez",
+            "orfandad",
+            "viudez",
+            "issste",
+            "imss",
+            "sar",
+            "infonavit",
+            "cuenta individual",
+            "servicio médico",
+            "enfermedad",
+            "ahorro para el retiro",
+            "sistema de ahorro",
+        ]
+    ):
+        materias.add("Seguridad Social")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "comercio",
+            "mercantil",
+            "comerciante",
+            "acta constitutiva",
+            "sociedad mercantil",
+            "s.a.",
+            "s.a.b.",
+            "s. de r.l.",
+            "s. en c.",
+            "título de crédito",
+            "letra de cambio",
+            "pagaré",
+            "cheque",
+            " warrant",
+            "corretaje",
+            "comisión mercantil",
+            "transporte",
+            "depósito",
+            "prenda civil",
+        ]
+    ):
+        materias.add("Mercantil")
+
+    if any(
         kw in nombre_lower
         for kw in [
             "fiscal",
@@ -67,14 +185,262 @@ def _infer_materia_from_keywords(nombre_lower: str) -> str:
             "ingresos",
             "aduana",
             "sat",
+            "derechos",
+            "contribuci",
+            "fedatario",
+            "generación de ingresos",
+            "precio de transferencia",
+            "consolidación fiscal",
         ]
     ):
-        return "Fiscal"
-    elif "amparo" in nombre_lower or "constituc" in nombre_lower:
-        return "Constitucional"
-    elif "administrat" in nombre_lower:
-        return "Administrativo"
-    return "General"
+        materias.add("Fiscal")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "amparo",
+            "constitu",
+            "derechos humanos",
+            "garantías individuales",
+            "principio constitucional",
+            "reforma constitucional",
+            "iniciativa",
+            "poder legislativo",
+            "poder ejecutivo",
+            "poder judicial",
+            "suprema corte",
+            "tribunal electoral",
+        ]
+    ):
+        materias.add("Constitucional")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "administrati",
+            "función pública",
+            "servidor público",
+            "control administrativo",
+            "responsabilidad administrativa",
+            "bienes nacionales",
+            "patrimonio federal",
+            "adquisiciones",
+            "obra pública",
+            "recursos federales",
+            "tribunal federal",
+            "justicia administrativa",
+        ]
+    ):
+        materias.add("Administrativo")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "bancario",
+            "banco",
+            "crédito",
+            "inversión",
+            "valores",
+            "bolsa",
+            "sistema financiero",
+            "cnmv",
+            "banco de méxico",
+            "banxico",
+            "intermediario",
+            "aseguramiento",
+            "fondos de inversión",
+            "deuda",
+        ]
+    ):
+        materias.add("Financiero")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "ambiental",
+            "ecológico",
+            "recursos naturales",
+            "protección ambiental",
+            "fauna",
+            "flora",
+            " áreas naturales",
+            "manejo de residuos",
+            "sustancias peligrosas",
+            "emisiones",
+            "cambio climático",
+            "desarrollo sostenible",
+        ]
+    ):
+        materias.add("Ambiental")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "energía",
+            "petróleos",
+            "petroleo",
+            "gas natural",
+            "electricidad",
+            "hydrocarburo",
+            "refinación",
+            "pemex",
+            "cenace",
+            "cre",
+            "hidroeléctrica",
+            "eólica",
+            "solar",
+            "renovable",
+        ]
+    ):
+        materias.add("Energético")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "comunicaciones",
+            "telecomunicaciones",
+            "telefonía",
+            "radio",
+            "televisión",
+            "satélite",
+            "internet",
+            "correos",
+            "ift",
+            "telecom",
+        ]
+    ):
+        materias.add("Telecomunicaciones")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "propiedad industrial",
+            "propiedad intelectual",
+            "patente",
+            "marca",
+            "derecho autor",
+            "copyright",
+            "modelo utilidad",
+            "diseño industrial",
+            "secreto industrial",
+            "licencia",
+        ]
+    ):
+        materias.add("Propiedad Intelectual")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "educativo",
+            "educación",
+            "educación pública",
+            "institución educativa",
+            "educación superior",
+            "sep",
+        ]
+    ):
+        materias.add("Educativo")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "salud",
+            "médico",
+            "sanitario",
+            "epidemia",
+            "epidemiológic",
+            "hospital",
+            "clínica",
+            "medicamento",
+            "dispositivo médico",
+            "注册",
+            "permiso sanitario",
+            "comisión federal",
+            "coepris",
+        ]
+    ):
+        materias.add("Salud")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "agrario",
+            "agrícola",
+            "ejidal",
+            "comunal",
+            "tierra",
+            "dotación",
+            "restitución",
+            "procede",
+            "panel alfa",
+        ]
+    ):
+        materias.add("Agrario")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "marítimo",
+            "navegación",
+            "puertos",
+            "mar territorial",
+            "aguas jurisdiccionales",
+            "cabotaje",
+            "admisión temporal",
+            "arqueo",
+        ]
+    ):
+        materias.add("Marítimo")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "aéreo",
+            "aviación",
+            "aeropuerto",
+            "aeronave",
+            "piloto",
+            "navegación aérea",
+            "sct",
+            "dgac",
+        ]
+    ):
+        materias.add("Aviación")
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "ley orgánica",
+            "reglamento interior",
+            "municipio",
+            "ayuntamiento",
+            "seguridad pública",
+            "protección civil",
+            "adquisiciones públicas",
+            "bienes muebles",
+            "combate",
+            "caminos",
+            "puentes",
+            "autotransporte",
+            "transporte federal",
+        ]
+    ):
+        materias.add("Administrativo")  # Gobierno cae en Administrativo
+
+    if any(
+        kw in nombre_lower
+        for kw in [
+            "patrimonio cultural",
+            "patrimonio histórico",
+            "patrimonio arqueológic",
+        ]
+    ):
+        materias.add("Cultural")
+
+    if not materias:
+        materias.add("General")
+
+    return sorted(list(materias))
 
 
 class DOFHtmlParser(DocumentParser):
@@ -305,9 +671,10 @@ class DOFHtmlParser(DocumentParser):
     # =========================
     # MATERIA
     # =========================
-    def _infer_materia(self, ley_nombre: str) -> str:
+    def _infer_materia(self, ley_nombre: str) -> List[str]:
         if ley_nombre in self._materia_map:
-            return self._materia_map[ley_nombre]
+            # The cached value is comma-separated string, convert back to list
+            return [m.strip() for m in self._materia_map[ley_nombre].split(",")]
 
         nombre_lower = ley_nombre.lower()
         return _infer_materia_from_keywords(nombre_lower)
