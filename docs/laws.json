@@ -1,0 +1,2189 @@
+{
+    "urls": {
+        "Código Civil Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17186.html",
+            "fecha_de_publicacion": "26-05-1928",
+            "fecha_de_ultima_reforma": "17-01-2024"
+        },
+        "Código de Comercio": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo38904.html",
+            "fecha_de_publicacion": "07-10-1889",
+            "fecha_de_ultima_reforma": "30-12-2024"
+        },
+        "Código de Justicia Militar": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17188.html",
+            "fecha_de_publicacion": "31-08-1933",
+            "fecha_de_ultima_reforma": "05-09-2023"
+        },
+        "Código Federal de Procedimientos Civiles": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17190.html",
+            "fecha_de_publicacion": "24-02-1943",
+            "fecha_de_ultima_reforma": "07-06-2023"
+        },
+        "Código Fiscal de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo56.html",
+            "fecha_de_publicacion": "31-12-1981",
+            "fecha_de_ultima_reforma": "31-05-2023"
+        },
+        "Código Militar de Procedimientos Penales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120904.html",
+            "fecha_de_publicacion": "16-05-2016",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Código Nacional de Procedimientos Civiles y Familiares": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125098.html",
+            "fecha_de_publicacion": "07-06-2023",
+            "fecha_de_ultima_reforma": "16-12-2024"
+        },
+        "Código Nacional de Procedimientos Penales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo92363.html",
+            "fecha_de_publicacion": "05-03-2014",
+            "fecha_de_ultima_reforma": "16-12-2024"
+        },
+        "Código Penal Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83048.html",
+            "fecha_de_publicacion": "14-08-1931",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Impuesto Sobre Servicios Expresamente Declarados de Interés Público por Ley, en los que Intervengan Empresas Concesionarias de Bienes del Dominio Directo de la Nación (LEY que establece, reforma y adiciona las disposiciones relativas a diversos impuestos)": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo110799.html",
+            "fecha_de_publicacion": "31-12-1968",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Aduanera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3.html",
+            "fecha_de_publicacion": "15-12-1995",
+            "fecha_de_ultima_reforma": "28-12-2023"
+        },
+        "Ley Agraria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo6027.html",
+            "fecha_de_publicacion": "26-02-1992",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley de Aeropuertos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo9485.html",
+            "fecha_de_publicacion": "22-12-1995",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley de Aguas Nacionales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83103.html",
+            "fecha_de_publicacion": "01-12-1992",
+            "fecha_de_ultima_reforma": "08-05-2023"
+        },
+        "Ley de Ahorro y Crédito Popular": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo4.html",
+            "fecha_de_publicacion": "04-06-2001",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Amnistía": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16940.html",
+            "fecha_de_publicacion": "22-01-1994",
+            "fecha_de_ultima_reforma": "14-06-2024"
+        },
+        "Ley de Amparo, Reglamentaria de los Artículos 103 y 107 de la Constitución Política de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo6028.html",
+            "fecha_de_publicacion": "02-04-2013",
+            "fecha_de_ultima_reforma": "13-03-2025"
+        },
+        "Ley de Ascensos de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16942.html",
+            "fecha_de_publicacion": "25-06-2004",
+            "fecha_de_ultima_reforma": "01-06-2011"
+        },
+        "Ley de Ascensos y Recompensas del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16943.html",
+            "fecha_de_publicacion": "30-10-2003",
+            "fecha_de_ultima_reforma": "20-09-2023"
+        },
+        "Ley de Asistencia Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11034.html",
+            "fecha_de_publicacion": "02-09-2004",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley de Asociaciones Público Privadas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124895.html",
+            "fecha_de_publicacion": "16-01-2012",
+            "fecha_de_ultima_reforma": "15-06-2018"
+        },
+        "Ley de Asociaciones Religiosas y Culto Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16946.html",
+            "fecha_de_publicacion": "15-07-1992",
+            "fecha_de_ultima_reforma": "17-12-2015"
+        },
+        "Ley de Aviación Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83106.html",
+            "fecha_de_publicacion": "12-05-1995",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley de Ayuda Alimentaria para los Trabajadores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo57296.html",
+            "fecha_de_publicacion": "17-01-2011",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Biocombustibles": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125148.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Bioseguridad de Organismos Genéticamente Modificados": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11035.html",
+            "fecha_de_publicacion": "18-03-2005",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de Cámaras Empresariales y sus Confederaciones": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3867.html",
+            "fecha_de_publicacion": "20-01-2005",
+            "fecha_de_ultima_reforma": "12-04-2019"
+        },
+        "Ley de Caminos, Puentes y Autotransporte Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83108.html",
+            "fecha_de_publicacion": "22-12-1993",
+            "fecha_de_ultima_reforma": "15-11-2023"
+        },
+        "Ley de Capitalización del PROCAMPO": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13181.html",
+            "fecha_de_publicacion": "31-12-2001",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Carrera Judicial del Poder Judicial de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125145.html",
+            "fecha_de_publicacion": "02-01-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Comercio Exterior": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3868.html",
+            "fecha_de_publicacion": "27-07-1993",
+            "fecha_de_ultima_reforma": "21-12-2006"
+        },
+        "Ley de Concursos Mercantiles": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo5.html",
+            "fecha_de_publicacion": "12-05-2000",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de Contribución de Mejoras por Obras Públicas Federales de Infraestructura Hidráulica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16955.html",
+            "fecha_de_publicacion": "26-12-1990",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Cooperación Internacional para el Desarrollo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo60483.html",
+            "fecha_de_publicacion": "06-04-2011",
+            "fecha_de_ultima_reforma": "06-11-2020"
+        },
+        "Ley de Coordinación Fiscal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo6.html",
+            "fecha_de_publicacion": "27-12-1978",
+            "fecha_de_ultima_reforma": "03-01-2024"
+        },
+        "Ley de Desarrollo Rural Sustentable": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13100.html",
+            "fecha_de_publicacion": "07-12-2001",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley de Desarrollo Sustentable de la Caña de Azúcar": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12073.html",
+            "fecha_de_publicacion": "22-08-2005",
+            "fecha_de_ultima_reforma": "20-10-2008"
+        },
+        "Ley de Disciplina del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16959.html",
+            "fecha_de_publicacion": "15-03-1926",
+            "fecha_de_ultima_reforma": "03-05-2024"
+        },
+        "Ley de Disciplina Financiera de las Entidades Federativas y los Municipios": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo112265.html",
+            "fecha_de_publicacion": "27-04-2016",
+            "fecha_de_ultima_reforma": "10-05-2022"
+        },
+        "Ley de Disciplina para el Personal de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16960.html",
+            "fecha_de_publicacion": "13-12-2002",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Educación Militar del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16961.html",
+            "fecha_de_publicacion": "23-12-2005",
+            "fecha_de_ultima_reforma": "17-01-2022"
+        },
+        "Ley de Educación Naval": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120927.html",
+            "fecha_de_publicacion": "12-03-2019",
+            "fecha_de_ultima_reforma": "24-03-2023"
+        },
+        "Ley de Energía para el Campo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13185.html",
+            "fecha_de_publicacion": "30-12-2002",
+            "fecha_de_ultima_reforma": "28-12-2012"
+        },
+        "Ley de Expropiación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo6029.html",
+            "fecha_de_publicacion": "25-11-1936",
+            "fecha_de_ultima_reforma": "27-01-2012"
+        },
+        "Ley de Extradición Internacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16964.html",
+            "fecha_de_publicacion": "29-12-1975",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley de Firma Electrónica Avanzada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo67194.html",
+            "fecha_de_publicacion": "11-01-2012",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley de Fiscalización y Rendición de Cuentas de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo114650.html",
+            "fecha_de_publicacion": "18-07-2016",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley de Fomento a la Confianza Ciudadana": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120958.html",
+            "fecha_de_publicacion": "20-01-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Fomento a la Industria Vitivinícola": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120897.html",
+            "fecha_de_publicacion": "23-05-2018",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Fomento para la Lectura y el Libro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3497.html",
+            "fecha_de_publicacion": "24-07-2008",
+            "fecha_de_ultima_reforma": "29-11-2023"
+        },
+        "Ley de Fondos de Aseguramiento Agropecuario y Rural": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo8.html",
+            "fecha_de_publicacion": "13-05-2005",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Fondos de Inversión": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo19.html",
+            "fecha_de_publicacion": "04-06-2001",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Geotermia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125073.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Infraestructura de la Calidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo122872.html",
+            "fecha_de_publicacion": "01-07-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Ingresos de la Federación para el Ejercicio Fiscal de 2025": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125018.html",
+            "fecha_de_publicacion": "19-12-2024",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Ingresos sobre Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo98006.html",
+            "fecha_de_publicacion": "11-08-2014",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley de Instituciones de Crédito": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12.html",
+            "fecha_de_publicacion": "18-07-1990",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Instituciones de Seguros y de Fianzas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo79889.html",
+            "fecha_de_publicacion": "04-04-2013",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Inversión Extranjera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14.html",
+            "fecha_de_publicacion": "27-12-1993",
+            "fecha_de_ultima_reforma": "27-05-2024"
+        },
+        "Ley de la Agencia Nacional de Seguridad Industrial y de Protección al Medio Ambiente del Sector Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124596.html",
+            "fecha_de_publicacion": "11-08-2014",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de la Casa de Moneda de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14413.html",
+            "fecha_de_publicacion": "20-01-1986",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de la Comisión Federal de Electricidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo98026.html",
+            "fecha_de_publicacion": "11-08-2014",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de la Comisión Nacional Bancaria y de Valores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15.html",
+            "fecha_de_publicacion": "28-04-1995",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de la Comisión Nacional de Energía": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125146.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de la Comisión Nacional de los Derechos Humanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15531.html",
+            "fecha_de_publicacion": "29-06-1992",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley de la Economía Social y Solidaria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71100.html",
+            "fecha_de_publicacion": "23-05-2012",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley de la Empresa Pública del Estado, Comisión Federal de Electricidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125149.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de la Empresa Pública del Estado, Petróleos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125094.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de la Fiscalía General de la República": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124442.html",
+            "fecha_de_publicacion": "20-05-2021",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley de la Guardia Nacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120948.html",
+            "fecha_de_publicacion": "27-05-2019",
+            "fecha_de_ultima_reforma": "17-11-2023"
+        },
+        "Ley de la Policía Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83120.html",
+            "fecha_de_publicacion": "01-06-2009",
+            "fecha_de_ultima_reforma": "24-06-2011"
+        },
+        "Ley de los Derechos de las Personas Adultas Mayores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83123.html",
+            "fecha_de_publicacion": "25-06-2002",
+            "fecha_de_ultima_reforma": "14-06-2024"
+        },
+        "Ley de los Husos Horarios en los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124682.html",
+            "fecha_de_publicacion": "28-10-2022",
+            "fecha_de_ultima_reforma": "29-11-2022"
+        },
+        "Ley de los Impuestos Generales de Importación y de Exportación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124599.html",
+            "fecha_de_publicacion": "07-06-2022",
+            "fecha_de_ultima_reforma": "08-05-2024"
+        },
+        "Ley de los Institutos Nacionales de Salud": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11036.html",
+            "fecha_de_publicacion": "26-05-2000",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de los Sistemas de Ahorro para el Retiro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16.html",
+            "fecha_de_publicacion": "23-05-1996",
+            "fecha_de_ultima_reforma": "30-04-2024"
+        },
+        "Ley de Migración": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83139.html",
+            "fecha_de_publicacion": "25-05-2011",
+            "fecha_de_ultima_reforma": "27-05-2024"
+        },
+        "Ley de Minería": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17108.html",
+            "fecha_de_publicacion": "26-06-1992",
+            "fecha_de_ultima_reforma": "08-05-2023"
+        },
+        "Ley de Nacionalidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo8266.html",
+            "fecha_de_publicacion": "23-01-1998",
+            "fecha_de_ultima_reforma": "23-04-2012"
+        },
+        "Ley de Navegación y Comercio Marítimos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83143.html",
+            "fecha_de_publicacion": "01-06-2006",
+            "fecha_de_ultima_reforma": "07-12-2020"
+        },
+        "Ley de Obras Públicas y Servicios Relacionados con las Mismas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12917.html",
+            "fecha_de_publicacion": "04-01-2000",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley de Organizaciones Ganaderas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16991.html",
+            "fecha_de_publicacion": "06-01-1999",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley de Planeación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo103489.html",
+            "fecha_de_publicacion": "05-01-1983",
+            "fecha_de_ultima_reforma": "08-05-2023"
+        },
+        "Ley de Planeación y Transición Energética": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125147.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Premios, Estímulos y Recompensas Civiles": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16993.html",
+            "fecha_de_publicacion": "31-12-1975",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley de Productos Orgánicos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12074.html",
+            "fecha_de_publicacion": "07-02-2006",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Protección al Ahorro Bancario": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17.html",
+            "fecha_de_publicacion": "19-01-1999",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley de Protección al Comercio y la Inversión de Normas Extranjeras que Contravengan el Derecho Internacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16997.html",
+            "fecha_de_publicacion": "23-10-1996",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley de Protección del Espacio Aéreo Mexicano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124798.html",
+            "fecha_de_publicacion": "01-03-2023",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Protección y Defensa al Usuario de Servicios Financieros": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo18.html",
+            "fecha_de_publicacion": "18-01-1999",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Puertos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83173.html",
+            "fecha_de_publicacion": "19-07-1993",
+            "fecha_de_ultima_reforma": "07-12-2020"
+        },
+        "Ley de Recompensas de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17000.html",
+            "fecha_de_publicacion": "14-01-1985",
+            "fecha_de_ultima_reforma": "22-11-2021"
+        },
+        "Ley de Responsabilidad Civil por Daños Nucleares": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17001.html",
+            "fecha_de_publicacion": "31-12-1974",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Seguridad Interior": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120865.html",
+            "fecha_de_publicacion": "21-12-2017",
+            "fecha_de_ultima_reforma": "30-05-2019"
+        },
+        "Ley de Seguridad Nacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17002.html",
+            "fecha_de_publicacion": "31-01-2005",
+            "fecha_de_ultima_reforma": "25-11-2022"
+        },
+        "Ley de Sistemas de Pagos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17003.html",
+            "fecha_de_publicacion": "12-12-2002",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Sociedades de Responsabilidad Limitada de Interés Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17005.html",
+            "fecha_de_publicacion": "31-08-1934",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley de Sociedades de Solidaridad Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo5433.html",
+            "fecha_de_publicacion": "27-05-1976",
+            "fecha_de_ultima_reforma": "24-04-2018"
+        },
+        "Ley de Tesorería de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo109251.html",
+            "fecha_de_publicacion": "30-12-2015",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley de Transparencia y de Fomento a la Competencia en el Crédito Garantizado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17007.html",
+            "fecha_de_publicacion": "30-12-2002",
+            "fecha_de_ultima_reforma": "10-01-2014"
+        },
+        "Ley de Uniones de Crédito": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13.html",
+            "fecha_de_publicacion": "20-08-2008",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley de Vertimientos en las Zonas Marinas Mexicanas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo90163.html",
+            "fecha_de_publicacion": "17-01-2014",
+            "fecha_de_ultima_reforma": "13-04-2020"
+        },
+        "Ley de Vías Generales de Comunicación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12916.html",
+            "fecha_de_publicacion": "19-02-1940",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley de Vivienda": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo5434.html",
+            "fecha_de_publicacion": "27-06-2006",
+            "fecha_de_ultima_reforma": "14-06-2024"
+        },
+        "Ley del Banco de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo20.html",
+            "fecha_de_publicacion": "23-12-1993",
+            "fecha_de_ultima_reforma": "10-01-2014"
+        },
+        "Ley del Diario Oficial de la Federación y Gacetas Gubernamentales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17011.html",
+            "fecha_de_publicacion": "24-12-1986",
+            "fecha_de_ultima_reforma": "10-06-2019"
+        },
+        "Ley del Fondo Mexicano del Petróleo para la Estabilización y el Desarrollo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo98007.html",
+            "fecha_de_publicacion": "11-08-2014",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley del Impuesto al Valor Agregado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo22.html",
+            "fecha_de_publicacion": "29-12-1978",
+            "fecha_de_ultima_reforma": "12-11-2021"
+        },
+        "Ley del Impuesto Especial sobre Producción y Servicios": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83174.html",
+            "fecha_de_publicacion": "30-12-1980",
+            "fecha_de_ultima_reforma": "27-12-2024"
+        },
+        "Ley del Impuesto sobre la Renta": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo25.html",
+            "fecha_de_publicacion": "11-12-2013",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley del Instituto de Seguridad Social para las Fuerzas Armadas Mexicanas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17018.html",
+            "fecha_de_publicacion": "09-07-2003",
+            "fecha_de_ultima_reforma": "07-05-2019"
+        },
+        "Ley del Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13204.html",
+            "fecha_de_publicacion": "31-03-2007",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley del Instituto del Fondo Nacional de la Vivienda para los Trabajadores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo96160.html",
+            "fecha_de_publicacion": "24-04-1972",
+            "fecha_de_ultima_reforma": "30-04-2024"
+        },
+        "Ley del Instituto del Fondo Nacional para el Consumo de los Trabajadores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo9061.html",
+            "fecha_de_publicacion": "24-04-2006",
+            "fecha_de_ultima_reforma": "03-01-2024"
+        },
+        "Ley del Instituto Mexicano de la Juventud": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13102.html",
+            "fecha_de_publicacion": "06-01-1999",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley del Instituto Nacional de las Mujeres": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13206.html",
+            "fecha_de_publicacion": "12-01-2001",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley del Instituto Nacional de los Pueblos Indígenas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120922.html",
+            "fecha_de_publicacion": "04-12-2018",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley del Mercado de Valores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo27.html",
+            "fecha_de_publicacion": "30-12-2005",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley del Registro Público Vehicular": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo10805.html",
+            "fecha_de_publicacion": "01-09-2004",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley del Sector Eléctrico": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125150.html",
+            "fecha_de_publicacion": "18-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley del Seguro Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo9056.html",
+            "fecha_de_publicacion": "21-12-1995",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley del Servicio de Administración Tributaria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo28.html",
+            "fecha_de_publicacion": "15-12-1995",
+            "fecha_de_ultima_reforma": "04-12-2018"
+        },
+        "Ley del Servicio Exterior Mexicano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo8267.html",
+            "fecha_de_publicacion": "04-01-1994",
+            "fecha_de_ultima_reforma": "19-04-2018"
+        },
+        "Ley del Servicio Militar": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17031.html",
+            "fecha_de_publicacion": "11-09-1940",
+            "fecha_de_ultima_reforma": "18-05-2022"
+        },
+        "Ley del Servicio Postal Mexicano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12897.html",
+            "fecha_de_publicacion": "24-12-1986",
+            "fecha_de_ultima_reforma": "19-01-2023"
+        },
+        "Ley del Servicio Profesional de Carrera en la Administración Pública Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13208.html",
+            "fecha_de_publicacion": "10-04-2003",
+            "fecha_de_ultima_reforma": "09-01-2006"
+        },
+        "Ley del Sistema Nacional de Información Estadística y Geográfica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo29.html",
+            "fecha_de_publicacion": "16-04-2008",
+            "fecha_de_ultima_reforma": "01-12-2023"
+        },
+        "Ley del Sistema Público de Radiodifusión del Estado Mexicano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo97328.html",
+            "fecha_de_publicacion": "14-07-2014",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley Federal contra la Delincuencia Organizada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17038.html",
+            "fecha_de_publicacion": "07-11-1996",
+            "fecha_de_ultima_reforma": "25-11-2022"
+        },
+        "Ley Federal de Armas de Fuego y Explosivos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17039.html",
+            "fecha_de_publicacion": "11-01-1972",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley Federal de Austeridad Republicana": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120956.html",
+            "fecha_de_publicacion": "19-11-2019",
+            "fecha_de_ultima_reforma": "02-09-2022"
+        },
+        "Ley Federal de Cinematografía": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo53986.html",
+            "fecha_de_publicacion": "29-12-1992",
+            "fecha_de_ultima_reforma": "22-03-2021"
+        },
+        "Ley Federal de Competencia Económica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95395.html",
+            "fecha_de_publicacion": "23-05-2014",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley Federal de Consulta Popular": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo92766.html",
+            "fecha_de_publicacion": "14-03-2014",
+            "fecha_de_ultima_reforma": "19-05-2021"
+        },
+        "Ley Federal de Correduría Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17042.html",
+            "fecha_de_publicacion": "29-12-1992",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley Federal de Declaración Especial de Ausencia para Personas Desaparecidas.": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120905.html",
+            "fecha_de_publicacion": "22-06-2018",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal de Defensoría Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17043.html",
+            "fecha_de_publicacion": "28-05-1998",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal de Derechos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo90880.html",
+            "fecha_de_publicacion": "31-12-1981",
+            "fecha_de_ultima_reforma": "23-04-2024"
+        },
+        "Ley Federal de Deuda Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83186.html",
+            "fecha_de_publicacion": "31-12-1976",
+            "fecha_de_ultima_reforma": "30-01-2018"
+        },
+        "Ley Federal de Fomento a las Actividades Realizadas por Organizaciones de la Sociedad Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo5435.html",
+            "fecha_de_publicacion": "09-02-2004",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal de Juegos y Sorteos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17048.html",
+            "fecha_de_publicacion": "31-12-1947",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal de las Entidades Paraestatales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13211.html",
+            "fecha_de_publicacion": "14-05-1986",
+            "fecha_de_ultima_reforma": "08-05-2023"
+        },
+        "Ley Federal de los Derechos del Contribuyente": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo32.html",
+            "fecha_de_publicacion": "23-06-2005",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal de los Trabajadores al Servicio del Estado, Reglamentaria del Apartado B) del Artículo 123 Constitucional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17051.html",
+            "fecha_de_publicacion": "28-12-1963",
+            "fecha_de_ultima_reforma": "18-02-2022"
+        },
+        "Ley Federal de Presupuesto y Responsabilidad Hacendaria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo33.html",
+            "fecha_de_publicacion": "30-03-2006",
+            "fecha_de_ultima_reforma": "30-04-2024"
+        },
+        "Ley Federal de Procedimiento Administrativo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo34.html",
+            "fecha_de_publicacion": "04-08-1994",
+            "fecha_de_ultima_reforma": "18-05-2018"
+        },
+        "Ley Federal de Procedimiento Contencioso Administrativo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15305.html",
+            "fecha_de_publicacion": "01-12-2005",
+            "fecha_de_ultima_reforma": "21-05-2024"
+        },
+        "Ley Federal de Producción, Certificación y Comercio de Semillas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo12075.html",
+            "fecha_de_publicacion": "15-06-2007",
+            "fecha_de_ultima_reforma": "11-05-2018"
+        },
+        "Ley Federal de Protección a la Propiedad Industrial": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo122873.html",
+            "fecha_de_publicacion": "01-07-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal de Protección al Consumidor": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120869.html",
+            "fecha_de_publicacion": "24-12-1992",
+            "fecha_de_ultima_reforma": "21-12-2023"
+        },
+        "Ley Federal de Protección de Datos Personales en Posesión de los Particulares": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125102.html",
+            "fecha_de_publicacion": "20-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal de Protección del Patrimonio Cultural de los Pueblos y Comunidades Indígenas y Afromexicanas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124577.html",
+            "fecha_de_publicacion": "17-01-2022",
+            "fecha_de_ultima_reforma": "29-11-2023"
+        },
+        "Ley Federal de Remuneraciones de los Servidores Públicos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124441.html",
+            "fecha_de_publicacion": "19-05-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal de Responsabilidad Ambiental": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo82069.html",
+            "fecha_de_publicacion": "07-06-2013",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley Federal de Responsabilidad Patrimonial del Estado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13216.html",
+            "fecha_de_publicacion": "31-12-2004",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley Federal de Responsabilidades de los Servidores Públicos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo9058.html",
+            "fecha_de_publicacion": "31-12-1982",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal de Revocación de Mandato": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124800.html",
+            "fecha_de_publicacion": "14-09-2021",
+            "fecha_de_ultima_reforma": "26-09-2022"
+        },
+        "Ley Federal de Sanidad Animal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11708.html",
+            "fecha_de_publicacion": "25-07-2007",
+            "fecha_de_ultima_reforma": "21-05-2024"
+        },
+        "Ley Federal de Sanidad Vegetal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11709.html",
+            "fecha_de_publicacion": "05-01-1994",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley Federal de Seguridad Privada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo10806.html",
+            "fecha_de_publicacion": "06-07-2006",
+            "fecha_de_ultima_reforma": "17-10-2011"
+        },
+        "Ley Federal de Telecomunicaciones y Radiodifusión.": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo97329.html",
+            "fecha_de_publicacion": "14-07-2014",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal de Variedades Vegetales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11710.html",
+            "fecha_de_publicacion": "25-10-1996",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley Federal de Zonas Económicas Especiales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo113682.html",
+            "fecha_de_publicacion": "01-06-2016",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal del Derecho de Autor": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17068.html",
+            "fecha_de_publicacion": "24-12-1996",
+            "fecha_de_ultima_reforma": "01-07-2020"
+        },
+        "Ley Federal del Impuesto sobre Automóviles Nuevos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83182.html",
+            "fecha_de_publicacion": "30-12-1996",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley Federal del Mar": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11711.html",
+            "fecha_de_publicacion": "08-01-1986",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal del Trabajo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125151.html",
+            "fecha_de_publicacion": "01-04-1970",
+            "fecha_de_ultima_reforma": "21-02-2025"
+        },
+        "Ley Federal para el Control de Precursores Químicos, Productos Químicos Esenciales y Máquinas para Elaborar Cápsulas, Tabletas y/o Comprimidos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17072.html",
+            "fecha_de_publicacion": "26-12-1997",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley Federal para el Control de Sustancias Químicas Susceptibles de Desvío para la Fabricación de Armas Químicas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo38915.html",
+            "fecha_de_publicacion": "09-06-2009",
+            "fecha_de_ultima_reforma": "14-06-2024"
+        },
+        "Ley Federal para el Fomento de la Microindustria y la Actividad Artesanal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3873.html",
+            "fecha_de_publicacion": "26-01-1988",
+            "fecha_de_ultima_reforma": "27-03-2023"
+        },
+        "Ley Federal para el Fomento y Protección del Maíz Nativo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo121429.html",
+            "fecha_de_publicacion": "13-04-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Federal para la Administración y Enajenación de Bienes del Sector Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17074.html",
+            "fecha_de_publicacion": "19-12-2002",
+            "fecha_de_ultima_reforma": "30-04-2024"
+        },
+        "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo74107.html",
+            "fecha_de_publicacion": "17-10-2012",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley Federal para la Protección a Personas que Intervienen en el Procedimiento Penal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71396.html",
+            "fecha_de_publicacion": "08-06-2012",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley Federal para Prevenir y Eliminar la Discriminación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13222.html",
+            "fecha_de_publicacion": "11-06-2003",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Federal para Prevenir y Sancionar los delitos cometidos en materia de Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo110416.html",
+            "fecha_de_publicacion": "12-01-2016",
+            "fecha_de_ultima_reforma": "12-11-2021"
+        },
+        "Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14097.html",
+            "fecha_de_publicacion": "06-05-1972",
+            "fecha_de_ultima_reforma": "16-02-2018"
+        },
+        "Ley General de Acceso de las Mujeres a una Vida Libre de Violencia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17079.html",
+            "fecha_de_publicacion": "01-02-2007",
+            "fecha_de_ultima_reforma": "26-01-2024"
+        },
+        "Ley General de Archivos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120902.html",
+            "fecha_de_publicacion": "15-06-2018",
+            "fecha_de_ultima_reforma": "19-01-2023"
+        },
+        "Ley General de Asentamientos Humanos, Ordenamiento Territorial y Desarrollo Urbano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo118961.html",
+            "fecha_de_publicacion": "28-11-2016",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Bibliotecas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124465.html",
+            "fecha_de_publicacion": "01-06-2021",
+            "fecha_de_ultima_reforma": "29-11-2023"
+        },
+        "Ley General de Bienes Nacionales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124893.html",
+            "fecha_de_publicacion": "20-05-2004",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley General de Cambio Climático": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71395.html",
+            "fecha_de_publicacion": "06-06-2012",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Comunicación Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120890.html",
+            "fecha_de_publicacion": "11-05-2018",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Contabilidad Gubernamental": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo96846.html",
+            "fecha_de_publicacion": "31-12-2008",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Cultura Física y Deporte": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo82065.html",
+            "fecha_de_publicacion": "07-06-2013",
+            "fecha_de_ultima_reforma": "18-10-2023"
+        },
+        "Ley General de Cultura y Derechos Culturales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120190.html",
+            "fecha_de_publicacion": "19-06-2017",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Derechos Lingüísticos de los Pueblos Indígenas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo108985.html",
+            "fecha_de_publicacion": "13-03-2003",
+            "fecha_de_ultima_reforma": "18-10-2023"
+        },
+        "Ley General de Desarrollo forestal Sustentable": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120913.html",
+            "fecha_de_publicacion": "05-06-2018",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Desarrollo Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83185.html",
+            "fecha_de_publicacion": "20-01-2004",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Educación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124435.html",
+            "fecha_de_publicacion": "30-09-2019",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley General de Educación Superior": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124400.html",
+            "fecha_de_publicacion": "20-04-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General de Instituciones y Procedimientos Electorales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95383.html",
+            "fecha_de_publicacion": "23-05-2014",
+            "fecha_de_ultima_reforma": "14-10-2024"
+        },
+        "Ley General De La Alimentación Adecuada y Sostenible": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124843.html",
+            "fecha_de_publicacion": "17-04-2024",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General de los Derechos de Niñas, Niños y Adolescentes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99957.html",
+            "fecha_de_publicacion": "04-12-2014",
+            "fecha_de_ultima_reforma": "27-05-2024"
+        },
+        "Ley General De Mecanismos Alternativos De Solución De Controversias": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124816.html",
+            "fecha_de_publicacion": "26-01-2024",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General de Mejora Regulatoria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120894.html",
+            "fecha_de_publicacion": "18-05-2018",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley General de Movilidad y Seguridad Vial": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124595.html",
+            "fecha_de_publicacion": "17-05-2022",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley General de Organizaciones y Actividades Auxiliares del Crédito": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo39.html",
+            "fecha_de_publicacion": "14-01-1985",
+            "fecha_de_ultima_reforma": "26-03-2024"
+        },
+        "Ley General de Partidos Políticos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95384.html",
+            "fecha_de_publicacion": "23-05-2014",
+            "fecha_de_ultima_reforma": "24-11-2023"
+        },
+        "Ley General de Pesca y Acuacultura Sustentables": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo91198.html",
+            "fecha_de_publicacion": "24-07-2007",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Población": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo65308.html",
+            "fecha_de_publicacion": "07-01-1974",
+            "fecha_de_ultima_reforma": "12-07-2018"
+        },
+        "Ley General de Prestación de Servicios para la Atención, Cuidado y Desarrollo Integral Infantil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo65728.html",
+            "fecha_de_publicacion": "24-10-2011",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Protección Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71347.html",
+            "fecha_de_publicacion": "06-06-2012",
+            "fecha_de_ultima_reforma": "21-12-2023"
+        },
+        "Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125096.html",
+            "fecha_de_publicacion": "20-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General de Responsabilidades Administrativas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo114654.html",
+            "fecha_de_publicacion": "18-07-2016",
+            "fecha_de_ultima_reforma": "02-01-2025"
+        },
+        "Ley General de Salud": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo11037.html",
+            "fecha_de_publicacion": "07-02-1984",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley General de Sociedades Cooperativas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo40.html",
+            "fecha_de_publicacion": "03-08-1994",
+            "fecha_de_ultima_reforma": "19-01-2018"
+        },
+        "Ley General de Sociedades Mercantiles": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo41.html",
+            "fecha_de_publicacion": "04-08-1934",
+            "fecha_de_ultima_reforma": "30-12-2024"
+        },
+        "Ley General de Títulos y Operaciones de Crédito": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo42.html",
+            "fecha_de_publicacion": "27-08-1932",
+            "fecha_de_ultima_reforma": "26-03-2024"
+        },
+        "Ley General de Transparencia y Acceso a la Información Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125097.html",
+            "fecha_de_publicacion": "20-03-2025",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General de Turismo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83188.html",
+            "fecha_de_publicacion": "17-06-2009",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Víctimas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83189.html",
+            "fecha_de_publicacion": "09-01-2013",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General de Vida Silvestre": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83190.html",
+            "fecha_de_publicacion": "03-07-2000",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley General del Equilibrio Ecológico y la Protección al Ambiente": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83191.html",
+            "fecha_de_publicacion": "28-01-1988",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General del Sistema de Medios de Impugnación en Materia Electoral": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14640.html",
+            "fecha_de_publicacion": "22-11-1996",
+            "fecha_de_ultima_reforma": "15-10-2024"
+        },
+        "Ley General del Sistema Nacional Anticorrupción": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo118520.html",
+            "fecha_de_publicacion": "18-07-2016",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley General del Sistema Nacional de Seguridad Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo96855.html",
+            "fecha_de_publicacion": "02-01-2009",
+            "fecha_de_ultima_reforma": "16-12-2024"
+        },
+        "Ley General del Sistema para la Carrera de las Maestras y los Maestros": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124436.html",
+            "fecha_de_publicacion": "30-09-2019",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General en Materia de Delitos Electorales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95385.html",
+            "fecha_de_publicacion": "23-05-2014",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley General en Materia de Desaparición Forzada de Personas, Desaparición Cometida por Particulares y del Sistema Nacional de Búsqueda de Personas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120847.html",
+            "fecha_de_publicacion": "17-11-2017",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley General en Materia de Humanidades, Ciencias, Tecnologías e Innovación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124801.html",
+            "fecha_de_publicacion": "08-05-2023",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General para el Control del Tabaco": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83192.html",
+            "fecha_de_publicacion": "30-05-2008",
+            "fecha_de_ultima_reforma": "17-02-2022"
+        },
+        "Ley General para la Atención y Protección a Personas con la Condición del Espectro Autista": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo102858.html",
+            "fecha_de_publicacion": "30-04-2015",
+            "fecha_de_ultima_reforma": "27-05-2016"
+        },
+        "Ley General para la Detección Oportuna del Cáncer en la Infancia y la Adolescencia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124103.html",
+            "fecha_de_publicacion": "07-01-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley General para la Igualdad entre Mujeres y Hombres": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17106.html",
+            "fecha_de_publicacion": "02-08-2006",
+            "fecha_de_ultima_reforma": "29-12-2023"
+        },
+        "Ley General para la Inclusión de las Personas con Discapacidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo61725.html",
+            "fecha_de_publicacion": "30-05-2011",
+            "fecha_de_ultima_reforma": "14-06-2024"
+        },
+        "Ley General para la Prevención Social de la Violencia y la Delincuencia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo67721.html",
+            "fecha_de_publicacion": "24-01-2012",
+            "fecha_de_ultima_reforma": "04-05-2021"
+        },
+        "Ley General para la Prevención y Gestión Integral de los Residuos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83193.html",
+            "fecha_de_publicacion": "08-10-2003",
+            "fecha_de_ultima_reforma": "08-05-2023"
+        },
+        "Ley General para Prevenir y Sancionar los Delitos en Materia de Secuestro, Reglamentaria de la fracción XXI del Artículo 73 de la Constitución Política de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo56114.html",
+            "fecha_de_publicacion": "30-11-2010",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley General para Prevenir, Investigar y Sancionar la Tortura y otros Tratos o Penas Crueles, Inhumanos o Degradantes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120208.html",
+            "fecha_de_publicacion": "26-06-2017",
+            "fecha_de_ultima_reforma": "28-04-2022"
+        },
+        "Ley General para Prevenir, Sancionar y Erradicar los Delitos en Materia de Trata de Personas y para la Protección y Asistencia a las Víctimas de estos Delitos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71511.html",
+            "fecha_de_publicacion": "14-06-2012",
+            "fecha_de_ultima_reforma": "07-06-2024"
+        },
+        "Ley Monetaria de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14412.html",
+            "fecha_de_publicacion": "27-07-1931",
+            "fecha_de_ultima_reforma": "20-01-2009"
+        },
+        "Ley Nacional de Ejecución Penal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo114658.html",
+            "fecha_de_publicacion": "16-06-2016",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Nacional de Extinción de Dominio": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120954.html",
+            "fecha_de_publicacion": "09-08-2019",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Nacional de Mecanismos Alternativos de Solución de Controversias en Materia Penal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo100106.html",
+            "fecha_de_publicacion": "29-12-2014",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Nacional del Registro de Detenciones": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120949.html",
+            "fecha_de_publicacion": "27-05-2019",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Nacional del Sistema Integral de Justicia Penal para Adolescentes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo114657.html",
+            "fecha_de_publicacion": "16-06-2016",
+            "fecha_de_ultima_reforma": "20-12-2022"
+        },
+        "Ley Nacional sobre el Uso de la Fuerza": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120950.html",
+            "fecha_de_publicacion": "27-05-2019",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley Orgánica de la Administración Pública Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13235.html",
+            "fecha_de_publicacion": "29-12-1976",
+            "fecha_de_ultima_reforma": "28-11-2024"
+        },
+        "Ley Orgánica de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124567.html",
+            "fecha_de_publicacion": "14-10-2021",
+            "fecha_de_ultima_reforma": "01-12-2023"
+        },
+        "Ley Orgánica de la Procuraduría de la Defensa del Contribuyente": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17114.html",
+            "fecha_de_publicacion": "04-09-2006",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley Orgánica de la Procuraduría General de Justicia del Distrito Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo110800.html",
+            "fecha_de_publicacion": "20-06-2011",
+            "fecha_de_ultima_reforma": "24-02-2012"
+        },
+        "Ley Orgánica de la Universidad Autónoma Agraria Antonio Narro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13138.html",
+            "fecha_de_publicacion": "26-04-2006",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica de la Universidad Autónoma Metropolitana": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15291.html",
+            "fecha_de_publicacion": "17-12-1973",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica de la Universidad Nacional Autónoma de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo14350.html",
+            "fecha_de_publicacion": "06-01-1945",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica de los Tribunales Agrarios": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15393.html",
+            "fecha_de_publicacion": "26-02-1992",
+            "fecha_de_ultima_reforma": "23-01-1998"
+        },
+        "Ley Orgánica de Nacional Financiera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13543.html",
+            "fecha_de_publicacion": "26-12-1986",
+            "fecha_de_ultima_reforma": "10-01-2014"
+        },
+        "Ley Orgánica de Sociedad Hipotecaria Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo44.html",
+            "fecha_de_publicacion": "11-10-2001",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Orgánica del Banco del Bienestar (antes Ley Orgánica del Banco del Ahorro Nacional y Servicios Financieros)": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo45.html",
+            "fecha_de_publicacion": "01-06-2001",
+            "fecha_de_ultima_reforma": "19-07-2019"
+        },
+        "Ley Orgánica del Banco Nacional de Comercio Exterior": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83195.html",
+            "fecha_de_publicacion": "20-01-1986",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Orgánica del Banco Nacional de Obras y Servicios Públicos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo96856.html",
+            "fecha_de_publicacion": "20-01-1986",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Orgánica del Banco Nacional del Ejército, Fuerza Aérea y Armada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17127.html",
+            "fecha_de_publicacion": "13-01-1986",
+            "fecha_de_ultima_reforma": "10-01-2014"
+        },
+        "Ley Orgánica del Centro Federal de Conciliación y Registro Laboral": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo123631.html",
+            "fecha_de_publicacion": "06-01-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica del Congreso General de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16815.html",
+            "fecha_de_publicacion": "03-09-1999",
+            "fecha_de_ultima_reforma": "09-12-2022"
+        },
+        "Ley Orgánica del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13238.html",
+            "fecha_de_publicacion": "26-12-1986",
+            "fecha_de_ultima_reforma": "03-05-2024"
+        },
+        "Ley Orgánica del Instituto Nacional de Antropología e Historia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17131.html",
+            "fecha_de_publicacion": "03-02-1939",
+            "fecha_de_ultima_reforma": "17-12-2015"
+        },
+        "Ley Orgánica del Instituto Politécnico Nacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13135.html",
+            "fecha_de_publicacion": "29-12-1981",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica del Poder Judicial de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125024.html",
+            "fecha_de_publicacion": "20-12-2024",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Orgánica del Seminario de Cultura Mexicana": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17134.html",
+            "fecha_de_publicacion": "31-12-1949",
+            "fecha_de_ultima_reforma": "11-05-2022"
+        },
+        "Ley Orgánica del Tribunal Federal de Justicia Administrativa": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo117705.html",
+            "fecha_de_publicacion": "18-07-2016",
+            "fecha_de_ultima_reforma": "26-01-2024"
+        },
+        "Ley para Conservar la Neutralidad del País": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17136.html",
+            "fecha_de_publicacion": "10-11-1939",
+            "fecha_de_ultima_reforma": "21-06-2018"
+        },
+        "Ley para Determinar el Valor de la Unidad de Medida y Actualización": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120912.html",
+            "fecha_de_publicacion": "30-12-2016",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley para el Desarrollo de la Competitividad de la Micro, Pequeña y Mediana Empresa": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83198.html",
+            "fecha_de_publicacion": "30-12-2002",
+            "fecha_de_ultima_reforma": "20-10-2023"
+        },
+        "Ley para el Diálogo, la Conciliación y la Paz Digna en Chiapas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17139.html",
+            "fecha_de_publicacion": "11-03-1995",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley para el uso y protección de la denominación y del emblema de la Cruz Roja": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13241.html",
+            "fecha_de_publicacion": "23-03-2007",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley para Impulsar el Incremento Sostenido de la Productividad y la Competitividad de la Economía Nacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo102924.html",
+            "fecha_de_publicacion": "06-05-2015",
+            "fecha_de_ultima_reforma": "17-04-2024"
+        },
+        "Ley para la Comprobación, Ajuste y Cómputo de Servicios de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17142.html",
+            "fecha_de_publicacion": "14-06-2004",
+            "fecha_de_ultima_reforma": "12-06-2009"
+        },
+        "Ley para la Comprobación, Ajuste y Cómputo de Servicios en el Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17143.html",
+            "fecha_de_publicacion": "09-02-2006",
+            "fecha_de_ultima_reforma": "03-05-2024"
+        },
+        "Ley para la Protección de Personas Defensoras de Derechos Humanos y Periodistas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo71683.html",
+            "fecha_de_publicacion": "25-06-2012",
+            "fecha_de_ultima_reforma": "28-04-2022"
+        },
+        "Ley para la Transparencia y Ordenamiento de los Servicios Financieros": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo46.html",
+            "fecha_de_publicacion": "15-06-2007",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley para la Transparencia, Prevención y Combate de Prácticas Indebidas en Materia de Contratación de Publicidad.": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124487.html",
+            "fecha_de_publicacion": "03-06-2021",
+            "fecha_de_ultima_reforma": "22-12-2023"
+        },
+        "Ley para Regular las Actividades de las Sociedades Cooperativas de Ahorro y Préstamo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo37634.html",
+            "fecha_de_publicacion": "13-08-2009",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley para Regular las Agrupaciones Financieras": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo89834.html",
+            "fecha_de_publicacion": "10-01-2014",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley para Regular las Instituciones de Tecnología Financiera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120920.html",
+            "fecha_de_publicacion": "09-03-2018",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley para regular las Sociedades de Información Crediticia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo48.html",
+            "fecha_de_publicacion": "15-01-2002",
+            "fecha_de_ultima_reforma": "24-01-2024"
+        },
+        "Ley que aprueba la Adhesión de México al Convenio Constitutivo del Banco de Desarrollo del Caribe y su Ejecución": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17151.html",
+            "fecha_de_publicacion": "05-01-1982",
+            "fecha_de_ultima_reforma": "29-12-2014"
+        },
+        "Ley que crea el Fondo de Garantía y Fomento para la Agricultura, Ganadería y Avicultura": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83799.html",
+            "fecha_de_publicacion": "31-12-1954",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley que crea el Instituto Nacional de Bellas Artes y Literatura": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17156.html",
+            "fecha_de_publicacion": "31-12-1946",
+            "fecha_de_ultima_reforma": "17-12-2015"
+        },
+        "Ley que crea la Agencia Espacial Mexicana": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo51809.html",
+            "fecha_de_publicacion": "30-07-2010",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley que crea la Universidad Autónoma Chapingo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo15604.html",
+            "fecha_de_publicacion": "30-12-1974",
+            "fecha_de_ultima_reforma": "30-12-1977"
+        },
+        "Ley que crea la Universidad del Ejército y Fuerza Aérea": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17159.html",
+            "fecha_de_publicacion": "29-12-1975",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley que declara Reservas Mineras Nacionales los Yacimientos de Uranio, Torio y las demás Substancias de las cuales se obtengan Isótopos Hendibles que puedan producir Energía Nuclear": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17160.html",
+            "fecha_de_publicacion": "26-01-1950",
+            "fecha_de_ultima_reforma": "12-01-1972"
+        },
+        "Ley que establece Bases para la Ejecución en México, por el Poder Ejecutivo Federal, del Convenio Constitutivo de la Asociación Internacional de Fomento": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83556.html",
+            "fecha_de_publicacion": "31-12-1960",
+            "fecha_de_ultima_reforma": "29-12-2014"
+        },
+        "Ley que establece Bases para la Ejecución en México, por el Poder Ejecutivo Federal, del Convenio Constitutivo del Banco Interamericano de Desarrollo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83199.html",
+            "fecha_de_publicacion": "19-12-1959",
+            "fecha_de_ultima_reforma": "29-12-2014"
+        },
+        "Ley Reglamentaria de la Fracción V del Artículo 76 de la Constitución General de la República": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17167.html",
+            "fecha_de_publicacion": "29-12-1978",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Reglamentaria de la Fracción VI del Artículo 76 de la Constitución Política de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16816.html",
+            "fecha_de_publicacion": "31-08-2007",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Reglamentaria de la Fracción XIII Bis del Apartado B, del Artículo 123 de la Constitución Política de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17169.html",
+            "fecha_de_publicacion": "30-12-1983",
+            "fecha_de_ultima_reforma": "31-07-2021"
+        },
+        "Ley Reglamentaria de la Fracción XVIII del Artículo 73 Constitucional, en lo que se refiere a la facultad del Congreso para dictar reglas para determinar el valor relativo de la Moneda Extranjera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17170.html",
+            "fecha_de_publicacion": "27-12-1982",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Reglamentaria de las Fracciones I y II del Artículo 105 de la Constitución Política de los Estados Unidos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16344.html",
+            "fecha_de_publicacion": "11-05-1995",
+            "fecha_de_ultima_reforma": "18-02-2022"
+        },
+        "Ley Reglamentaria del Artículo 27 Constitucional en Materia Nuclear": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17173.html",
+            "fecha_de_publicacion": "04-02-1985",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley Reglamentaria del Artículo 3o. de la Constitución Política de los Estados Unidos Mexicanos, en materia de Mejora Continua de la Educación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124437.html",
+            "fecha_de_publicacion": "30-09-2019",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley Reglamentaria del Artículo 6o. párrafo primero, de la Constitución Política de los Estados Unidos Mexicanos en materia del Derecho de Réplica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo110802.html",
+            "fecha_de_publicacion": "04-11-2015",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley Reglamentaria del Servicio Ferroviario": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17175.html",
+            "fecha_de_publicacion": "12-05-1995",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Ley sobre Cámaras Agrícolas, que en lo sucesivo se denominarán Asociaciones Agrícolas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo16945.html",
+            "fecha_de_publicacion": "27-08-1932",
+            "fecha_de_ultima_reforma": "09-04-2012"
+        },
+        "Ley sobre el Contrato de Seguro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83200.html",
+            "fecha_de_publicacion": "31-08-1935",
+            "fecha_de_ultima_reforma": "04-04-2013"
+        },
+        "Ley sobre el Escudo, la Bandera y el Himno Nacionales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo13243.html",
+            "fecha_de_publicacion": "08-02-1984",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Ley sobre Elaboración y Venta de Café Tostado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17179.html",
+            "fecha_de_publicacion": "25-05-1972",
+            "fecha_de_ultima_reforma": "10-12-2004"
+        },
+        "Ley sobre la Aprobación de Tratados Internacionales en Materia Económica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo3874.html",
+            "fecha_de_publicacion": "02-09-2004",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Ley sobre la Celebración de Tratados": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo17181.html",
+            "fecha_de_publicacion": "02-01-1992",
+            "fecha_de_ultima_reforma": "20-05-2021"
+        },
+        "Ley sobre Refugiados, Protección Complementaria y Asilo Político": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo57819.html",
+            "fecha_de_publicacion": "27-01-2011",
+            "fecha_de_ultima_reforma": "18-02-2022"
+        },
+        "Ordenanza General de la Armada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83201.html",
+            "fecha_de_publicacion": "01-01-1912",
+            "fecha_de_ultima_reforma": "19-10-2000"
+        },
+        "Reglamento de la Ley Aduanera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo102496.html",
+            "fecha_de_publicacion": "20-04-2015",
+            "fecha_de_ultima_reforma": "28-12-2023"
+        },
+        "Reglamento de la Ley Agraria en Materia de Certificación de Derechos Ejidales y Titulación de Solares": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88373.html",
+            "fecha_de_publicacion": "06-01-1993",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Agraria en Materia de Ordenamiento de la Propiedad Rural": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88379.html",
+            "fecha_de_publicacion": "28-11-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Agraria para Fomentar la Organización y Desarrollo de la Mujer Campesina": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88405.html",
+            "fecha_de_publicacion": "08-05-1998",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88406.html",
+            "fecha_de_publicacion": "28-07-2010",
+            "fecha_de_ultima_reforma": "14-02-2024"
+        },
+        "Reglamento de la Ley de Aeropuertos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88407.html",
+            "fecha_de_publicacion": "17-02-2000",
+            "fecha_de_ultima_reforma": "21-06-2018"
+        },
+        "Reglamento de la Ley de Aguas Nacionales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88408.html",
+            "fecha_de_publicacion": "12-01-1994",
+            "fecha_de_ultima_reforma": "25-08-2014"
+        },
+        "Reglamento de la Ley de Ascensos de la Armada de México": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88409.html",
+            "fecha_de_publicacion": "09-11-2006",
+            "fecha_de_ultima_reforma": "06-03-2020"
+        },
+        "Reglamento de la Ley de Ascensos y Recompensas del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88410.html",
+            "fecha_de_publicacion": "19-07-2004",
+            "fecha_de_ultima_reforma": "03-05-2023"
+        },
+        "Reglamento de la Ley de Asociaciones Público Privadas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88411.html",
+            "fecha_de_publicacion": "05-11-2012",
+            "fecha_de_ultima_reforma": "20-02-2017"
+        },
+        "Reglamento de la Ley de Asociaciones Religiosas y Culto Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88412.html",
+            "fecha_de_publicacion": "06-11-2003",
+            "fecha_de_ultima_reforma": "28-09-2012"
+        },
+        "Reglamento de la Ley de Aviación Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88413.html",
+            "fecha_de_publicacion": "07-12-1998",
+            "fecha_de_ultima_reforma": "31-05-2023"
+        },
+        "Reglamento de la Ley de Ayuda Alimentaria para los Trabajadores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo103321.html",
+            "fecha_de_publicacion": "04-06-2015",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Bioseguridad de Organismos Genéticamente Modificados": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88414.html",
+            "fecha_de_publicacion": "19-03-2008",
+            "fecha_de_ultima_reforma": "06-03-2009"
+        },
+        "Reglamento de la Ley de Cámaras Empresariales y sus Confederaciones": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88418.html",
+            "fecha_de_publicacion": "09-02-2012",
+            "fecha_de_ultima_reforma": "13-02-2013"
+        },
+        "Reglamento de la Ley de Comercio Exterior": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88419.html",
+            "fecha_de_publicacion": "30-12-1993",
+            "fecha_de_ultima_reforma": "22-05-2014"
+        },
+        "Reglamento de la Ley de Desarrollo Rural Sustentable en Materia de Organismos, Instancias de Representación, Sistemas y Servicios Especializados": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88420.html",
+            "fecha_de_publicacion": "05-10-2004",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Educación Militar del Ejército y Fuerza Aérea Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88421.html",
+            "fecha_de_publicacion": "14-08-2006",
+            "fecha_de_ultima_reforma": "05-08-2024"
+        },
+        "Reglamento de la Ley de Educación Naval": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120959.html",
+            "fecha_de_publicacion": "27-01-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Energía Geotérmica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99697.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Energía para el Campo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88422.html",
+            "fecha_de_publicacion": "04-12-2003",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Firma Electrónica Avanzada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo93113.html",
+            "fecha_de_publicacion": "21-03-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Fomento para la Lectura y el Libro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88424.html",
+            "fecha_de_publicacion": "23-04-2010",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99699.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Información Estadística y Geográfica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88425.html",
+            "fecha_de_publicacion": "03-11-1982",
+            "fecha_de_ultima_reforma": "24-03-2004"
+        },
+        "Reglamento de la Ley de Ingresos sobre Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99689.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "22-05-2017"
+        },
+        "Reglamento de la Ley de Inversión Extranjera y del Registro Nacional de Inversiones Extranjeras": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88426.html",
+            "fecha_de_publicacion": "08-09-1998",
+            "fecha_de_ultima_reforma": "17-08-2016"
+        },
+        "Reglamento de la Ley de la Comisión Federal de Electricidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo101967.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "09-02-2015"
+        },
+        "Reglamento de la Ley de la Guardia Nacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120952.html",
+            "fecha_de_publicacion": "29-06-2019",
+            "fecha_de_ultima_reforma": "11-12-2020"
+        },
+        "Reglamento de la Ley de la Industria Eléctrica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99692.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de la Policía Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88427.html",
+            "fecha_de_publicacion": "17-05-2010",
+            "fecha_de_ultima_reforma": "22-08-2014"
+        },
+        "Reglamento de la Ley de la Propiedad Industrial": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88428.html",
+            "fecha_de_publicacion": "23-11-1994",
+            "fecha_de_ultima_reforma": "16-12-2016"
+        },
+        "Reglamento de la Ley de los Sistemas de Ahorro para el Retiro": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88429.html",
+            "fecha_de_publicacion": "24-08-2009",
+            "fecha_de_ultima_reforma": "27-09-2024"
+        },
+        "Reglamento de la Ley de Migración": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88430.html",
+            "fecha_de_publicacion": "28-09-2012",
+            "fecha_de_ultima_reforma": "23-05-2014"
+        },
+        "Reglamento de la Ley de Nacionalidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88431.html",
+            "fecha_de_publicacion": "17-06-2009",
+            "fecha_de_ultima_reforma": "25-11-2013"
+        },
+        "Reglamento de la Ley de Navegación y Comercio Marítimos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo101981.html",
+            "fecha_de_publicacion": "04-03-2015",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Obras Públicas y Servicios Relacionados con las Mismas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88434.html",
+            "fecha_de_publicacion": "28-07-2010",
+            "fecha_de_ultima_reforma": "24-02-2023"
+        },
+        "Reglamento de la Ley de Organizaciones Ganaderas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88435.html",
+            "fecha_de_publicacion": "24-12-1999",
+            "fecha_de_ultima_reforma": "10-01-2000"
+        },
+        "Reglamento de la Ley de Pesca": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88436.html",
+            "fecha_de_publicacion": "29-09-1999",
+            "fecha_de_ultima_reforma": "28-01-2004"
+        },
+        "Reglamento de la Ley de Petróleos Mexicanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo101965.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "09-02-2015"
+        },
+        "Reglamento de la Ley de Productos Orgánicos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88438.html",
+            "fecha_de_publicacion": "01-04-2010",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Promoción y Desarrollo de los Bioenergéticos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88439.html",
+            "fecha_de_publicacion": "18-06-2009",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Puertos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88440.html",
+            "fecha_de_publicacion": "16-12-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Tesorería de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120324.html",
+            "fecha_de_publicacion": "30-06-2017",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley de Transición Energética": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120152.html",
+            "fecha_de_publicacion": "04-05-2017",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Impuesto al Valor Agregado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88442.html",
+            "fecha_de_publicacion": "04-12-2006",
+            "fecha_de_ultima_reforma": "25-09-2014"
+        },
+        "Reglamento de la Ley del Impuesto Especial sobre Producción y Servicios": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88443.html",
+            "fecha_de_publicacion": "04-12-2006",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Impuesto sobre la Renta": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo106775.html",
+            "fecha_de_publicacion": "08-10-2015",
+            "fecha_de_ultima_reforma": "06-05-2016"
+        },
+        "Reglamento de la Ley del Instituto de Seguridad Social para las Fuerzas Armadas Mexicanas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88445.html",
+            "fecha_de_publicacion": "10-05-2013",
+            "fecha_de_ultima_reforma": "19-02-2019"
+        },
+        "Reglamento de la Ley del Instituto del Fondo Nacional de la Vivienda para los Trabajadores en Materia de Transparencia y Acceso a la Información": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88446.html",
+            "fecha_de_publicacion": "12-12-2005",
+            "fecha_de_ultima_reforma": "24-02-2006"
+        },
+        "Reglamento de la Ley del Instituto del Fondo Nacional para el Consumo de los Trabajadores": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88447.html",
+            "fecha_de_publicacion": "30-11-2006",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Registro Público Vehicular": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88448.html",
+            "fecha_de_publicacion": "05-12-2007",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Seguro Social en Materia de Afiliación, Clasificación de Empresas, Recaudación y Fiscalización": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88450.html",
+            "fecha_de_publicacion": "01-11-2002",
+            "fecha_de_ultima_reforma": "15-07-2005"
+        },
+        "Reglamento de la Ley del Seguro Social para la Constitución, Inversión y Uso para la Operación de las Reservas Financieras y Actuariales y la Reserva General Financiera y Actuarial, así como para la Determinación de los Costos Financieros que Deberán Reintegrarse a la Reserva de Operación para Contingencias y Financiamiento": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88451.html",
+            "fecha_de_publicacion": "20-08-2013",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Seguro Social, en Materia de Administración y Enajenación de Bienes Adjudicados con Motivo de la Aplicación del Procedimiento Administrativo de Ejecución": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88452.html",
+            "fecha_de_publicacion": "20-11-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley del Servicio Exterior Mexicano": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88454.html",
+            "fecha_de_publicacion": "28-04-2017",
+            "fecha_de_ultima_reforma": "17-10-2019"
+        },
+        "Reglamento de la Ley del Servicio Militar": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88455.html",
+            "fecha_de_publicacion": "10-11-1942",
+            "fecha_de_ultima_reforma": "06-06-1947"
+        },
+        "Reglamento de la Ley del Servicio Profesional de Carrera en la Administración Pública Federal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88456.html",
+            "fecha_de_publicacion": "06-09-2007",
+            "fecha_de_ultima_reforma": "04-01-2024"
+        },
+        "Reglamento de la Ley del Servicio Público de Energía Eléctrica, en Materia de Aportaciones": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88459.html",
+            "fecha_de_publicacion": "10-11-1998",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley Federal de Archivos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95017.html",
+            "fecha_de_publicacion": "13-05-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Armas de Fuego y Explosivos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88463.html",
+            "fecha_de_publicacion": "06-05-1972",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Cinematografía": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88466.html",
+            "fecha_de_publicacion": "29-03-2001",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Competencia Económica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88467.html",
+            "fecha_de_publicacion": "12-10-2007",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Correduría Pública": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88468.html",
+            "fecha_de_publicacion": "04-06-1993",
+            "fecha_de_ultima_reforma": "26-11-2012"
+        },
+        "Reglamento de la Ley Federal de Fomento a las Actividades Realizadas por Organizaciones de la Sociedad Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88469.html",
+            "fecha_de_publicacion": "07-06-2005",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Juegos y Sorteos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88470.html",
+            "fecha_de_publicacion": "17-09-2004",
+            "fecha_de_ultima_reforma": "16-11-2023"
+        },
+        "Reglamento de la Ley Federal de las Entidades Paraestatales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88471.html",
+            "fecha_de_publicacion": "26-01-1990",
+            "fecha_de_ultima_reforma": "23-11-2010"
+        },
+        "Reglamento de la Ley Federal de Presupuesto y Responsabilidad Hacendaria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88472.html",
+            "fecha_de_publicacion": "28-06-2006",
+            "fecha_de_ultima_reforma": "27-09-2024"
+        },
+        "Reglamento de la Ley Federal de Producción, Certificación y Comercio de Semillas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88473.html",
+            "fecha_de_publicacion": "02-09-2011",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Protección al Consumidor": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120957.html",
+            "fecha_de_publicacion": "19-12-2019",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88475.html",
+            "fecha_de_publicacion": "21-12-2011",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Radio y Televisión, en Materia de Concesiones, Permisos y Contenido de las Transmisiones de Radio y Televisión": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88476.html",
+            "fecha_de_publicacion": "10-10-2002",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Sanidad Animal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88477.html",
+            "fecha_de_publicacion": "21-05-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Sanidad Vegetal": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo116279.html",
+            "fecha_de_publicacion": "15-07-2016",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Seguridad Privada": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88479.html",
+            "fecha_de_publicacion": "18-10-2011",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Telecomunicaciones y Radiodifusión en Materia de Capacidad Satelital como reserva del Estado": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo125027.html",
+            "fecha_de_publicacion": "25-04-2024",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Transparencia y Acceso a la Información Pública Gubernamental": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88480.html",
+            "fecha_de_publicacion": "11-06-2003",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Variedades Vegetales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88482.html",
+            "fecha_de_publicacion": "24-09-1998",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal de Zonas Económicas Especiales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo120914.html",
+            "fecha_de_publicacion": "30-06-2016",
+            "fecha_de_ultima_reforma": "29-09-2017"
+        },
+        "Reglamento de la Ley Federal del Derecho de Autor": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88520.html",
+            "fecha_de_publicacion": "22-05-1998",
+            "fecha_de_ultima_reforma": "14-09-2005"
+        },
+        "Reglamento de la Ley Federal para el Control de Precursores Químicos, Productos Químicos Esenciales y Máquinas para Elaborar Cápsulas, Tabletas y/o Comprimidos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88521.html",
+            "fecha_de_publicacion": "15-09-1999",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal para la Administración y Enajenación de Bienes del Sector Público": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88522.html",
+            "fecha_de_publicacion": "17-06-2003",
+            "fecha_de_ultima_reforma": "29-11-2006"
+        },
+        "Reglamento de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88523.html",
+            "fecha_de_publicacion": "16-08-2013",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Federal sobre Metrología y Normalización": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88524.html",
+            "fecha_de_publicacion": "14-01-1999",
+            "fecha_de_ultima_reforma": "28-11-2012"
+        },
+        "Reglamento de la Ley Federal sobre Monumentos y Zonas Arqueológicas, Artísticos e Históricos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88525.html",
+            "fecha_de_publicacion": "08-12-1975",
+            "fecha_de_ultima_reforma": "03-12-2020"
+        },
+        "Reglamento de la Ley General de Acceso de las Mujeres a una Vida Libre de Violencia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88526.html",
+            "fecha_de_publicacion": "11-03-2008",
+            "fecha_de_ultima_reforma": "14-03-2014"
+        },
+        "Reglamento de la Ley General de Cambio Climático en Materia del Registro Nacional de Emisiones": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99644.html",
+            "fecha_de_publicacion": "28-10-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Cultura Física y Deporte": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95393.html",
+            "fecha_de_publicacion": "23-05-2014",
+            "fecha_de_ultima_reforma": "01-04-2024"
+        },
+        "Reglamento de la Ley General de Cultura y Derechos Culturales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124486.html",
+            "fecha_de_publicacion": "29-11-2018",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Desarrollo Forestal Sustentable": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124485.html",
+            "fecha_de_publicacion": "09-12-2020",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Desarrollo Social": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88529.html",
+            "fecha_de_publicacion": "18-01-2006",
+            "fecha_de_ultima_reforma": "28-08-2008"
+        },
+        "Reglamento de la Ley General de la Infraestructura Física Educativa": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88530.html",
+            "fecha_de_publicacion": "05-07-2013",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de los Derechos de Niñas, Niños y Adolescentes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo108379.html",
+            "fecha_de_publicacion": "02-12-2015",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Población": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88531.html",
+            "fecha_de_publicacion": "14-04-2000",
+            "fecha_de_ultima_reforma": "28-09-2012"
+        },
+        "Reglamento de la Ley General de Prestación de Servicios para la Atención, Cuidado y Desarrollo Integral Infantil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88532.html",
+            "fecha_de_publicacion": "22-08-2012",
+            "fecha_de_ultima_reforma": "10-05-2016"
+        },
+        "Reglamento de la Ley General de Protección Civil": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95018.html",
+            "fecha_de_publicacion": "13-05-2014",
+            "fecha_de_ultima_reforma": "09-12-2015"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Control Sanitario de Actividades, Establecimientos, Productos y Servicios": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88533.html",
+            "fecha_de_publicacion": "18-01-1988",
+            "fecha_de_ultima_reforma": "28-12-2004"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Control Sanitario de la Disposición de Órganos, Tejidos y Cadáveres de Seres Humanos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88534.html",
+            "fecha_de_publicacion": "20-02-1985",
+            "fecha_de_ultima_reforma": "26-03-2014"
+        },
+        "REGLAMENTO de la Ley General de Salud en Materia de Control Sanitario para la Producción, Investigación y Uso Medicinal de la Cannabis y sus Derivados Farmacológicos.": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124111.html",
+            "fecha_de_publicacion": "12-01-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Investigación para la Salud": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88535.html",
+            "fecha_de_publicacion": "06-01-1987",
+            "fecha_de_ultima_reforma": "02-04-2014"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Prestación de Servicios de Atención Médica": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88536.html",
+            "fecha_de_publicacion": "14-05-1986",
+            "fecha_de_ultima_reforma": "17-07-2018"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Protección Social en Salud": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88537.html",
+            "fecha_de_publicacion": "05-04-2004",
+            "fecha_de_ultima_reforma": "17-12-2014"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Publicidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88538.html",
+            "fecha_de_publicacion": "04-05-2000",
+            "fecha_de_ultima_reforma": "08-09-2022"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Sanidad Internacional": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88539.html",
+            "fecha_de_publicacion": "18-02-1985",
+            "fecha_de_ultima_reforma": "10-07-1985"
+        },
+        "Reglamento de la Ley General de Salud en Materia de Trasplantes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo93313.html",
+            "fecha_de_publicacion": "26-03-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Turismo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo104167.html",
+            "fecha_de_publicacion": "06-07-2015",
+            "fecha_de_ultima_reforma": "16-08-2017"
+        },
+        "Reglamento de la Ley General de Víctimas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99937.html",
+            "fecha_de_publicacion": "28-11-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General de Vida Silvestre": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88540.html",
+            "fecha_de_publicacion": "30-11-2006",
+            "fecha_de_ultima_reforma": "09-05-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Áreas Naturales Protegidas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88541.html",
+            "fecha_de_publicacion": "30-11-2000",
+            "fecha_de_ultima_reforma": "21-05-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Autorregulación y Auditorías Ambientales": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88542.html",
+            "fecha_de_publicacion": "29-04-2010",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Evaluación del Impacto Ambiental": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88543.html",
+            "fecha_de_publicacion": "30-05-2000",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Ordenamiento Ecológico": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88544.html",
+            "fecha_de_publicacion": "08-08-2003",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Prevención y Control de la Contaminación de la Atmósfera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88545.html",
+            "fecha_de_publicacion": "25-11-1988",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General del Equilibrio Ecológico y la Protección al Ambiente en Materia de Registro de Emisiones y Transferencia de Contaminantes": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88546.html",
+            "fecha_de_publicacion": "03-06-2004",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General para el Control del Tabaco": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88547.html",
+            "fecha_de_publicacion": "31-05-2009",
+            "fecha_de_ultima_reforma": "09-10-2012"
+        },
+        "Reglamento de la Ley General para la Atención y Protección a Personas con la Condición del Espectro Autista": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo116491.html",
+            "fecha_de_publicacion": "21-07-2016",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General para la Inclusión de las Personas con Discapacidad": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88548.html",
+            "fecha_de_publicacion": "30-11-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General para la Prevención Social de la Violencia y la Delincuencia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo98969.html",
+            "fecha_de_publicacion": "19-09-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley General para la Prevención y Gestión Integral de los Residuos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88549.html",
+            "fecha_de_publicacion": "30-11-2006",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley General para Prevenir, Sancionar y Erradicar los Delitos en Materia de Trata de Personas y para la Protección y Asistencia a las Víctimas de estos Delitos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88550.html",
+            "fecha_de_publicacion": "23-09-2013",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley Minera": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88551.html",
+            "fecha_de_publicacion": "12-10-2012",
+            "fecha_de_ultima_reforma": "31-10-2014"
+        },
+        "Reglamento de la Ley Orgánica de la Procuraduría General de la República": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88555.html",
+            "fecha_de_publicacion": "23-07-2012",
+            "fecha_de_ultima_reforma": "21-09-2012"
+        },
+        "Reglamento de la Ley Orgánica del Instituto Nacional de Antropología e Historia": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo124460.html",
+            "fecha_de_publicacion": "24-05-2021",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley para el Desarrollo de la Competitividad de la Micro, Pequeña y Mediana Empresa": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88558.html",
+            "fecha_de_publicacion": "24-05-2006",
+            "fecha_de_ultima_reforma": "24-05-2018"
+        },
+        "Reglamento de la Ley para el Uso y Protección de la Denominación y del Emblema de la Cruz Roja": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo93264.html",
+            "fecha_de_publicacion": "25-03-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley para la Protección de Personas Defensoras de Derechos Humanos y Periodistas": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88560.html",
+            "fecha_de_publicacion": "30-11-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley que Crea el Fondo de Garantía y Fomento para la Agricultura, Ganadería y Avicultura": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88561.html",
+            "fecha_de_publicacion": "06-05-1955",
+            "fecha_de_ultima_reforma": "10-05-2007"
+        },
+        "Reglamento de la Ley que Declara Reservas Mineras Nacionales los Yacimientos de Uranio, Torio y las demás Substancias de las cuales se obtengan Isótopos Hendibles que puedan producir Energía Nuclear": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88562.html",
+            "fecha_de_publicacion": "17-01-1952",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de la Ley sobre Refugiados y Protección Complementaria": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88564.html",
+            "fecha_de_publicacion": "21-02-2012",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de las actividades a que se refiere el Título Tercero de la Ley de Hidrocarburos": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo99700.html",
+            "fecha_de_publicacion": "31-10-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento de los Artículos 121 y 122 de la Ley Federal del Trabajo": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo95867.html",
+            "fecha_de_publicacion": "05-06-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento del Artículo 122 de la Ley Federal de Protección al Consumidor": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88646.html",
+            "fecha_de_publicacion": "27-08-1997",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento del Artículo 95 de la Ley Federal de Instituciones de Fianzas, para el cobro de fianzas otorgadas a favor de la Federación, del Distrito Federal, de los Estados y de los Municipios, distintas de las que garantizan obligaciones fiscales federales a cargo de terceros": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88647.html",
+            "fecha_de_publicacion": "15-01-1991",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento del Código de Comercio en Materia de Prestadores de Servicios de Certificación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo88653.html",
+            "fecha_de_publicacion": "19-07-2004",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        },
+        "Reglamento del Código Fiscal de la Federación": {
+            "id": "https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo93536.html",
+            "fecha_de_publicacion": "02-04-2014",
+            "fecha_de_ultima_reforma": "Sin Reforma"
+        }
+    }
+}

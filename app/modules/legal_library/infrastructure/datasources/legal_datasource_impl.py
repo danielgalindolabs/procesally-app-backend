@@ -175,8 +175,8 @@ class LegalDatasourceImpl(LegalDatasource):
             params["materia"] = materia_juridica
 
         if ley_o_codigo:
-            query_parts.append("AND :ley_full ILIKE '%' || ley_o_codigo || '%'")
-            params["ley_full"] = ley_o_codigo
+            query_parts.append("AND :ley_full ILIKE '%' || UPPER(ley_o_codigo) || '%'")
+            params["ley_full"] = ley_o_codigo.upper()
 
         query_parts.append("ORDER BY embedding <=> :vector LIMIT :limit")
 

@@ -1,6 +1,8 @@
+import json
 import logging
+import os
 import re
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from bs4 import BeautifulSoup
 
@@ -12,6 +14,69 @@ from app.modules.legal_library.domain.services.document_parser import (
 logger = logging.getLogger("app.share.infrastructure.parsers.dof_parser")
 
 
+def _load_materia_map() -> Dict[str, str]:
+    """Carga el mapeo de nombre de ley a materia desde laws.json."""
+    base_dir = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    )
+    laws_path = os.path.join(base_dir, "docs", "laws.json")
+
+    materia_map = {}
+
+    if os.path.exists(laws_path):
+        try:
+            with open(laws_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                urls = data.get("urls", {})
+
+                for law_name in urls.keys():
+                    law_lower = law_name.lower()
+                    materia = _infer_materia_from_keywords(law_lower)
+                    materia_map[law_name] = materia
+
+            logger.info(
+                f"Cargados {len(materia_map)} mapeos de materias desde laws.json"
+            )
+        except Exception as e:
+            logger.warning(f"Error cargando laws.json: {e}")
+            materia_map = {}
+
+    return materia_map
+
+
+def _infer_materia_from_keywords(nombre_lower: str) -> str:
+    """Infiere la materia jurídica basándose en keywords del nombre de la ley."""
+    if "penal" in nombre_lower:
+        return "Penal"
+    elif "civil" in nombre_lower:
+        return "Civil"
+    elif "trabajo" in nombre_lower or "laboral" in nombre_lower:
+        return "Laboral"
+    elif "comercio" in nombre_lower or "mercantil" in nombre_lower:
+        return "Mercantil"
+    elif any(
+        kw in nombre_lower
+        for kw in [
+            "fiscal",
+            "tributari",
+            "impuesto",
+            "renta",
+            "isr",
+            "iva",
+            "ieps",
+            "ingresos",
+            "aduana",
+            "sat",
+        ]
+    ):
+        return "Fiscal"
+    elif "amparo" in nombre_lower or "constituc" in nombre_lower:
+        return "Constitucional"
+    elif "administrat" in nombre_lower:
+        return "Administrativo"
+    return "General"
+
+
 class DOFHtmlParser(DocumentParser):
     """
     Parser robusto para HTMLs del DOF basado en texto (no DOM frágil).
@@ -19,6 +84,12 @@ class DOFHtmlParser(DocumentParser):
     """
 
     ARTICLE_PATTERN = re.compile(r"Art[ií]culo\s+(\d+[a-zºo]*)", re.IGNORECASE)
+
+    _materia_map: Dict[str, str] = {}
+
+    def __init__(self):
+        if not DOFHtmlParser._materia_map:
+            DOFHtmlParser._materia_map = _load_materia_map()
 
     BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$", re.IGNORECASE)
     TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
@@ -235,24 +306,11 @@ class DOFHtmlParser(DocumentParser):
     # MATERIA
     # =========================
     def _infer_materia(self, ley_nombre: str) -> str:
+        if ley_nombre in self._materia_map:
+            return self._materia_map[ley_nombre]
+
         nombre_lower = ley_nombre.lower()
-
-        if "penal" in nombre_lower:
-            return "Penal"
-        elif "civil" in nombre_lower:
-            return "Civil"
-        elif "trabajo" in nombre_lower or "laboral" in nombre_lower:
-            return "Laboral"
-        elif "comercio" in nombre_lower or "mercantil" in nombre_lower:
-            return "Mercantil"
-        elif "fiscal" in nombre_lower or "tributari" in nombre_lower:
-            return "Fiscal"
-        elif "amparo" in nombre_lower or "constituc" in nombre_lower:
-            return "Constitucional"
-        elif "administrat" in nombre_lower:
-            return "Administrativo"
-
-        return "General"
+        return _infer_materia_from_keywords(nombre_lower)
 
 
 # instancia global

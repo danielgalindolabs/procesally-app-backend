@@ -223,8 +223,14 @@ class SearchArticlesUseCase:
                     limite,
                 )
             else:
+                logger.info(
+                    f"Llamando _handle_semantic_intent con materia={materia_juridica}, ley={ley_o_codigo}"
+                )
                 entities = await self._handle_semantic_intent(
                     consulta, materia_juridica, ley_o_codigo, limite
+                )
+                logger.info(
+                    f"_handle_semantic_intent devolvió {len(entities)} resultados"
                 )
 
             return [AppDomainMapper.domain_to_app_output(e) for e in entities]
