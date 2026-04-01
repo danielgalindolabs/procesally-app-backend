@@ -6,12 +6,16 @@ from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
     DocumentAppInputDTO,
 )
+from app.modules.legal_library.domain.entities.legal_document_entity import (
+    LegalDocumentEntity,
+)
 from app.modules.legal_library.domain.repositories.legal_repository import (
     LegalRepository,
 )
 from app.modules.legal_library.domain.services.document_parser import DocumentParser
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
 from app.share.domain.exceptions.dof_exceptions import InvalidDOFDocumentError
+from app.share.infrastructure.parsers.dof_parser import _infer_materia_from_keywords
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_ingest")
 
@@ -39,6 +43,7 @@ class BulkIngestUseCase:
     ) -> Dict:
         # 0. Registrar el documento legal de origen si viene la metadata
         document_id = None
+        document_materias = None
         if document_metadata:
             # VALIDACIÓN: Evitar duplicados por título en subidas manuales o automáticas
             # Si el documento ya existe con la misma fecha de reforma, no procesamos.
@@ -67,7 +72,20 @@ class BulkIngestUseCase:
                     )
                     await self.repository.delete_document(existing_doc.id)  # type: ignore
 
-            doc_entity = AppDomainMapper.document_app_to_domain(document_metadata)
+            # Inferir materias del nombre de la ley
+            document_materias = _infer_materia_from_keywords(
+                document_metadata.titulo.lower()
+            )
+
+            doc_entity = LegalDocumentEntity(
+                titulo=document_metadata.titulo,
+                nombre_archivo=document_metadata.nombre_archivo,
+                url_oficial=document_metadata.url_oficial,
+                url_interna=document_metadata.url_interna,
+                fecha_publicacion=document_metadata.fecha_publicacion,
+                fecha_ultima_reforma=document_metadata.fecha_ultima_reforma,
+                materias_juridicas=document_materias,
+            )
             saved_doc = await self.repository.create_document(doc_entity)
             document_id = saved_doc.id
 

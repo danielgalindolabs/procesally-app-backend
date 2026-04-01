@@ -14,6 +14,7 @@ class DatasourceDocumentInputDTO:
     url_interna: Optional[str] = None
     fecha_publicacion: Optional[str] = None
     fecha_ultima_reforma: Optional[str] = None
+    materias_juridicas: Optional[List[str]] = None
 
 
 @dataclass
@@ -28,6 +29,7 @@ class DatasourceDocumentOutputDTO:
     url_interna: Optional[str] = None
     fecha_publicacion: Optional[str] = None
     fecha_ultima_reforma: Optional[str] = None
+    materias_juridicas: Optional[List[str]] = None
 
 
 @dataclass

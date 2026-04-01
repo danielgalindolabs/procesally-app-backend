@@ -14,7 +14,10 @@ from sqlmodel import SQLModel
 from app.core.config import settings
 
 # Registrar todos los modelos SQLModel para que Alembic los detecte
-from app.modules.legal_library.infrastructure.models import LegalArticle  # noqa: F401
+from app.modules.legal_library.infrastructure.datasources.models import (  # noqa: F401,E501
+    LegalArticle,
+    LegalDocument,
+)
 
 config = context.config
 fileConfig(config.config_file_name)

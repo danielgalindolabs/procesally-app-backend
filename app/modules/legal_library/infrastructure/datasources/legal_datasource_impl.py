@@ -12,7 +12,10 @@ from app.modules.legal_library.domain.datasources.legal_datasource import (
     DatasourceDocumentOutputDTO,
     LegalDatasource,
 )
-from app.modules.legal_library.infrastructure.models import LegalArticle, LegalDocument
+from app.modules.legal_library.infrastructure.datasources.models import (
+    LegalArticle,
+    LegalDocument,
+)
 from app.share.exceptions.base_exceptions import InfrastructureException
 
 
@@ -20,10 +23,37 @@ class LegalDatasourceImpl(LegalDatasource):
     def __init__(self, db: AsyncSession):
         self.db = db
 
+    def _map_document_to_dto(
+        self, doc_model: LegalDocument
+    ) -> DatasourceDocumentOutputDTO:
+        materias_list = (
+            [m.strip() for m in doc_model.materias_juridicas.split(",")]
+            if doc_model.materias_juridicas
+            else None
+        )
+        return DatasourceDocumentOutputDTO(
+            id=doc_model.id,  # type: ignore
+            titulo=doc_model.titulo,
+            nombre_archivo=doc_model.nombre_archivo,
+            url_oficial=doc_model.url_oficial,
+            fecha_carga=doc_model.fecha_carga,
+            url_interna=doc_model.url_interna,
+            fecha_publicacion=doc_model.fecha_publicacion,
+            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
+            materias_juridicas=materias_list,
+        )
+
     async def create_document(
         self, ds_input: DatasourceDocumentInputDTO
     ) -> DatasourceDocumentOutputDTO:
         try:
+            # Convert List[str] to comma-separated string
+            materias_str = (
+                ", ".join(ds_input.materias_juridicas)
+                if ds_input.materias_juridicas
+                else None
+            )
+
             doc_model = LegalDocument(
                 titulo=ds_input.titulo,
                 nombre_archivo=ds_input.nombre_archivo,
@@ -31,10 +61,18 @@ class LegalDatasourceImpl(LegalDatasource):
                 url_interna=ds_input.url_interna,
                 fecha_publicacion=ds_input.fecha_publicacion,
                 fecha_ultima_reforma=ds_input.fecha_ultima_reforma,
+                materias_juridicas=materias_str,
             )
             self.db.add(doc_model)
             await self.db.commit()
             await self.db.refresh(doc_model)
+
+            # Convert back to List[str]
+            materias_list = (
+                [m.strip() for m in doc_model.materias_juridicas.split(",")]
+                if doc_model.materias_juridicas
+                else None
+            )
 
             return DatasourceDocumentOutputDTO(
                 id=doc_model.id,  # type: ignore
@@ -45,6 +83,7 @@ class LegalDatasourceImpl(LegalDatasource):
                 url_interna=doc_model.url_interna,
                 fecha_publicacion=doc_model.fecha_publicacion,
                 fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
+                materias_juridicas=materias_list,
             )
         except Exception as e:
             await self.db.rollback()
@@ -253,16 +292,7 @@ class LegalDatasourceImpl(LegalDatasource):
         if doc_model is None:
             return None
 
-        return DatasourceDocumentOutputDTO(
-            id=doc_model.id,  # type: ignore
-            titulo=doc_model.titulo,
-            nombre_archivo=doc_model.nombre_archivo,
-            url_oficial=doc_model.url_oficial,
-            fecha_carga=doc_model.fecha_carga,
-            url_interna=doc_model.url_interna,
-            fecha_publicacion=doc_model.fecha_publicacion,
-            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
-        )
+        return self._map_document_to_dto(doc_model)
 
     async def get_document_by_title(
         self, title: str
@@ -274,16 +304,7 @@ class LegalDatasourceImpl(LegalDatasource):
         if doc_model is None:
             return None
 
-        return DatasourceDocumentOutputDTO(
-            id=doc_model.id,  # type: ignore
-            titulo=doc_model.titulo,
-            nombre_archivo=doc_model.nombre_archivo,
-            url_oficial=doc_model.url_oficial,
-            fecha_carga=doc_model.fecha_carga,
-            url_interna=doc_model.url_interna,
-            fecha_publicacion=doc_model.fecha_publicacion,
-            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
-        )
+        return self._map_document_to_dto(doc_model)
 
     async def get_document_by_filename(
         self, filename: str
@@ -297,16 +318,7 @@ class LegalDatasourceImpl(LegalDatasource):
         if doc_model is None:
             return None
 
-        return DatasourceDocumentOutputDTO(
-            id=doc_model.id,  # type: ignore
-            titulo=doc_model.titulo,
-            nombre_archivo=doc_model.nombre_archivo,
-            url_oficial=doc_model.url_oficial,
-            fecha_carga=doc_model.fecha_carga,
-            url_interna=doc_model.url_interna,
-            fecha_publicacion=doc_model.fecha_publicacion,
-            fecha_ultima_reforma=doc_model.fecha_ultima_reforma,
-        )
+        return self._map_document_to_dto(doc_model)
 
     async def delete_document(self, doc_id: int) -> bool:
         try:

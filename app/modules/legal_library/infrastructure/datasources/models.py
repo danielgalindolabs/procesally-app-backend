@@ -26,6 +26,10 @@ class LegalDocument(SQLModel, table=True):
         default_factory=datetime.datetime.utcnow,
         description="Fecha y hora de registro en el sistema",
     )
+    materias_juridicas: Optional[str] = Field(
+        default=None,
+        description="Materias jurídicas separadas por coma. Ej: 'Civil, Laboral, Mercantil'",
+    )
 
 
 class LegalArticle(SQLModel, table=True):
@@ -33,12 +37,13 @@ class LegalArticle(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    # Relación opcional con Documento
     document_id: Optional[int] = Field(
         default=None, foreign_key="legal_documents.id", index=True
     )
 
-    materia_juridica: str = Field(description="Ej. 'Penal', 'Civil', 'Laboral'")
+    materia_juridica: str = Field(
+        description="Materias jurídicas separadas por coma. Ej: 'Civil, Laboral'"
+    )
     ley_o_codigo: str = Field(
         description="Ej. 'Código Civil Federal', 'Ley Federal del Trabajo'"
     )

@@ -1,6 +1,6 @@
 import datetime
 from dataclasses import dataclass
-from typing import Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -17,3 +17,4 @@ class LegalDocumentEntity:
     fecha_ultima_reforma: Optional[str] = None
     fecha_carga: Optional[datetime.datetime] = None
     id: Optional[int] = None
+    materias_juridicas: Optional[List[str]] = None

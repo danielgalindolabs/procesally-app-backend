@@ -22,6 +22,7 @@ class DomainDatasourceMapper:
             url_interna=entity.url_interna,
             fecha_publicacion=entity.fecha_publicacion,
             fecha_ultima_reforma=entity.fecha_ultima_reforma,
+            materias_juridicas=entity.materias_juridicas,
         )
 
     @staticmethod
@@ -37,6 +38,7 @@ class DomainDatasourceMapper:
             fecha_carga=ds_output.fecha_carga,
             fecha_publicacion=ds_output.fecha_publicacion,
             fecha_ultima_reforma=ds_output.fecha_ultima_reforma,
+            materias_juridicas=ds_output.materias_juridicas,
         )
 
     @staticmethod
