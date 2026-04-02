@@ -449,7 +449,10 @@ class DOFHtmlParser(DocumentParser):
     Optimizado para RAG (segmentación semántica + limpieza).
     """
 
-    ARTICLE_PATTERN = re.compile(r"Art[ií]culo\s+(\d+[a-zºo]*)", re.IGNORECASE)
+    ARTICLE_PATTERN = re.compile(
+        r"^\s*Art[ií]culo\s+([0-9]+(?:\s*(?:bis|ter|quater|quinquies))?[a-zºo]*)",
+        re.IGNORECASE,
+    )
 
     _materia_map: Dict[str, str] = {}
 
@@ -460,6 +463,13 @@ class DOFHtmlParser(DocumentParser):
     BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$", re.IGNORECASE)
     TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
     CHAPTER_PATTERN = re.compile(r"^CAP[IÍ]TULO\s+(.+)$", re.IGNORECASE)
+    TRANSITORY_PATTERN = re.compile(r"^TRANSITORIOS?$", re.IGNORECASE)
+
+    NOISE_PATTERNS = [
+        re.compile(r"^al\s+margen\s+un\s+sello", re.IGNORECASE),
+        re.compile(r"^diario\s+oficial\s+de\s+la\s+federaci[oó]n", re.IGNORECASE),
+        re.compile(r"^p[aá]gina\s+\d+", re.IGNORECASE),
+    ]
 
     # 🔥 FIX: romanos ilimitados
     FRACTION_PATTERN = re.compile(r"\b([IVXLCDM]+)\.\s")
@@ -481,8 +491,8 @@ class DOFHtmlParser(DocumentParser):
     def _normalize_html(self, soup: BeautifulSoup) -> list[str]:
         paragraphs = []
 
-        for p in soup.find_all("p"):
-            text = p.get_text(" ", strip=True)
+        for element in soup.find_all(["p", "li"]):
+            text = element.get_text(" ", strip=True)
 
             if not text:
                 continue
@@ -490,9 +500,23 @@ class DOFHtmlParser(DocumentParser):
             text = text.replace("\xa0", " ")
             text = re.sub(r"\s+", " ", text)
 
+            if self._is_noise_paragraph(text):
+                continue
+
             paragraphs.append(text)
 
         return paragraphs
+
+    def _is_noise_paragraph(self, text: str) -> bool:
+        text_lower = text.lower().strip()
+        if not text_lower:
+            return True
+
+        for pattern in self.NOISE_PATTERNS:
+            if pattern.search(text_lower):
+                return True
+
+        return False
 
     # =========================
     # LEY
@@ -502,8 +526,25 @@ class DOFHtmlParser(DocumentParser):
         if golden:
             return golden.get_text(strip=True)
 
+        h1 = soup.find("h1")
+        if h1 and h1.get_text(strip=True):
+            return h1.get_text(strip=True)
+
+        if soup.title and soup.title.get_text(strip=True):
+            title_text = soup.title.get_text(strip=True)
+            if len(title_text) > 12:
+                return title_text
+
         for p in soup.find_all("p"):
             text = p.get_text(strip=True)
+            if self.BOOK_PATTERN.match(text):
+                continue
+            if self.TITLE_PATTERN.match(text):
+                continue
+            if self.CHAPTER_PATTERN.match(text):
+                continue
+            if text.upper().startswith("ART"):
+                continue
             if len(text) > 10 and text.isupper():
                 return text
 
@@ -522,8 +563,16 @@ class DOFHtmlParser(DocumentParser):
 
         current_article = None
         buffer = []
+        in_transitory_section = False
 
         for text in paragraphs:
+            if self.TRANSITORY_PATTERN.match(text):
+                in_transitory_section = True
+                continue
+
+            if in_transitory_section:
+                continue
+
             if self.BOOK_PATTERN.match(text):
                 current_book = text
                 continue
@@ -535,31 +584,29 @@ class DOFHtmlParser(DocumentParser):
             if self.CHAPTER_PATTERN.match(text):
                 continue
 
-            # 🔥 FIX: search
-            art_match = self.ARTICLE_PATTERN.search(text)
+            art_match = self.ARTICLE_PATTERN.match(text)
 
             if art_match:
                 if current_article and buffer:
-                    articles.append(
-                        self._build_article(
-                            current_article,
-                            buffer,
-                            ley_nombre,
-                            current_book,
-                            current_title,
-                        )
+                    built_article = self._build_article(
+                        current_article,
+                        buffer,
+                        ley_nombre,
+                        current_book,
+                        current_title,
                     )
+                    if built_article.cuerpo_texto:
+                        articles.append(built_article)
 
                 numero_raw = art_match.group(1)
 
-                # 🔥 normalización robusta
-                numero_clean = numero_raw.replace("º", "").replace("o", "")
+                numero_clean = self._normalize_article_number(numero_raw)
 
                 current_article = numero_clean
                 buffer = []
 
                 clean_text = re.sub(
-                    r"^Art[ií]culo\s+\d+[a-zºo]*[\.\-\s]*",
+                    r"^\s*Art[ií]culo\s+[0-9]+(?:\s*(?:bis|ter|quater|quinquies))?[a-zºo]*[\.\-–—:\s]*",
                     "",
                     text,
                     flags=re.IGNORECASE,
@@ -570,7 +617,6 @@ class DOFHtmlParser(DocumentParser):
 
                 continue
 
-            # ruido DOF
             if "reformado" in text.lower() or "adicionado" in text.lower():
                 continue
 
@@ -578,17 +624,23 @@ class DOFHtmlParser(DocumentParser):
                 buffer.append(text)
 
         if current_article and buffer:
-            articles.append(
-                self._build_article(
-                    current_article,
-                    buffer,
-                    ley_nombre,
-                    current_book,
-                    current_title,
-                )
+            built_article = self._build_article(
+                current_article,
+                buffer,
+                ley_nombre,
+                current_book,
+                current_title,
             )
+            if built_article.cuerpo_texto:
+                articles.append(built_article)
 
         return articles
+
+    def _normalize_article_number(self, raw_number: str) -> str:
+        normalized = re.sub(r"\s+", " ", raw_number).strip().upper()
+        normalized = normalized.replace("º", "")
+        normalized = re.sub(r"(?<=\d)O$", "", normalized)
+        return normalized
 
     # =========================
     # BUILDER
@@ -607,6 +659,11 @@ class DOFHtmlParser(DocumentParser):
 
         # limpieza final
         body = re.sub(r"^\.\-\s*", "", body)
+        body = re.sub(r"\s+;", ";", body)
+        body = re.sub(r"\s+,", ",", body)
+
+        if len(body) < 20:
+            body = ""
 
         return ParsedArticle(
             materia_juridica=self._infer_materia(ley_nombre),

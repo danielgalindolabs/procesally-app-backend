@@ -27,6 +27,8 @@ class Settings(BaseSettings):
 
     ALLOWED_DOMAINS: List[str] = ["www.dof.gob.mx", "www.ordenjuridico.gob.mx"]
     ORDEN_JURIDICO_URL: str = "https://www.ordenjuridico.gob.mx/"
+    HTTP_VERIFY_SSL: bool = True
+    MAX_EMBEDDING_CHARS: int = 24000
 
     @property
     def DATABASE_URL(self) -> str:

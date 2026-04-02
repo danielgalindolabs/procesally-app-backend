@@ -32,7 +32,9 @@ class HTTPClient(DocumentDownloader):
         """Descarga el contenido de una URL después de validar el dominio."""
         self._validate_domain(url)
 
-        async with httpx.AsyncClient(follow_redirects=True, verify=False) as client:
+        async with httpx.AsyncClient(
+            follow_redirects=True, verify=settings.HTTP_VERIFY_SSL
+        ) as client:
             try:
                 response = await client.get(url)
                 response.raise_for_status()

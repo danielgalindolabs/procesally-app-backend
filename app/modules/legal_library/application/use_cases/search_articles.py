@@ -138,11 +138,10 @@ class SearchArticlesUseCase:
     def _is_article_reference(self, cuerpo_texto: str) -> bool:
         """Detecta si el texto es una referencia a otro artículo (no la norma real)."""
         text_lower = cuerpo_texto.lower().strip()
-        if len(text_lower) < 150:
+        if len(text_lower) < 60:
             return True
         reference_patterns = [
             r"^(?:iv+|v+|i+)\.",
-            r"^art[íi]culo\s+\d+",
             r"^fracci[oó]n",
             r"^inciso",
             r"los\s+art[íi]culos?\s+\d+",
@@ -307,9 +306,7 @@ class SearchArticlesUseCase:
         )
 
         results = self._apply_score_override(results, extracted_numbers)
-        results.sort(
-            key=lambda x: (x.similitud or 0, -len(x.cuerpo_texto)), reverse=True
-        )
+        results.sort(key=lambda x: x.similitud or 0, reverse=True)
         return results
 
     async def _handle_hybrid_intent(
@@ -369,17 +366,10 @@ Contexto: Buscar artículos relevantes {"en " + ley_o_codigo if ley_o_codigo els
 
         for entity in all_results:
             if entity.similitud != 0.99:
-                content_lower = entity.cuerpo_texto.lower()
-                query_terms = [t for t in consulta.lower().split() if len(t) > 3]
-                score = entity.similitud or 0.0
-                for term in query_terms:
-                    if term in content_lower:
-                        score += 0.04
-                entity.similitud = round(min(score, 0.99), 4)
+                # rely on embedding similarity only
+                entity.similitud = round(min(entity.similitud or 0.0, 0.99), 4)
 
-        all_results.sort(
-            key=lambda x: (x.similitud or 0, -len(x.cuerpo_texto)), reverse=True
-        )
+        all_results.sort(key=lambda x: x.similitud or 0, reverse=True)
 
         requested_count = len(extracted_numbers)
         if len(sql_results) >= requested_count:
