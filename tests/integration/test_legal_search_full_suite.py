@@ -45,8 +45,20 @@ SEMANTIC_CASES = [
 ]
 
 
+def _ensure_search_corpus_available(client: TestClient):
+    probe = client.post(
+        "/api/v1/legal/search",
+        json={"consulta": "articulo 1", "limite": 1},
+    )
+
+    assert probe.status_code == 200
+    if len(probe.json()) == 0:
+        pytest.skip("No hay corpus legal cargado para validar recuperación semántica")
+
+
 def test_direct_citations_recall(client: TestClient):
     """Verifica citaciones directas con precisión (Sync for Stability)."""
+    _ensure_search_corpus_available(client)
     for query, expected_num in DIRECT_CASES:
         response = client.post(
             "/api/v1/legal/search", json={"consulta": query, "limite": 5}
@@ -56,16 +68,18 @@ def test_direct_citations_recall(client: TestClient):
         results = response.json()
 
         assert len(results) > 0, f"No results for Direct Query: {query}"
-        
+
         # El Top 1 DEBE ser el artículo solicitado con score 0.99
         top_result = results[0]
-        assert expected_num.lower() in top_result["numero_articulo"].lower(), \
+        assert expected_num.lower() in top_result["numero_articulo"].lower(), (
             f"Expected {expected_num} at top for query {query}, got {top_result['numero_articulo']}"
+        )
         assert top_result["similitud"] >= 0.99
 
 
 def test_hybrid_intent_priority(client: TestClient):
     """Verifica prioridad de artículos en búsquedas híbridas (Sync for Stability)."""
+    _ensure_search_corpus_available(client)
     for query, topic in HYBRID_CASES:
         response = client.post(
             "/api/v1/legal/search", json={"consulta": query, "limite": 5}
@@ -80,6 +94,7 @@ def test_hybrid_intent_priority(client: TestClient):
 
 def test_semantic_coverage(client: TestClient):
     """Verifica cobertura temática y calidad semántica (Sync for Stability)."""
+    _ensure_search_corpus_available(client)
     for query in SEMANTIC_CASES:
         response = client.post(
             "/api/v1/legal/search", json={"consulta": query, "limite": 10}

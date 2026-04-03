@@ -1,16 +1,22 @@
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from charset_normalizer import from_bytes
-from fastapi import APIRouter, Depends, File, UploadFile, status
+from fastapi import APIRouter, Depends, File, Query, UploadFile, status
 
 from app.modules.legal_library.adapters.presentation_app_mapper import (
     PresentationAppMapper,
+)
+from app.modules.legal_library.application.schemas.article_app_schemas import (
+    BulkUrlSampleOptionsAppInputDTO,
 )
 from app.modules.legal_library.application.use_cases.bulk_ingest import (
     BulkIngestUseCase,
 )
 from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
     BulkUrlIngestUseCase,
+)
+from app.modules.legal_library.application.use_cases.bulk_url_ingest_dev_sample import (
+    BulkUrlIngestDevSampleUseCase,
 )
 from app.modules.legal_library.application.use_cases.delete_file import (
     DeleteFileUseCase,
@@ -23,6 +29,7 @@ from app.modules.legal_library.application.use_cases.search_articles import (
 )
 from app.modules.legal_library.presentation.dependencies.legal_deps import (
     get_bulk_ingest_use_case,
+    get_bulk_url_ingest_dev_sample_use_case,
     get_bulk_url_ingest_use_case,
     get_delete_file_use_case,
     get_parse_html_index_use_case,
@@ -83,6 +90,36 @@ async def bulk_upload_by_url(
     """
     app_input = PresentationAppMapper.to_bulk_url_input(request.urls)
     return await bulk_url_uc.execute(app_input)
+
+
+@router.post("/bulk-url/dev-sample", status_code=status.HTTP_200_OK)
+async def bulk_upload_dev_sample_by_url(
+    request: BulkUrlIngestRequest,
+    target_articulos: int = Query(10000, ge=1, le=100000),
+    max_articulos_por_ley: int = Query(120, ge=1, le=1000),
+    max_leyes: int = Query(500, ge=1, le=5000),
+    modo: Literal["lightweight", "limited", "hybrid"] = "hybrid",
+    dry_run: bool = False,
+    seed: int = Query(42, ge=0, le=1000000),
+    bulk_dev_uc: BulkUrlIngestDevSampleUseCase = Depends(
+        get_bulk_url_ingest_dev_sample_use_case
+    ),
+):
+    """
+    Endpoint de desarrollo para crear una muestra amplia y variada de artículos.
+    Usa la misma entrada de /bulk-url y permite limitar carga por ley,
+    priorizar archivos ligeros y buscar diversidad temática.
+    """
+    app_input = PresentationAppMapper.to_bulk_url_input(request.urls)
+    options = BulkUrlSampleOptionsAppInputDTO(
+        target_articulos=target_articulos,
+        max_articulos_por_ley=max_articulos_por_ley,
+        max_leyes=max_leyes,
+        modo=modo,
+        dry_run=dry_run,
+        seed=seed,
+    )
+    return await bulk_dev_uc.execute(app_input, options)
 
 
 @router.post("/search", response_model=List[SearchResult])

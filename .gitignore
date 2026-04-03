@@ -41,3 +41,6 @@ htmlcov/
 app/share/infrastructure/db/alembic/versions/*.py
 !app/share/infrastructure/db/alembic/versions/.gitkeep
 
+# Descargas de leyes (Local)
+leyes/
+

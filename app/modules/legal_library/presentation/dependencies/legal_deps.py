@@ -7,6 +7,9 @@ from app.modules.legal_library.application.use_cases.bulk_ingest import (
 from app.modules.legal_library.application.use_cases.bulk_url_ingest import (
     BulkUrlIngestUseCase,
 )
+from app.modules.legal_library.application.use_cases.bulk_url_ingest_dev_sample import (
+    BulkUrlIngestDevSampleUseCase,
+)
 from app.modules.legal_library.application.use_cases.create_article import (
     CreateArticleUseCase,
 )
@@ -112,6 +115,13 @@ def get_bulk_url_ingest_use_case(
     document_downloader: DocumentDownloader = Depends(get_http_client),
 ) -> BulkUrlIngestUseCase:
     return BulkUrlIngestUseCase(bulk_ingest_uc, document_downloader)
+
+
+def get_bulk_url_ingest_dev_sample_use_case(
+    bulk_ingest_uc: BulkIngestUseCase = Depends(get_bulk_ingest_use_case),
+    document_downloader: DocumentDownloader = Depends(get_http_client),
+) -> BulkUrlIngestDevSampleUseCase:
+    return BulkUrlIngestDevSampleUseCase(bulk_ingest_uc, document_downloader)
 
 
 def get_parse_html_index_use_case() -> ParseHtmlIndexUseCase:

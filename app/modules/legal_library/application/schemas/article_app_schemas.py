@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 
 @dataclass
@@ -49,3 +49,13 @@ class BulkUrlIngestAppInputDTO:
 
     # Un diccionario de { "Título": { "url": "...", "fecha_pub": "...", "fecha_ref": "..." } }
     urls: dict[str, dict[str, str]]
+
+
+@dataclass
+class BulkUrlSampleOptionsAppInputDTO:
+    target_articulos: int = 10000
+    max_articulos_por_ley: int = 120
+    max_leyes: int = 500
+    modo: Literal["lightweight", "limited", "hybrid"] = "hybrid"
+    dry_run: bool = False
+    seed: int = 42

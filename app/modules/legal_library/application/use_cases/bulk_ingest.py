@@ -40,6 +40,7 @@ class BulkIngestUseCase:
         content: str,
         archivo_url: str,
         document_metadata: Optional[DocumentAppInputDTO] = None,
+        max_articles: Optional[int] = None,
     ) -> Dict:
         # 0. Registrar el documento legal de origen si viene la metadata
         document_id = None
@@ -101,10 +102,14 @@ class BulkIngestUseCase:
         if not parsed_articles:
             raise InvalidDOFDocumentError()
 
+        selected_articles = self._select_articles_for_sampling(
+            parsed_articles, max_articles
+        )
+
         inserted = 0
         errors = []
 
-        for art in parsed_articles:
+        for art in selected_articles:
             try:
                 # 2. Enriquecer el texto con metadata para el embedding
                 fecha_pub = (
@@ -158,6 +163,42 @@ Contenido:
         return {
             "ley": ley_nombre,
             "total_extraidos": len(parsed_articles),
+            "total_muestreados": len(selected_articles),
             "insertados": inserted,
             "errores": errors,
         }
+
+    def _select_articles_for_sampling(
+        self, parsed_articles: list, max_articles: Optional[int]
+    ):
+        if not max_articles or max_articles <= 0:
+            return parsed_articles
+
+        total = len(parsed_articles)
+        if max_articles >= total:
+            return parsed_articles
+
+        if max_articles == 1:
+            return [parsed_articles[0]]
+
+        last_index = total - 1
+        step_base = max_articles - 1
+        selected_indices = []
+        seen = set()
+
+        for i in range(max_articles):
+            idx = round((i * last_index) / step_base)
+            if idx not in seen:
+                selected_indices.append(idx)
+                seen.add(idx)
+
+        if len(selected_indices) < max_articles:
+            for idx in range(total):
+                if idx in seen:
+                    continue
+                selected_indices.append(idx)
+                if len(selected_indices) == max_articles:
+                    break
+
+        selected_indices.sort()
+        return [parsed_articles[idx] for idx in selected_indices]
