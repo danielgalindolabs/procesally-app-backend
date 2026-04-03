@@ -456,6 +456,34 @@ class DOFHtmlParser(DocumentParser):
     ARTICLE_PATTERN_WORD = re.compile(
         r"^ARTICULO\s+(UNICO|PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO|SEPTIMO|OCTAVO|NOVENO|DECIMO)\b"
     )
+    HEADING_PUNCTUATION_PREFIX = (".", "-", "—", "–", ":", ";")
+    HEADING_TEXT_PREFIX_ALLOWLIST = (
+        "SE ",
+        "SON ",
+        "LAS ",
+        "LOS ",
+        "EL ",
+        "LA ",
+        "PARA ",
+        "EN ",
+        "CUANDO ",
+        "QUIEN ",
+        "ESTA ",
+        "ESTE ",
+    )
+    HEADING_TEXT_PREFIX_BLOCKLIST = (
+        "DE ",
+        "DEL ",
+        "DE LA ",
+        "DE LOS ",
+        "DE LAS ",
+        "SEGUN ",
+        "CONFORME ",
+        "AL ",
+        "A LA ",
+        "A LOS ",
+        "A LAS ",
+    )
 
     _materia_map: Dict[str, str] = {}
 
@@ -632,6 +660,9 @@ class DOFHtmlParser(DocumentParser):
         current_article = None
         buffer = []
         in_transitory_section = False
+        max_numeric_seen = 0
+        strong_reset_streak = 0
+        stop_by_appendix_guard = False
 
         for text in paragraphs:
             canonical_text = self._to_canonical(text)
@@ -658,6 +689,13 @@ class DOFHtmlParser(DocumentParser):
             word_match = self.ARTICLE_PATTERN_WORD.match(canonical_text)
 
             if art_match or word_match:
+                if not self._is_article_heading_line(
+                    text, canonical_text, art_match, word_match
+                ):
+                    if current_article:
+                        buffer.append(text)
+                    continue
+
                 if current_article and buffer:
                     built_article = self._build_article(
                         current_article,
@@ -672,6 +710,22 @@ class DOFHtmlParser(DocumentParser):
                 if art_match:
                     numero_raw = art_match.group(1)
                     numero_clean = self._normalize_article_number(numero_raw)
+
+                    numeric_base = self._extract_numeric_base(numero_clean)
+                    if numeric_base is not None:
+                        if (
+                            max_numeric_seen >= 100
+                            and numeric_base <= 5
+                            and numeric_base < max_numeric_seen
+                        ):
+                            strong_reset_streak += 1
+                            if strong_reset_streak >= 3:
+                                stop_by_appendix_guard = True
+                                break
+                        else:
+                            strong_reset_streak = 0
+
+                        max_numeric_seen = max(max_numeric_seen, numeric_base)
                 else:
                     numero_clean = word_match.group(1)  # type: ignore[union-attr]
 
@@ -707,7 +761,76 @@ class DOFHtmlParser(DocumentParser):
             if built_article.cuerpo_texto:
                 articles.append(built_article)
 
-        return articles
+        deduped_articles = self._deduplicate_articles(articles)
+
+        if stop_by_appendix_guard:
+            logger.info(
+                "Parser DOF detuvo extracción por guardia de anexo (%s): %s -> %s artículos",
+                ley_nombre,
+                len(articles),
+                len(deduped_articles),
+            )
+
+        return deduped_articles
+
+    def _is_article_heading_line(
+        self,
+        original_text: str,
+        canonical_text: str,
+        art_match: Optional[re.Match],
+        word_match: Optional[re.Match],
+    ) -> bool:
+        if self._is_editorial_annotation(original_text):
+            return False
+
+        match_obj = art_match or word_match
+        if not match_obj:
+            return False
+
+        remainder = canonical_text[match_obj.end() :].strip()
+        if not remainder:
+            return True
+
+        if remainder.startswith(self.HEADING_PUNCTUATION_PREFIX):
+            return True
+
+        if remainder.startswith(self.HEADING_TEXT_PREFIX_BLOCKLIST):
+            return False
+
+        if remainder.startswith(self.HEADING_TEXT_PREFIX_ALLOWLIST):
+            return True
+
+        return len(remainder) > 120
+
+    def _extract_numeric_base(self, article_number: str) -> Optional[int]:
+        match = re.match(r"^(\d+)", article_number)
+        if not match:
+            return None
+        return int(match.group(1))
+
+    def _deduplicate_articles(
+        self, articles: List[ParsedArticle]
+    ) -> List[ParsedArticle]:
+        if not articles:
+            return []
+
+        best_by_key: Dict[tuple, ParsedArticle] = {}
+        order: List[tuple] = []
+
+        for article in articles:
+            context = article.libro_o_titulo or ""
+            key = (article.numero_articulo, context)
+
+            if key not in best_by_key:
+                best_by_key[key] = article
+                order.append(key)
+                continue
+
+            current_best = best_by_key[key]
+            if len(article.cuerpo_texto) > len(current_best.cuerpo_texto):
+                best_by_key[key] = article
+
+        return [best_by_key[k] for k in order]
 
     def _normalize_article_number(self, raw_number: str) -> str:
         normalized = re.sub(r"\s+", " ", raw_number).strip().upper()

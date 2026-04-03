@@ -15,7 +15,7 @@ from app.modules.legal_library.domain.services.embedding_service import Embeddin
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )
-from app.share.exceptions.base_exceptions import InfrastructureException
+from app.modules.share.exceptions.base_exceptions import InfrastructureException
 
 logger = logging.getLogger("app.legal_library.use_cases.search_articles")
 

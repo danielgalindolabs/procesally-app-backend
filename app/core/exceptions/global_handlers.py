@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from openai import RateLimitError
 
-from app.share.exceptions.base_exceptions import AppBaseException
+from app.modules.share.exceptions.base_exceptions import AppBaseException
 
 logger = logging.getLogger("app.api.exceptions")
 

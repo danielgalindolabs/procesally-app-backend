@@ -9,7 +9,7 @@ from app.core.config import settings
 from app.modules.legal_library.domain.services.document_downloader import (
     DocumentDownloader,
 )
-from app.share.exceptions.http_exceptions import (
+from app.modules.share.exceptions.http_exceptions import (
     DisallowedDomainError,
     HTTPDownloadError,
 )

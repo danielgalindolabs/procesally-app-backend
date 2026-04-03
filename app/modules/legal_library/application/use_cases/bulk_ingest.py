@@ -14,8 +14,10 @@ from app.modules.legal_library.domain.repositories.legal_repository import (
 )
 from app.modules.legal_library.domain.services.document_parser import DocumentParser
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
-from app.share.domain.exceptions.dof_exceptions import InvalidDOFDocumentError
-from app.share.infrastructure.parsers.dof_parser import _infer_materia_from_keywords
+from app.modules.share.domain.exceptions.dof_exceptions import InvalidDOFDocumentError
+from app.modules.share.infrastructure.parsers.dof_parser import (
+    _infer_materia_from_keywords,
+)
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_ingest")
 

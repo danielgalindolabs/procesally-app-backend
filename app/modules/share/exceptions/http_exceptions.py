@@ -1,4 +1,4 @@
-from app.share.exceptions.base_exceptions import InfrastructureException
+from app.modules.share.exceptions.base_exceptions import InfrastructureException
 
 
 class DisallowedDomainError(InfrastructureException):

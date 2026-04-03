@@ -13,7 +13,9 @@ from app.modules.legal_library.application.use_cases.bulk_ingest import (
 from app.modules.legal_library.domain.services.document_downloader import (
     DocumentDownloader,
 )
-from app.share.infrastructure.parsers.dof_parser import _infer_materia_from_keywords
+from app.modules.share.infrastructure.parsers.dof_parser import (
+    _infer_materia_from_keywords,
+)
 
 logger = logging.getLogger("app.legal_library.use_cases.bulk_url_ingest_dev_sample")
 

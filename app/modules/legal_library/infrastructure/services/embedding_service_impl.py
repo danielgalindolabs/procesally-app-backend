@@ -1,7 +1,7 @@
 from typing import List
 
 from app.modules.legal_library.domain.services.embedding_service import EmbeddingService
-from app.share.infrastructure.services.embedding_service import engine
+from app.modules.share.infrastructure.services.embedding_service import engine
 
 
 class OpenAIEmbeddingService(EmbeddingService):

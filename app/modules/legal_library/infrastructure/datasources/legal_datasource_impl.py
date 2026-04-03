@@ -16,7 +16,7 @@ from app.modules.legal_library.infrastructure.datasources.models import (
     LegalArticle,
     LegalDocument,
 )
-from app.share.exceptions.base_exceptions import InfrastructureException
+from app.modules.share.exceptions.base_exceptions import InfrastructureException
 
 
 class LegalDatasourceImpl(LegalDatasource):

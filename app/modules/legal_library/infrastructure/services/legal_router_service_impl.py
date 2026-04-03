@@ -4,7 +4,7 @@ from typing import Optional
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )
-from app.share.infrastructure.services.embedding_service import engine
+from app.modules.share.infrastructure.services.embedding_service import engine
 
 
 class LegalRouterServiceImpl(LegalRouterService):
@@ -62,7 +62,7 @@ class LegalRouterServiceImpl(LegalRouterService):
             # Reutilizamos el cliente de OpenAI del motor de embeddings
             client = engine.client
             prompt = f"""
-            Clasifica la siguiente consulta legal en una de estas categorías: {', '.join(self.CATEGORIES)}.
+            Clasifica la siguiente consulta legal en una de estas categorías: {", ".join(self.CATEGORIES)}.
             Si no estás seguro, responde 'None'.
             Consulta: "{query}"
             Respuesta (solo la palabra de la categoría o 'None'):

@@ -1,4 +1,4 @@
-from app.share.infrastructure.parsers.dof_parser import DOFHtmlParser
+from app.modules.share.infrastructure.parsers.dof_parser import DOFHtmlParser
 
 
 def test_dof_parser_does_not_split_on_inline_references():

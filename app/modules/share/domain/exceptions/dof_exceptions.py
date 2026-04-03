@@ -1,4 +1,4 @@
-from app.share.exceptions.base_exceptions import DomainException
+from app.modules.share.exceptions.base_exceptions import DomainException
 
 
 class InvalidDOFDocumentError(DomainException):

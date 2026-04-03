@@ -48,9 +48,9 @@ from app.modules.legal_library.infrastructure.services.embedding_service_impl im
 from app.modules.legal_library.infrastructure.services.legal_router_service_impl import (
     LegalRouterServiceImpl,
 )
-from app.share.infrastructure.db.session import get_session
-from app.share.infrastructure.http_client import HTTPClient
-from app.share.infrastructure.parsers.dof_parser import DOFHtmlParser
+from app.modules.share.infrastructure.db.session import get_session
+from app.modules.share.infrastructure.http_client import HTTPClient
+from app.modules.share.infrastructure.parsers.dof_parser import DOFHtmlParser
 
 
 def get_legal_datasource(
