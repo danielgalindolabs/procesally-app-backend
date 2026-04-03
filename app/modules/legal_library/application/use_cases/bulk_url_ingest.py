@@ -53,11 +53,9 @@ class BulkUrlIngestUseCase:
                         }
                         continue
                     else:
-                        logger.warning(
-                            f"Detectado cambio en {titulo}. Borrando versión anterior para actualizar."
-                        )
-                        await self.bulk_ingest_uc.repository.delete_document(
-                            existing_doc.id  # type: ignore
+                        logger.info(
+                            "Detectado cambio en %s. Se descargará y reemplazará al completar la nueva ingesta.",
+                            titulo,
                         )
 
                 logger.info(f"Procesando descarga para: {titulo} desde {url}")

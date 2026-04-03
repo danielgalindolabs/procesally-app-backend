@@ -16,4 +16,4 @@ if [ -d "$VERSIONS_DIR" ]; then
 fi
 
 echo "[parse-reset] Starting clean stack"
-docker compose up --build
+ALLOW_AUTO_MIGRATION_GEN=true docker compose up --build

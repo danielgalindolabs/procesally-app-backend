@@ -11,7 +11,7 @@ parse-reset:
 	./scripts/dev_parsing_reset.sh
 
 parse-up:
-	docker compose up --build
+	ALLOW_AUTO_MIGRATION_GEN=true docker compose up --build
 
 parse-down:
 	docker compose down -v

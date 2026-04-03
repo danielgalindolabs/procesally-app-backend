@@ -47,7 +47,7 @@ uv run ruff check app --fix
 uv run fastapi run app/main.py --host 0.0.0.0 --port 8000
 ```
 
-### Parsing/Chunking Build Cycle (OBLIGATORIO en esta fase)
+### Parsing/Chunking Build Cycle (cuando se evalúa parser)
 Durante la fase de calidad de parser/chunking NO se deben consumir embeddings reales.
 
 ```bash
@@ -194,7 +194,7 @@ Tipos:
 - Barato: gpt-4.1-mini
 - Embeddings: text-embedding-3-small
 
-### Modo Parsing-Only (actual)
+### Modo Parsing-Only (opcional)
 - `PARSING_ONLY_MODE=true`
 - `USE_ZERO_EMBEDDINGS=true`
 - `ZERO_EMBEDDING_DIM=1536`
@@ -204,6 +204,11 @@ Comportamiento esperado:
 - Ingesta usa vector de ceros (sin llamadas a OpenAI)
 - Router jurídico no llama LLM
 - Esta fase valida exclusivamente parsing/chunking
+
+Modo Producción recomendado:
+- `PARSING_ONLY_MODE=false`
+- `USE_ZERO_EMBEDDINGS=false`
+- `DISABLE_LLM_ROUTER=false`
 
 Reglas:
 - Mantener consistencia en queries

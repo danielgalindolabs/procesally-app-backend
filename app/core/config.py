@@ -17,10 +17,14 @@ class Settings(BaseSettings):
 
     OPENAI_API_KEY: str = "sk-placeholder"
     EMBEDDING_MODEL_NAME: str = "text-embedding-3-small"
-    PARSING_ONLY_MODE: bool = True
-    USE_ZERO_EMBEDDINGS: bool = True
+    PARSING_ONLY_MODE: bool = False
+    USE_ZERO_EMBEDDINGS: bool = False
     ZERO_EMBEDDING_DIM: int = 1536
-    DISABLE_LLM_ROUTER: bool = True
+    DISABLE_LLM_ROUTER: bool = False
+    INGEST_REQUIRE_COMPLETE: bool = True
+    HYBRID_TOPK_MULTIPLIER: int = 3
+    HYBRID_MIN_RESULTS: int = 3
+    HYBRID_MAX_TOPK: int = 120
 
     CORS_ALLOW_ORIGINS: List[str] = ["http://localhost:3000"]
     CORS_ALLOW_CREDENTIALS: bool = True

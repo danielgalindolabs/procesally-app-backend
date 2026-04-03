@@ -1,6 +1,7 @@
 import logging
 from typing import Dict, Optional
 
+from app.core.config import settings
 from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
 from app.modules.legal_library.application.schemas.article_app_schemas import (
     ArticleAppInputDTO,
@@ -46,13 +47,20 @@ class BulkIngestUseCase:
     ) -> Dict:
         # 0. Registrar el documento legal de origen si viene la metadata
         document_id = None
-        document_materias = None
+        previous_document_id_to_replace: Optional[int] = None
         if document_metadata:
             # VALIDACIÓN: Evitar duplicados por título en subidas manuales o automáticas
             # Si el documento ya existe con la misma fecha de reforma, no procesamos.
-            existing_doc = await self.repository.get_document_by_title(
-                document_metadata.titulo
-            )
+            existing_doc = None
+            if document_metadata.url_oficial:
+                existing_doc = await self.repository.get_document_by_url(
+                    document_metadata.url_oficial
+                )
+
+            if existing_doc is None:
+                existing_doc = await self.repository.get_document_by_title(
+                    document_metadata.titulo
+                )
 
             if existing_doc:
                 if (
@@ -71,9 +79,10 @@ class BulkIngestUseCase:
                     }
                 else:
                     logger.warning(
-                        f"Actualizando {document_metadata.titulo}: Borrando artículos previos."
+                        "Actualizando %s: la versión previa se eliminará solo al finalizar ingesta completa.",
+                        document_metadata.titulo,
                     )
-                    await self.repository.delete_document(existing_doc.id)  # type: ignore
+                    previous_document_id_to_replace = existing_doc.id
 
             # Inferir materias del nombre de la ley
             document_materias = _infer_materia_from_keywords(
@@ -158,6 +167,19 @@ Contenido:
                 errors.append(f"{art.numero_articulo}: {str(e)}")
                 logger.error(f"Error al procesar {art.numero_articulo}: {e}")
 
+        ingest_is_complete = inserted == len(selected_articles) and not errors
+        if settings.INGEST_REQUIRE_COMPLETE and not ingest_is_complete:
+            await self._cleanup_partial_ingest(document_id, archivo_url)
+            raise InvalidDOFDocumentError(
+                detail=(
+                    "La ingesta no se completó. Se revirtieron datos parciales para "
+                    "garantizar consistencia."
+                )
+            )
+
+        if previous_document_id_to_replace and document_id:
+            await self.repository.delete_document(previous_document_id_to_replace)
+
         ley_nombre = (
             parsed_articles[0].ley_o_codigo if parsed_articles else "Desconocida"
         )
@@ -169,6 +191,22 @@ Contenido:
             "insertados": inserted,
             "errores": errors,
         }
+
+    async def _cleanup_partial_ingest(
+        self, document_id: Optional[int], archivo_url: str
+    ) -> None:
+        try:
+            if document_id:
+                await self.repository.delete_document(document_id)
+                return
+
+            await self.repository.delete_articles_by_file(archivo_url)
+        except Exception as cleanup_error:
+            logger.error(
+                "Error al limpiar ingesta parcial para %s: %s",
+                archivo_url,
+                cleanup_error,
+            )
 
     def _select_articles_for_sampling(
         self, parsed_articles: list, max_articles: Optional[int]

@@ -2,6 +2,7 @@ import logging
 import re
 from typing import List, Optional, Tuple
 
+from app.core.config import settings
 from app.core.legal_config import LAW_MAPPINGS, NUMBER_WORDS, SEMANTIC_KEYWORDS
 from app.modules.legal_library.adapters.app_domain_mapper import AppDomainMapper
 from app.modules.legal_library.application.schemas.article_app_schemas import (
@@ -349,7 +350,11 @@ Contexto: Buscar artículos relevantes {"en " + ley_o_codigo if ley_o_codigo els
             query_enriquecida
         )
 
-        top_k = (limite or 10) * 3
+        requested_limit = limite or 10
+        top_k = min(
+            requested_limit * settings.HYBRID_TOPK_MULTIPLIER,
+            settings.HYBRID_MAX_TOPK,
+        )
         semantic_results = await self.repository.search_similar_vectors(
             query_vector,
             top_k,
@@ -376,7 +381,7 @@ Contexto: Buscar artículos relevantes {"en " + ley_o_codigo if ley_o_codigo els
             final_limit = limite or len(sql_results)
             return all_results[:final_limit]
 
-        min_results = max(requested_count, 3)
+        min_results = max(requested_count, settings.HYBRID_MIN_RESULTS)
         final_limit = limite or min(min_results, len(all_results))
         return all_results[:final_limit]
 

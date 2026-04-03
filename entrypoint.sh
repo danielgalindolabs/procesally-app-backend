@@ -16,11 +16,16 @@ if [ ! -d "$VERSIONS_DIR" ]; then
 fi
 
 # Si la carpeta está vacía, generar la migración inicial automáticamente.
-# NOTA: En producción esto es arriesgado si no hay una base de datos real sincronizada, 
-# pero para desarrollo y MVP es muy útil.
+# En producción debe existir migración versionada; autogenerar se permite solo con flag explícito.
 if [ -z "$(find "$VERSIONS_DIR" -maxdepth 1 -name '*.py' 2>/dev/null)" ]; then
-  echo "✨ El directorio de versiones está vacío. Generando migración inicial..."
-  uv run alembic revision --autogenerate -m "initial_migration"
+  if [ "$ALLOW_AUTO_MIGRATION_GEN" = "true" ]; then
+    echo "✨ El directorio de versiones está vacío. Generando migración inicial..."
+    uv run alembic revision --autogenerate -m "initial_migration"
+  else
+    echo "❌ No hay migraciones versionadas en $VERSIONS_DIR"
+    echo "   Define ALLOW_AUTO_MIGRATION_GEN=true solo para entorno de pruebas."
+    exit 1
+  fi
 fi
 
 echo "⏳ Aplicando migraciones pendientes..."
