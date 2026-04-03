@@ -1,6 +1,7 @@
 import re
 from typing import Optional
 
+from app.core.config import settings
 from app.modules.legal_library.domain.services.legal_router_service import (
     LegalRouterService,
 )
@@ -55,12 +56,18 @@ class LegalRouterServiceImpl(LegalRouterService):
             if any(re.search(rf"\b{kw}\b", lower_query) for kw in keywords):
                 return materia
 
+        if settings.DISABLE_LLM_ROUTER or settings.PARSING_ONLY_MODE:
+            return None
+
         # 2. Intento por LLM (Más preciso pero requiere llamada API)
         # Por ahora usamos una lógica simplificada o podemos llamar a ChatGPT
         # para que nos de la categoría basado en el contexto.
         try:
             # Reutilizamos el cliente de OpenAI del motor de embeddings
             client = engine.client
+            if client is None:
+                return None
+
             prompt = f"""
             Clasifica la siguiente consulta legal en una de estas categorías: {", ".join(self.CATEGORIES)}.
             Si no estás seguro, responde 'None'.
@@ -75,7 +82,11 @@ class LegalRouterServiceImpl(LegalRouterService):
                 temperature=0,
             )
 
-            detected = response.choices[0].message.content.strip()
+            content = response.choices[0].message.content
+            if not content:
+                return None
+
+            detected = str(content).strip()
             if detected in self.CATEGORIES:
                 return detected
         except Exception:

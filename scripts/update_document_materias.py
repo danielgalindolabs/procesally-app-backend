@@ -12,8 +12,11 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sqlalchemy import text
-from app.share.infrastructure.db.session import async_session_maker
-from app.share.infrastructure.parsers.dof_parser import _infer_materia_from_keywords
+
+from app.modules.share.infrastructure.db.session import async_session_maker
+from app.modules.share.infrastructure.parsers.dof_parser import (
+    _infer_materia_from_keywords,
+)
 
 
 async def update_document_materias():

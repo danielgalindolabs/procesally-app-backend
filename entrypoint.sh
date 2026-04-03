@@ -2,7 +2,7 @@
 set -e
 
 # Variable para la ruta de versiones dentro del contenedor
-VERSIONS_DIR="app/share/infrastructure/db/alembic/versions"
+VERSIONS_DIR="app/modules/share/infrastructure/db/alembic/versions"
 
 echo "⏳ Esperando a que PostgreSQL esté listo..."
 until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$POSTGRES_USER" -d "$POSTGRES_DB" 2>/dev/null; do

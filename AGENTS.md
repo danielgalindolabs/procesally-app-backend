@@ -47,6 +47,29 @@ uv run ruff check app --fix
 uv run fastapi run app/main.py --host 0.0.0.0 --port 8000
 ```
 
+### Parsing/Chunking Build Cycle (OBLIGATORIO en esta fase)
+Durante la fase de calidad de parser/chunking NO se deben consumir embeddings reales.
+
+```bash
+# Reset limpio (volumen + migraciones + arranque limpio)
+make parse-reset
+
+# Levantar stack limpio manualmente
+make parse-up
+
+# Bajar y limpiar volumen
+make parse-down
+
+# Generar dataset compacto de análisis del parser
+make parse-analysis
+```
+
+Reglas de ejecución en esta fase:
+- Antes de cada prueba grande: `docker compose down -v`
+- Eliminar migraciones autogeneradas previas
+- Levantar con `docker compose up --build`
+- Recién cuando parser/chunking esté estable, habilitar embeddings reales
+
 ---
 
 ## Code Style
@@ -170,6 +193,17 @@ Tipos:
 - Modelo principal: gpt-5.3
 - Barato: gpt-4.1-mini
 - Embeddings: text-embedding-3-small
+
+### Modo Parsing-Only (actual)
+- `PARSING_ONLY_MODE=true`
+- `USE_ZERO_EMBEDDINGS=true`
+- `ZERO_EMBEDDING_DIM=1536`
+- `DISABLE_LLM_ROUTER=true`
+
+Comportamiento esperado:
+- Ingesta usa vector de ceros (sin llamadas a OpenAI)
+- Router jurídico no llama LLM
+- Esta fase valida exclusivamente parsing/chunking
 
 Reglas:
 - Mantener consistencia en queries

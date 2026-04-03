@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 from openai import AsyncOpenAI
 
@@ -9,8 +10,18 @@ logger = logging.getLogger("app.share.infrastructure.services.embedding_service"
 
 class EmbeddingEngine:
     def __init__(self):
+        self.client: Optional[AsyncOpenAI] = None
+
+        if settings.PARSING_ONLY_MODE or settings.USE_ZERO_EMBEDDINGS:
+            logger.warning(
+                "Embedding en modo parsing-only: se usarán vectores en cero de dimensión %s",
+                settings.ZERO_EMBEDDING_DIM,
+            )
+            return
+
         logger.info(
-            f"Inicializando motor de embeddings de OpenAI: {settings.EMBEDDING_MODEL_NAME}"
+            "Inicializando motor de embeddings de OpenAI: %s",
+            settings.EMBEDDING_MODEL_NAME,
         )
         self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
 
@@ -18,6 +29,14 @@ class EmbeddingEngine:
         """
         Genera un vector semántico usando la API de OpenAI.
         """
+        if settings.PARSING_ONLY_MODE or settings.USE_ZERO_EMBEDDINGS:
+            return [0.0] * settings.ZERO_EMBEDDING_DIM
+
+        if self.client is None:
+            raise RuntimeError(
+                "OpenAI client no inicializado y modo zero embeddings desactivado"
+            )
+
         try:
             normalized_text = self._normalize_text(text)
             response = await self.client.embeddings.create(
