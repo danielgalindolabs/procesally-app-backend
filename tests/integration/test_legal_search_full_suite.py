@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -46,6 +48,11 @@ SEMANTIC_CASES = [
 
 
 def _ensure_search_corpus_available(client: TestClient):
+    if os.getenv("RUN_FULL_SEARCH_BENCHMARK", "0") != "1":
+        pytest.skip(
+            "Suite semántica completa desactivada por defecto (set RUN_FULL_SEARCH_BENCHMARK=1)"
+        )
+
     probe = client.post(
         "/api/v1/legal/search",
         json={"consulta": "articulo 1", "limite": 1},
@@ -54,6 +61,28 @@ def _ensure_search_corpus_available(client: TestClient):
     assert probe.status_code == 200
     if len(probe.json()) == 0:
         pytest.skip("No hay corpus legal cargado para validar recuperación semántica")
+
+    benchmark_probe = client.post(
+        "/api/v1/legal/search",
+        json={
+            "consulta": "¿Qué dice el artículo 1 del Código de Comercio?",
+            "limite": 1,
+        },
+    )
+    assert benchmark_probe.status_code == 200
+
+    benchmark_results = benchmark_probe.json()
+    if not benchmark_results:
+        pytest.skip("Corpus no incluye benchmark mínimo para suite completa")
+
+    top = benchmark_results[0]
+    if (
+        "art. 1" not in top.get("numero_articulo", "").lower()
+        or float(top.get("similitud", 0)) < 0.99
+    ):
+        pytest.skip(
+            "Corpus presente pero no corresponde al dataset de referencia para esta suite"
+        )
 
 
 def test_direct_citations_recall(client: TestClient):

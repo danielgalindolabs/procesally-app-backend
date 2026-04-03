@@ -2,9 +2,10 @@ import json
 import logging
 import os
 import re
+import unicodedata
 from typing import Dict, List, Optional
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 
 from app.modules.legal_library.domain.services.document_parser import (
     DocumentParser,
@@ -449,9 +450,11 @@ class DOFHtmlParser(DocumentParser):
     Optimizado para RAG (segmentación semántica + limpieza).
     """
 
-    ARTICLE_PATTERN = re.compile(
-        r"^\s*Art[ií]culo\s+([0-9]+(?:\s*(?:bis|ter|quater|quinquies))?[a-zºo]*)",
-        re.IGNORECASE,
+    ARTICLE_PATTERN_NUMERIC = re.compile(
+        r"^ARTICULO\s+([0-9]+(?:\s*(?:BIS|TER|QUATER|QUINQUIES))?[A-Z0-9ºO]*)"
+    )
+    ARTICLE_PATTERN_WORD = re.compile(
+        r"^ARTICULO\s+(UNICO|PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO|SEPTIMO|OCTAVO|NOVENO|DECIMO)\b"
     )
 
     _materia_map: Dict[str, str] = {}
@@ -460,22 +463,31 @@ class DOFHtmlParser(DocumentParser):
         if not DOFHtmlParser._materia_map:
             DOFHtmlParser._materia_map = _load_materia_map()
 
-    BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$", re.IGNORECASE)
-    TITLE_PATTERN = re.compile(r"^T[IÍ]TULO\s+(.+)$", re.IGNORECASE)
-    CHAPTER_PATTERN = re.compile(r"^CAP[IÍ]TULO\s+(.+)$", re.IGNORECASE)
-    TRANSITORY_PATTERN = re.compile(r"^TRANSITORIOS?$", re.IGNORECASE)
+    BOOK_PATTERN = re.compile(r"^LIBRO\s+(.+)$")
+    TITLE_PATTERN = re.compile(r"^TITULO\s+(.+)$")
+    CHAPTER_PATTERN = re.compile(r"^CAPITULO\s+(.+)$")
+    TRANSITORY_PATTERN = re.compile(r"^TRANSITORIOS?$")
 
     NOISE_PATTERNS = [
         re.compile(r"^al\s+margen\s+un\s+sello", re.IGNORECASE),
         re.compile(r"^diario\s+oficial\s+de\s+la\s+federaci[oó]n", re.IGNORECASE),
         re.compile(r"^p[aá]gina\s+\d+", re.IGNORECASE),
+        re.compile(r"^art[ií]culo\s+reformado", re.IGNORECASE),
+        re.compile(r"^art[ií]culo\s+adicionado", re.IGNORECASE),
+        re.compile(r"^art[ií]culo\s+derogado", re.IGNORECASE),
+        re.compile(r"^fracci[oó]n\s+reformada", re.IGNORECASE),
+        re.compile(r"^p[aá]rrafo\s+reformado", re.IGNORECASE),
+        re.compile(r"^denominaci[oó]n\s+reformada", re.IGNORECASE),
+        re.compile(r"^fe\s+de\s+erratas", re.IGNORECASE),
     ]
 
     # 🔥 FIX: romanos ilimitados
     FRACTION_PATTERN = re.compile(r"\b([IVXLCDM]+)\.\s")
 
     def parse(self, content: str) -> List[ParsedArticle]:
-        soup = BeautifulSoup(content, "html.parser")
+        cleaned_content = self._preprocess_html_content(content)
+        soup = BeautifulSoup(cleaned_content, "html.parser")
+        soup = self._strip_non_content_nodes(soup)
 
         ley_nombre = self._extract_law_name(soup)
         paragraphs = self._normalize_html(soup)
@@ -485,13 +497,52 @@ class DOFHtmlParser(DocumentParser):
         logger.info(f"Parser DOF extrajo {len(articles)} artículos de '{ley_nombre}'")
         return articles
 
+    def _preprocess_html_content(self, content: str) -> str:
+        """Preprocesamiento fuerte para eliminar ruido HTML no normativo."""
+        cleaned = content
+        cleaned = re.sub(r"\r\n?", "\n", cleaned)
+        cleaned = re.sub(r"<!--.*?-->", " ", cleaned, flags=re.DOTALL)
+        cleaned = re.sub(
+            r"<script\b[^>]*>.*?</script>",
+            " ",
+            cleaned,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        cleaned = re.sub(
+            r"<style\b[^>]*>.*?</style>", " ", cleaned, flags=re.DOTALL | re.IGNORECASE
+        )
+        cleaned = re.sub(
+            r"<noscript\b[^>]*>.*?</noscript>",
+            " ",
+            cleaned,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        return cleaned
+
+    def _strip_non_content_nodes(self, soup: BeautifulSoup) -> BeautifulSoup:
+        for tag in soup(["script", "style", "noscript", "svg", "canvas"]):
+            tag.decompose()
+
+        for comment in soup.find_all(string=lambda txt: isinstance(txt, Comment)):
+            comment.extract()
+
+        return soup
+
+    def _to_canonical(self, text: str) -> str:
+        normalized = unicodedata.normalize("NFKD", text)
+        normalized = "".join(ch for ch in normalized if not unicodedata.combining(ch))
+        normalized = normalized.replace("\xa0", " ")
+        normalized = re.sub(r"\s+", " ", normalized).strip().upper()
+        return normalized
+
     # =========================
     # NORMALIZACIÓN
     # =========================
     def _normalize_html(self, soup: BeautifulSoup) -> list[str]:
         paragraphs = []
+        source_node = soup.body if soup.body else soup
 
-        for element in soup.find_all(["p", "li"]):
+        for element in source_node.find_all(["p", "li"]):
             text = element.get_text(" ", strip=True)
 
             if not text:
@@ -505,11 +556,27 @@ class DOFHtmlParser(DocumentParser):
 
             paragraphs.append(text)
 
+        if paragraphs:
+            return paragraphs
+
+        for text in source_node.stripped_strings:
+            clean_text = text.replace("\xa0", " ")
+            clean_text = re.sub(r"\s+", " ", clean_text)
+            if self._is_noise_paragraph(clean_text):
+                continue
+            paragraphs.append(clean_text)
+
         return paragraphs
 
     def _is_noise_paragraph(self, text: str) -> bool:
         text_lower = text.lower().strip()
         if not text_lower:
+            return True
+
+        if len(text_lower) <= 1:
+            return True
+
+        if re.fullmatch(r"[-–—•·*\s]+", text_lower):
             return True
 
         for pattern in self.NOISE_PATTERNS:
@@ -537,13 +604,14 @@ class DOFHtmlParser(DocumentParser):
 
         for p in soup.find_all("p"):
             text = p.get_text(strip=True)
-            if self.BOOK_PATTERN.match(text):
+            canonical = self._to_canonical(text)
+            if self.BOOK_PATTERN.match(canonical):
                 continue
-            if self.TITLE_PATTERN.match(text):
+            if self.TITLE_PATTERN.match(canonical):
                 continue
-            if self.CHAPTER_PATTERN.match(text):
+            if self.CHAPTER_PATTERN.match(canonical):
                 continue
-            if text.upper().startswith("ART"):
+            if canonical.startswith("ART"):
                 continue
             if len(text) > 10 and text.isupper():
                 return text
@@ -566,27 +634,30 @@ class DOFHtmlParser(DocumentParser):
         in_transitory_section = False
 
         for text in paragraphs:
-            if self.TRANSITORY_PATTERN.match(text):
+            canonical_text = self._to_canonical(text)
+
+            if self.TRANSITORY_PATTERN.match(canonical_text):
                 in_transitory_section = True
                 continue
 
             if in_transitory_section:
                 continue
 
-            if self.BOOK_PATTERN.match(text):
+            if self.BOOK_PATTERN.match(canonical_text):
                 current_book = text
                 continue
 
-            if self.TITLE_PATTERN.match(text):
+            if self.TITLE_PATTERN.match(canonical_text):
                 current_title = text
                 continue
 
-            if self.CHAPTER_PATTERN.match(text):
+            if self.CHAPTER_PATTERN.match(canonical_text):
                 continue
 
-            art_match = self.ARTICLE_PATTERN.match(text)
+            art_match = self.ARTICLE_PATTERN_NUMERIC.match(canonical_text)
+            word_match = self.ARTICLE_PATTERN_WORD.match(canonical_text)
 
-            if art_match:
+            if art_match or word_match:
                 if current_article and buffer:
                     built_article = self._build_article(
                         current_article,
@@ -598,15 +669,17 @@ class DOFHtmlParser(DocumentParser):
                     if built_article.cuerpo_texto:
                         articles.append(built_article)
 
-                numero_raw = art_match.group(1)
-
-                numero_clean = self._normalize_article_number(numero_raw)
+                if art_match:
+                    numero_raw = art_match.group(1)
+                    numero_clean = self._normalize_article_number(numero_raw)
+                else:
+                    numero_clean = word_match.group(1)  # type: ignore[union-attr]
 
                 current_article = numero_clean
                 buffer = []
 
                 clean_text = re.sub(
-                    r"^\s*Art[ií]culo\s+[0-9]+(?:\s*(?:bis|ter|quater|quinquies))?[a-zºo]*[\.\-–—:\s]*",
+                    r"^\s*Art[ií]culo\s+(?:[0-9]+(?:\s*(?:bis|ter|quater|quinquies))?[a-zºo]*|[A-Za-zÁÉÍÓÚáéíóú]+)[\.\-–—:\s]*",
                     "",
                     text,
                     flags=re.IGNORECASE,
@@ -617,7 +690,7 @@ class DOFHtmlParser(DocumentParser):
 
                 continue
 
-            if "reformado" in text.lower() or "adicionado" in text.lower():
+            if self._is_editorial_annotation(text):
                 continue
 
             if current_article:
@@ -641,6 +714,20 @@ class DOFHtmlParser(DocumentParser):
         normalized = normalized.replace("º", "")
         normalized = re.sub(r"(?<=\d)O$", "", normalized)
         return normalized
+
+    def _is_editorial_annotation(self, text: str) -> bool:
+        canonical = self._to_canonical(text)
+        return any(
+            canonical.startswith(prefix)
+            for prefix in [
+                "ARTICULO REFORMADO",
+                "ARTICULO ADICIONADO",
+                "ARTICULO DEROGADO",
+                "FRACCION REFORMADA",
+                "PARRAFO REFORMADO",
+                "DENOMINACION REFORMADA",
+            ]
+        )
 
     # =========================
     # BUILDER
