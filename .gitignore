@@ -38,9 +38,9 @@ htmlcov/
 .idea/
 *.swp
 # Alembic
-app/share/infrastructure/db/alembic/versions/*.py
-!app/share/infrastructure/db/alembic/versions/.gitkeep
+!app/modules/share/infrastructure/db/alembic/versions/.gitkeep
+app/modules/share/infrastructure/db/alembic/versions/*.py
+
 
 # Descargas de leyes (Local)
 leyes/
-
